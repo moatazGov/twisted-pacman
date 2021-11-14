@@ -1,12 +1,15 @@
 package com.hawks.twistedPacman.Model;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 
 /**
  * The type Question.
  */
 public class Question {
-    private int id;
+    private String id;
     private String question;
     private ArrayList<String> answers;
     private String correctAnswer;
@@ -21,7 +24,7 @@ public class Question {
      * @param correctAnswer the correct answer
      * @param difficulty    the difficulty
      */
-    public Question(int id, String question, ArrayList<String> answers, String correctAnswer, Difficulty difficulty) {
+    public Question(String id, String question, ArrayList<String> answers, String correctAnswer, Difficulty difficulty) {
         this.id = id;
         this.question = question;
         this.answers = answers;
@@ -36,12 +39,38 @@ public class Question {
 
     }
 
+    public Question fromJson(JSONObject obj ){
+        JSONArray answers =(JSONArray) obj.get("answers");
+        ArrayList answersList = new ArrayList();
+
+        for (Object answer : answers) {
+            answersList.add(((String)answer));
+        }
+
+        return new Question(
+                obj.get("id").toString(),
+                obj.get("question").toString(),
+                answersList,
+                obj.get("correctAnswer").toString(),
+                obj.get("difficulty").toString() == "hard" ? Difficulty.HARD : obj.get("difficulty").toString() == "easy" ? Difficulty.EASY : Difficulty.MEDIUM
+        );
+    }
+
+    public JSONObject toJson(){
+        JSONObject obj = new JSONObject();
+        obj.put("id", id);
+        obj.put("question", question);
+        obj.put("correctAnswer", correctAnswer);
+        obj.put("difficulty", difficulty == Difficulty.EASY ? "easy" : difficulty == Difficulty.HARD ? "hard" : "medium");
+        obj.put("answers", answers);
+        return obj;
+    }
+
     /**
      * Gets id.
      *
      * @return the id
-     */
-    public int getId() {
+     */String getId() {
         return id;
     }
 
@@ -50,7 +79,7 @@ public class Question {
      *
      * @param id the id
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

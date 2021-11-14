@@ -9,6 +9,7 @@ module com.hawks.twistedPacman {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires json.simple;
 
     opens com.hawks.twistedPacman to javafx.fxml;
     exports com.hawks.twistedPacman;
