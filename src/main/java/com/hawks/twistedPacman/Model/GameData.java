@@ -1,6 +1,8 @@
 package com.hawks.twistedPacman.Model;
 
 
+import org.json.simple.JSONObject;
+
 import java.util.Objects;
 
 public class GameData {
@@ -8,9 +10,28 @@ public class GameData {
     private String nickName;
     private Integer score;
 
-    public GameData(String nickName, Integer score) {
+    public GameData(Integer id, String nickName, Integer score) {
         this.nickName = nickName;
         this.score = score;
+    }
+
+    public GameData() {
+    }
+
+    public GameData fromJson(JSONObject gameJson){
+        return  new GameData(
+                Integer.valueOf(gameJson.get("id").toString()),
+                gameJson.get("nickName").toString(),
+                Integer.valueOf(gameJson.get("score").toString())
+        );
+    }
+
+    public JSONObject toJson(){
+        JSONObject obj = new JSONObject();
+        obj.put("id", id);
+        obj.put("score", score);
+        obj.put("nickName", nickName);
+        return obj;
     }
 
     @Override
