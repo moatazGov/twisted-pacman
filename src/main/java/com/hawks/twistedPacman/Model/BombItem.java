@@ -3,26 +3,23 @@ package com.hawks.twistedPacman.Model;
 /**
  * The type Bomb item.
  */
-public class BombItem {
+public class BombItem extends Item {
     private Color color;
-    private boolean isThere;
 
 
     /**
      * Instantiates a new Bomb item.
      *
      * @param color   the color
-     * @param isThere the is there
      */
-    public BombItem(Color color, boolean isThere) {
+    public BombItem(boolean isThere, Color color) {
+        super(isThere);
         this.color = color;
-        this.isThere = isThere;
     }
 
-    /**
-     * Instantiates a new Bomb item.
-     */
-    public BombItem() {
+    public BombItem()
+    {
+
     }
 
     /**
@@ -43,21 +40,6 @@ public class BombItem {
         this.color = color;
     }
 
-    /**
-     * Is there boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isThere() {
-        return isThere;
-    }
 
-    /**
-     * Sets there.
-     *
-     * @param there the there
-     */
-    public void setThere(boolean there) {
-        isThere = there;
-    }
+
 }
