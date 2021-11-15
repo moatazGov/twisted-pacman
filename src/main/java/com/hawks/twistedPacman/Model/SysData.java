@@ -7,7 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.security.spec.ECField;
 import java.util.ArrayList;
+
+import com.hawks.twistedPacman.MainScreen;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,7 +20,6 @@ import org.json.simple.parser.ParseException;
  *
  */
 public class SysData {
-    private Controller controller;
     private ArrayList<Score> scores;
     private ArrayList<GameData> games;
     private ArrayList<Question> questions;
@@ -24,6 +27,46 @@ public class SysData {
     //todo add to class diagram
     private String nickName;
 
+
+    public ArrayList<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(ArrayList<Score> scores) {
+        this.scores = scores;
+    }
+
+    public ArrayList<GameData> getGames() {
+        return games;
+    }
+
+    public void setGames(ArrayList<GameData> games) {
+        this.games = games;
+    }
+
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
+    public ArrayList<String> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<String> players) {
+        this.players = players;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     /**
      * Starts the game and launches UI.
@@ -115,17 +158,17 @@ public class SysData {
     }
 
 
-    private ArrayList loadGamesJson(){
+    public ArrayList loadGamesJson(){
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<GameData> games = new ArrayList<>();
-        try (FileReader reader = new FileReader("employees.json"))
+        try (FileReader reader =new FileReader("src/main/resources/com/hawks/twistedPacman/data/games.json"))
         {
 
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
-            JSONArray gamesList = (JSONArray) obj;
+            JSONArray gamesList = (JSONArray) (((JSONObject)obj).get("games"));
             for (Object game : gamesList) {
                 GameData newGame = new GameData();
                 newGame.fromJson((JSONObject) game);
@@ -136,7 +179,7 @@ public class SysData {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return games;

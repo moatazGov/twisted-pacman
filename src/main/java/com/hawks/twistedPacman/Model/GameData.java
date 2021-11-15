@@ -19,11 +19,11 @@ public class GameData {
     }
 
     public GameData fromJson(JSONObject gameJson){
-        return  new GameData(
-                Integer.valueOf(gameJson.get("id").toString()),
-                gameJson.get("nickName").toString(),
-                Integer.valueOf(gameJson.get("score").toString())
-        );
+
+             id =    Integer.valueOf(gameJson.get("id").toString());
+              nickName =   gameJson.get("nickName").toString();
+              score =   Integer.valueOf(gameJson.get("score").toString());
+              return  this;
     }
 
     public JSONObject toJson(){

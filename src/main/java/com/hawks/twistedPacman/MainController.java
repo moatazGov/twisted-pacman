@@ -10,8 +10,6 @@ public class MainController {
 
     @FXML
     protected void onHelloButtonClick() {
-
-
         welcomeText.set(new Label("Welcome to JavaFX Application!"));
     }
 }
