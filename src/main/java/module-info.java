@@ -13,4 +13,8 @@ module com.hawks.twistedPacman {
 
     opens com.hawks.twistedPacman to javafx.fxml;
     exports com.hawks.twistedPacman;
+    exports com.hawks.twistedPacman.View;
+    opens com.hawks.twistedPacman.View to javafx.fxml;
+    exports com.hawks.twistedPacman.Controller;
+    opens com.hawks.twistedPacman.Controller to javafx.fxml;
 }

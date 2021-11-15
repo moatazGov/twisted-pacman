@@ -1,0 +1,21 @@
+{
+  "games": [
+    {
+      "nickName": "moataz",
+      "id": 1,
+      "score": 23
+    }, {
+      "nickName": "yvonen",
+      "id": 2,
+      "score": 34
+    }, {
+      "nickName": "samar",
+      "id": 3,
+      "score": 54
+    }, {
+      "nickName": "oday",
+      "id": 4,
+      "score": 34
+    }
+  ]
+}

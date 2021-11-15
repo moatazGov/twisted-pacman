@@ -13,6 +13,8 @@ public class Ghost {
      */
     private Double speed;
 
+    private Color color;
+
 
     /**
      * Instantiates a new Ghost with empty fields.
@@ -26,9 +28,10 @@ public class Ghost {
      * @param location the location
      * @param speed    the speed
      */
-    public Ghost(Location location, Double speed) {
+    public Ghost(Location location, Double speed, Color color) {
         this.location = location;
         this.speed = speed;
+        this.color = color;
     }
 
     /**
@@ -67,6 +70,13 @@ public class Ghost {
         this.speed = speed;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     //todo document the method
     boolean strike(){
