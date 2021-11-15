@@ -9,24 +9,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="homepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="homepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hawks.twistedPacman.View.HomeCtrl">
    <children>
       <Label id="twstdLbl" layoutX="152.0" layoutY="35.0" text="Twisted Pacman" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="36.0" />
          </font>
       </Label>
-      <Button id="playBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="153.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Play" textFill="#fffd00">
+      <Button id="playBtn" fx:id="playBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="153.0" mnemonicParsing="false" onAction="#playClicked" style="-fx-background-color: black;" text="Play" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
       </Button>
-      <Button id="exitBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Exit" textFill="#fffd00">
+      <Button id="exitBtn" fx:id="exitBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="242.0" mnemonicParsing="false" onAction="#exitClicked" style="-fx-background-color: black;" text="Exit" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="52.0" layoutY="197.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Instructions" textFill="#fffd00">
+      <Button fx:id="instructionsBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="197.0" mnemonicParsing="false" onAction="#instructionsClicked" style="-fx-background-color: black;" text="Instructions" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
       </Label>
-      <Button id="adminBtn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Admin" textFill="#fffd00">
+      <Button id="adminBtn" fx:id="adminBtn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#adminClicked" style="-fx-background-color: black;" text="Admin" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="10.0" />
          </font>
@@ -52,7 +52,7 @@
             <Image url="@../../../images/pac-chase-ghosts.jpg" />
          </image>
       </ImageView>
-      <Button id="moreBtn" layoutX="416.0" layoutY="361.0" mnemonicParsing="false" style="-fx-background-color: black;" text="see more.." textFill="#fffd00">
+      <Button id="moreBtn" fx:id="seeMoreBtn" layoutX="416.0" layoutY="361.0" mnemonicParsing="false" onAction="#seeMoreClicked" style="-fx-background-color: black;" text="see more.." textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="10.0" />
          </font>
