@@ -6,6 +6,7 @@ import com.hawks.twistedPacman.Model.*;
 import java.util.ArrayList;
 
 public class Controller {
+    private SysData sysData = new SysData();
     private Pacman pacman;
     private ArrayList<Ghost> ghosts;
     private ArrayList<PacItem> pacItems;
@@ -21,5 +22,12 @@ public class Controller {
     private Integer level = 0;
 
 
+    public  boolean loadData(){
+        return this.sysData.load();
+    }
+
+    public ArrayList getGames(){
+        return this.sysData.loadGamesJson();
+    }
 
 }
