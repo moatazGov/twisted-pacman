@@ -19,7 +19,8 @@ public class MainScreen extends Application {
             stage.show();
         }catch(Exception e) {
             System.out.println("error");
-        }    }
+        }
+    }
 
     public static void main(String[] args) {
         launch();
