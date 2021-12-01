@@ -32,6 +32,13 @@ public class Question {
         this.difficulty = difficulty;
     }
 
+    public Question(String id, String question, String correctAnswer, Difficulty difficulty) {
+        this.id = id;
+        this.question = question;
+        this.correctAnswer = correctAnswer;
+        this.difficulty = difficulty;
+    }
+
     /**
      * Instantiates a new Question with empty fields.
      */
