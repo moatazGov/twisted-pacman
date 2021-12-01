@@ -46,24 +46,21 @@ public class Question {
 
     }
 
-    public Question fromJson(JSONObject obj ){
-        JSONArray answers =(JSONArray) obj.get("answers");
+    public void fromJson(JSONObject obj) {
+        JSONArray answers1 = (JSONArray) obj.get("answers");
         ArrayList answersList = new ArrayList();
 
-        for (Object answer : answers) {
-            answersList.add(((String)answer));
+        for (Object answer : answers1) {
+            answersList.add(((String) answer));
         }
-
-        return new Question(
-                obj.get("id").toString(),
-                obj.get("question").toString(),
-                answersList,
-                obj.get("correctAnswer").toString(),
-                obj.get("difficulty").toString() == "hard" ? Difficulty.HARD : obj.get("difficulty").toString() == "easy" ? Difficulty.EASY : Difficulty.MEDIUM
-        );
+        id = obj.get("id").toString();
+        question = obj.get("question").toString();
+        correctAnswer = obj.get("correctAnswer").toString();
+        difficulty = obj.get("difficulty").toString() == "hard" ? Difficulty.HARD : obj.get("difficulty").toString() == "easy" ? Difficulty.EASY : Difficulty.MEDIUM;
+        answers = answersList;
     }
 
-    public JSONObject toJson(){
+    public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         obj.put("id", id);
         obj.put("question", question);
@@ -77,7 +74,8 @@ public class Question {
      * Gets id.
      *
      * @return the id
-     */String getId() {
+     */
+    String getId() {
         return id;
     }
 

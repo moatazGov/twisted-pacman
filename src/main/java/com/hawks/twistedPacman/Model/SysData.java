@@ -45,6 +45,10 @@ public class SysData {
     }
 
     public ArrayList<Question> getQuestions() {
+        load();
+        System.out.println("Fucking here here ==================================");
+        System.out.println(questions);
+
         return questions;
     }
 
@@ -168,7 +172,7 @@ public class SysData {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
-            JSONArray gamesList = (JSONArray) (((JSONObject)obj).get("games"));
+            JSONArray gamesList = (JSONArray) (((JSONObject)obj).get("src/main/resources/com/hawks/twistedPacman/data/games"));
             for (Object game : gamesList) {
                 GameData newGame = new GameData();
                 newGame.fromJson((JSONObject) game);
@@ -189,12 +193,12 @@ public class SysData {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<Question> questions = new ArrayList<>();
-        try (FileReader reader = new FileReader("questions.json"))
+        try (FileReader reader = new FileReader("src/main/resources/com/hawks/twistedPacman/data/questions.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
-            JSONArray questionsList = (JSONArray) obj;
+            JSONArray questionsList = (JSONArray) ((JSONObject)obj).get("questions");
             for (Object question : questionsList) {
                 Question newQuestion = new Question();
                 newQuestion.fromJson((JSONObject) question);

@@ -1,7 +1,9 @@
 package com.hawks.twistedPacman.View;
 
+import com.hawks.twistedPacman.Controller.Alerts;
 import com.hawks.twistedPacman.Model.Difficulty;
 import com.hawks.twistedPacman.Model.Question;
+import com.hawks.twistedPacman.Model.SysData;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,16 +20,18 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 //import com.jfoenix.controls.JFXButton;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class QuestionsAdminCtrl implements Initializable {
-
+    SysData sysData = new SysData();
     Parent root;
     Stage stage;
     Scene scene;
@@ -52,22 +56,22 @@ public class QuestionsAdminCtrl implements Initializable {
         questionsTbl.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-    private void fillTable() {
-                tvObservableList.addAll(
-                        new Question("1", "abc", "1", Difficulty.EASY),
-                        new Question("2", "ques2","2", Difficulty.HARD),
-                        new Question("3", "que3", "3", Difficulty.HARD),
-                        new Question("4", "ques4", "2", Difficulty.MEDIUM),
-                        new Question("5", "ques5", "4", Difficulty.EASY));
-    }
+//    private void fillTable() {
+//                tvObservableList.addAll(
+//                        new Question("1", "abc", "1", Difficulty.EASY),
+//                        new Question("2", "ques2","2", Difficulty.HARD),
+//                        new Question("3", "que3", "3", Difficulty.HARD),
+//                        new Question("4", "ques4", "2", Difficulty.MEDIUM),
+//                        new Question("5", "ques5", "4", Difficulty.EASY));
+//    }
 
 
-//    public void fillRooms() {
-//
-//        ObservableList<Question> questions;
-//
-//        questions = FXCollections.observableArrayList();
-//
+    public void fillQuestions() {
+
+        ObservableList<Question> questions;
+
+        questions = FXCollections.observableArrayList();
+
 //        try {
 //
 //            for (Question q : DataAccessObject.getRooms(cruiseShip)) {
@@ -77,85 +81,61 @@ public class QuestionsAdminCtrl implements Initializable {
 //            Alerts.generateErrorAlert(e, "Exception", "Exception Has Occurred", "Could not load rooms from DataBase!");
 //
 //        }
-//
-//        roomIdColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
-//        bedsColumn.setCellValueFactory(new PropertyValueFactory<>("bedsAmount"));
-//        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-//        priceColumn.setCellValueFactory(new PropertyValueFactory<>("pricePerNight"));
-//        questionsTbl.setItems(questions);
-//
-//        if (questionsTbl.getColumns().size() == 4) {
-//
-//            TableColumn<Question, Void> deleteCol = new TableColumn<Question, Void>("Action");
-//            deleteCol.setPrefWidth(80);
-//            deleteCol.setMinWidth(80);
-//            deleteCol.setMaxWidth(80);
-//
-//            Callback<TableColumn<Question, Void>, TableCell<Question, Void>> cellFactory = new Callback<TableColumn<Question, Void>, TableCell<Question, Void>>() {
-//                @Override
-//                public TableCell<Question, Void> call(final TableColumn<Question, Void> param) {
-//                    final TableCell<Question, Void> cell = new TableCell<Question, Void>() {
-//
-//                        private final JFXButton deleteBtn = new JFXButton();
-//                        private final JFXButton updateBtn = new JFXButton();
-//                        private final HBox pane = new HBox(updateBtn, deleteBtn);
-//
-//                        {
-//                            deleteBtn.getStyleClass().add("deleteBtn");
-//                            updateBtn.getStyleClass().add("updateBtn");
-//
-//                            updateBtn.setOnAction((ActionEvent event) -> {
-//                                Room data = getTableView().getItems().get(getIndex());
-//
-//                                System.out.println("update : " + data);
-//
-//                            });
-//
-//                            deleteBtn.setOnAction((ActionEvent event) -> {
-//                                Room data = getTableView().getItems().get(getIndex());
-//
-//                                try {
+        ArrayList<Question> questions1 = sysData.getQuestions();
+        questions.addAll(questions1);
+
+        colID.setCellValueFactory(new PropertyValueFactory<Question, String>("id"));
+        colQues.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
+        colAns.setCellValueFactory(new PropertyValueFactory<Question, String>("correctAnswer"));
+        colDiff .setCellValueFactory(new PropertyValueFactory<Question, Difficulty>("difficulty"));
+        questionsTbl.setItems(questions);
+
+        if (questionsTbl.getColumns().size() == 4) {
+
+            TableColumn<Question, Void> deleteCol = new TableColumn<Question, Void>("Action");
+            deleteCol.setPrefWidth(80);
+            deleteCol.setMinWidth(80);
+            deleteCol.setMaxWidth(80);
+
+            Callback<TableColumn<Question, Void>, TableCell<Question, Void>> cellFactory = new Callback<TableColumn<Question, Void>, TableCell<Question, Void>>() {
+                @Override
+                public TableCell<Question, Void> call(final TableColumn<Question, Void> param) {
+                    final TableCell<Question, Void> cell = new TableCell<Question, Void>() {
+                        private final Button deleteBtn = new Button();
+                        private final Button updateBtn = new Button();
+                        private final HBox pane = new HBox(updateBtn, deleteBtn);
+                        {
+                            deleteBtn.getStyleClass().add("deleteBtn");
+                            updateBtn.getStyleClass().add("updateBtn");
+                            updateBtn.setOnAction((ActionEvent event) -> {
+                                Question data = getTableView().getItems().get(getIndex());
+                                System.out.println("update : " + data);
+                            });
+                            deleteBtn.setOnAction((ActionEvent event) -> {
+                                Question data = getTableView().getItems().get(getIndex());
 //                                    DataAccessObject.deleteRoom(data);
-//                                    roomsTable.getColumns().remove(deleteCol);
-//                                    fillRooms();
-//
-//                                    Alerts.generateSuccessAlert("transaction completed",
-//                                            "Data was deleted successfully",
+                                    questionsTbl.getColumns().remove(deleteCol);
+                                    fillQuestions();
+                                    Alerts.generateSuccessAlert("transaction completed",
+                                            "Data was deleted successfully","");
 //                                            "Room " + data.getRoomNumber() + " was deleted from the data Base ");
 //                                    mainPageController.getInstance().fillDashBoard();
-//
-//                                } catch (SQLException e) {
-//
-//                                    if (e.getErrorCode() == 547) {
-//
-//                                        Alerts.generateErrorAlert(e, "deleting warning", "room was not deleted",
-//                                                "you can not delete this object since it is related to other data in the data base -  The DELETE statement conflicted with the REFERENCE constraint");
-//
-//                                    } else
-//                                        Alerts.generateErrorAlert(e, "Exception", "Exception Has Occurred",
-//                                                "Could not load rooms from DataBase!");
-//
-//                                }
-//
-//                            });
-//
-//                        }
-//
-//                        @Override
-//                        protected void updateItem(Void item, boolean empty) {
-//                            super.updateItem(item, empty);
-//
-//                            setGraphic(empty ? null : pane);
-//                        }
-//                    };
-//                    return cell;
-//                }
-//            };
-//
-//            deleteCol.setCellFactory(cellFactory);
-//            roomsTable.getColumns().add(deleteCol);
-//        }
-//    }
+                            });
+                        }
+                        @Override
+                        protected void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            setGraphic(empty ? null : pane);
+                        }
+                    };
+                    return cell;
+                }
+            };
+
+            deleteCol.setCellFactory(cellFactory);
+            questionsTbl.getColumns().add(deleteCol);
+        }
+    }
 
     /**
      * adds questions to list of question and to JSON file
@@ -189,10 +169,13 @@ public class QuestionsAdminCtrl implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        addButtonToTable();
+        System.out.println("HEREEEEEEEEE");
+
         setTableappearance();
 
-        fillTable();
-        questionsTbl.setItems(tvObservableList);
+//        fillTable();
+//        questionsTbl.setItems(/);
+        fillQuestions();
 
 
     }
