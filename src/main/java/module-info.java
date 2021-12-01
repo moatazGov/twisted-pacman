@@ -10,6 +10,8 @@ module com.hawks.twistedPacman {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires json.simple;
+    requires org.junit.jupiter.api;
+
 
     opens com.hawks.twistedPacman to javafx.fxml;
     exports com.hawks.twistedPacman;

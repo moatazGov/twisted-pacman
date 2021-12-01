@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="239.0" layoutY="51.0" text="Admin" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Back" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="85.0" layoutY="125.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Add a question" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="86.0" layoutY="184.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Edit a question" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="86.0" layoutY="243.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Delete a question" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="67.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/pac-chase-ghosts.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

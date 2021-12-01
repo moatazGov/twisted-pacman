@@ -13,6 +13,7 @@ public class GameData {
     public GameData(Integer id, String nickName, Integer score) {
         this.nickName = nickName;
         this.score = score;
+        this.id = id;
     }
 
     public GameData() {
@@ -20,10 +21,10 @@ public class GameData {
 
     public GameData fromJson(JSONObject gameJson){
 
-             id =    Integer.valueOf(gameJson.get("id").toString());
-              nickName =   gameJson.get("nickName").toString();
-              score =   Integer.valueOf(gameJson.get("score").toString());
-              return  this;
+        id =    Integer.valueOf(gameJson.get("id").toString());
+        nickName =   gameJson.get("nickName").toString();
+        score =   Integer.valueOf(gameJson.get("score").toString());
+        return  this;
     }
 
     public JSONObject toJson(){

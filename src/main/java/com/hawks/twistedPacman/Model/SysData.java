@@ -1,21 +1,16 @@
 package com.hawks.twistedPacman.Model;
 
 
-import com.hawks.twistedPacman.Controller.Controller;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.security.spec.ECField;
 import java.util.ArrayList;
-
-import com.hawks.twistedPacman.MainScreen;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 /**
  *
  */
@@ -27,6 +22,15 @@ public class SysData {
     //todo add to class diagram
     private String nickName;
 
+
+    public SysData() {
+        scores = new ArrayList<>();
+        games = new ArrayList<>();
+        questions = new ArrayList<>();
+        players = new ArrayList<>();
+        nickName = " ";
+        load();
+    }
 
     public ArrayList<Score> getScores() {
         return scores;
@@ -185,11 +189,11 @@ public class SysData {
         return games;
     }
 
-    private ArrayList loadQuestionsJson(){
+    public ArrayList loadQuestionsJson(){
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
-        ArrayList<Question> questions = new ArrayList<>();
-        try (FileReader reader = new FileReader("questions.json"))
+        ArrayList questions = new ArrayList<>();
+        try (FileReader reader = new FileReader("src/main/resources/com/hawks/twistedPacman/data/questions.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
@@ -212,11 +216,11 @@ public class SysData {
 
     }
 
-    private ArrayList loadPlayersJson(){
+    public ArrayList loadPlayersJson(){
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<String> players = new ArrayList<>();
-        try (FileReader reader = new FileReader("questions.json"))
+        try (FileReader reader = new FileReader("src/main/resources/com/hawks/twistedPacman/data/players.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
@@ -233,10 +237,10 @@ public class SysData {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return questions;
+        return players;
     }
 
-    private boolean savePlayers(){
+    public boolean savePlayers(){
         //Write JSON file
         try (FileWriter file = new FileWriter("employees.json")) {
             //We can write any JSONArray or JSONObject instance to the file
@@ -250,7 +254,7 @@ public class SysData {
         }
         return true;
     }
-    private boolean saveGames(){
+    public boolean saveGames(){
 //Write JSON file
         try (FileWriter file = new FileWriter("games.json")) {
             //We can write any JSONArray or JSONObject instance to the file
@@ -265,7 +269,7 @@ public class SysData {
             return false;
         }
     }
-    private boolean saveQuestions(){
+    public boolean saveQuestions(){
         //Write JSON file
         try (FileWriter file = new FileWriter("questions.json")) {
             //We can write any JSONArray or JSONObject instance to the file
