@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hawks.twistedPacman.View.HighscoresCtrl">
    <children>
       <Label layoutX="199.0" layoutY="32.0" text="Highscores" textFill="#fffd00">
          <font>
@@ -23,14 +23,14 @@
             <TableColumn minWidth="0.0" prefWidth="144.66668701171875" text="Date" />
         </columns>
       </TableView>
-      <Button fx:id="backBtn" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Back" textFill="#fffd00">
+      <Button fx:id="backBtn" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#backClicked" style="-fx-background-color: black;" text="Back" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="20.0" />
          </font>
       </Button>
        <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="67.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/pac-chase-ghosts.jpg" />
+            <Image url="@../images/pac-chase-ghosts.jpg" />
          </image>
       </ImageView>
    </children>

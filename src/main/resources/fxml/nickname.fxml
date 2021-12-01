@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #3E3C3C;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #3E3C3C;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hawks.twistedPacman.View.NicknameCtrl">
    <children>
       <Label id="nicknameLbl" fx:id="nicknameLbl" layoutX="70.0" layoutY="48.0" text="Enter nickname" textFill="#fffd00">
          <font>
@@ -19,12 +18,12 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="playBtn" layoutX="192.0" layoutY="161.0" mnemonicParsing="false" style="-fx-background-color: #3E3C3C;" text="Play" textFill="#fffd00">
+      <Button fx:id="startBtn" layoutX="192.0" layoutY="161.0" mnemonicParsing="false" onAction="#startClicked" style="-fx-background-color: #3E3C3C;" text="Start" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="backBtn" layoutX="43.0" layoutY="161.0" mnemonicParsing="false" style="-fx-background-color: #3E3C3C;" text="Back" textFill="#fffd00">
+      <Button fx:id="cancelBtn" layoutX="43.0" layoutY="161.0" mnemonicParsing="false" onAction="#cancelClicked" style="-fx-background-color: #3E3C3C;" text="Cancel" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="18.0" />
          </font>

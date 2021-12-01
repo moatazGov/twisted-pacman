@@ -22,8 +22,10 @@ import javafx.scene.control.TableView;
 import java.util.ArrayList;
 
 public class HomeCtrl {
+
     private Controller controller = new Controller();
     private ArrayList<GameData> games;
+
     @FXML
     private Button playBtn;
     private Button adminBtn;
@@ -31,6 +33,10 @@ public class HomeCtrl {
     private Button instructionsBtn;
     private Button seeMoreBtn;
     private TableView scoresTbl = new TableView();
+
+    Parent root;
+    Scene scene;
+    Stage stage;
 
     public void initialize() {
 
@@ -49,13 +55,22 @@ public class HomeCtrl {
     }
 
     @FXML
-    private void playClicked(ActionEvent event) {
+    private void playClicked(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/fxml/nickname.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 
     @FXML
-    private void adminClicked(ActionEvent event) {
-
+    private void adminClicked(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("/fxml/questionsAdmin.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -64,11 +79,21 @@ public class HomeCtrl {
     }
 
     @FXML
-    private void instructionsClicked(ActionEvent event) {
-
+    private void instructionsClicked(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/fxml/instructions.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void seeMoreClicked(ActionEvent event) {
+    private void seeMoreClicked(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("/fxml/highscores.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+
 }

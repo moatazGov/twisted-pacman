@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hawks.twistedPacman.View.InstructionsCtrl">
+   <children>
+      <Label layoutX="191.0" layoutY="32.0" text="Instructions" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="bombTxt" layoutX="45.0" layoutY="280.0" prefHeight="25.0" prefWidth="481.0" style="-fx-background-color: black; -fx-text-fill: #fffd00;">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ques3Txt" layoutX="45.0" layoutY="352.0" prefHeight="25.0" prefWidth="481.0" style="-fx-background-color: black; -fx-text-fill: #fffd00;">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ques2Txt" layoutX="45.0" layoutY="328.0" prefHeight="25.0" prefWidth="481.0" style="-fx-background-color: black; -fx-text-fill: #fffd00;">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ques1Txt" layoutX="45.0" layoutY="304.0" prefHeight="25.0" prefWidth="481.0" style="-fx-background-color: black; -fx-text-fill: #fffd00;">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextField>
+      <ImageView id="arrowsImg" fitHeight="56.0" fitWidth="91.0" layoutX="329.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/arrows.jpg" />
+         </image>
+      </ImageView>
+      <ImageView id="spacebarImg" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/spacebar.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="backBtn" layoutX="8.0" layoutY="7.0" mnemonicParsing="false" onAction="#backClicked" style="-fx-background-color: black;" text="Back" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="genLbl" layoutX="53.0" layoutY="90.0" prefHeight="49.0" prefWidth="481.0" textFill="#fffd00">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="arrowsLbl" layoutX="53.0" layoutY="164.0" prefHeight="49.0" prefWidth="176.0" textFill="#fffd00">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="spaceLbl" layoutX="53.0" layoutY="214.0" prefHeight="49.0" prefWidth="189.0" textFill="#fffd00">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="26.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/bomb.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="17.0" layoutX="26.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/easyImg.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="26.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/mediumImg.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="17.0" layoutX="26.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/hardImg.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

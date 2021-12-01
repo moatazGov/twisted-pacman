@@ -21,12 +21,12 @@
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
       </Button>
-      <Button id="exitBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Exit" textFill="#fffd00">
+      <Button id="exitBtn" fx:id="exitBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="242.0" mnemonicParsing="false" onAction="#exitClicked" style="-fx-background-color: black;" text="Exit" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="52.0" layoutY="197.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Instructions" textFill="#fffd00">
+      <Button fx:id="instructionsBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="197.0" mnemonicParsing="false" onAction="#instructionsClicked" style="-fx-background-color: black;" text="Instructions" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font name="Eras Bold ITC" size="24.0" />
          </font>
       </Label>
-      <Button id="adminBtn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Admin" textFill="#fffd00">
+      <Button id="adminBtn" fx:id="adminBtn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#adminClicked" style="-fx-background-color: black;" text="Admin" textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="10.0" />
          </font>
@@ -49,10 +49,10 @@
       </TableView>
       <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="67.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/pac-chase-ghosts.jpg" />
+            <Image url="@../images/pac-chase-ghosts.jpg" />
          </image>
       </ImageView>
-      <Button id="moreBtn" layoutX="416.0" layoutY="361.0" mnemonicParsing="false" style="-fx-background-color: black;" text="see more.." textFill="#fffd00">
+      <Button id="moreBtn" fx:id="moreBtn" layoutX="416.0" layoutY="361.0" mnemonicParsing="false" onAction="#seeMoreClicked" style="-fx-background-color: black;" text="see more.." textFill="#fffd00">
          <font>
             <Font name="Eras Bold ITC" size="10.0" />
          </font>
