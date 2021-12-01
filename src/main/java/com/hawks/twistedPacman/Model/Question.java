@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * The type Question.
@@ -46,6 +47,19 @@ public class Question {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question = (Question) o;
+        return getId().equals(question.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
     public void fromJson(JSONObject obj) {
         JSONArray answers1 = (JSONArray) obj.get("answers");
         ArrayList answersList = new ArrayList();
@@ -75,7 +89,7 @@ public class Question {
      *
      * @return the id
      */
-    String getId() {
+    public String getId() {
         return id;
     }
 

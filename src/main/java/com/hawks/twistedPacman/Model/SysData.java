@@ -1,25 +1,22 @@
 package com.hawks.twistedPacman.Model;
 
 
-import com.hawks.twistedPacman.Controller.Controller;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.security.spec.ECField;
 import java.util.ArrayList;
 
-import com.hawks.twistedPacman.MainScreen;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 /**
  *
  */
 public class SysData {
+    private static SysData instance;
     private ArrayList<Score> scores;
     private ArrayList<GameData> games;
     private ArrayList<Question> questions;
@@ -27,6 +24,18 @@ public class SysData {
     //todo add to class diagram
     private String nickName;
 
+    public static SysData getInstance() {
+
+        if (instance == null) {
+            instance = new SysData();
+            if (instance.load())
+                return instance;
+            else
+                return null;
+        }
+
+        return instance;
+    }
 
     public ArrayList<Score> getScores() {
         return scores;
@@ -46,9 +55,6 @@ public class SysData {
 
     public ArrayList<Question> getQuestions() {
         load();
-        System.out.println("Fucking here here ==================================");
-        System.out.println(questions);
-
         return questions;
     }
 
@@ -74,50 +80,52 @@ public class SysData {
 
     /**
      * Starts the game and launches UI.
+     *
      * @return true if game started successfully false if an error occurred
      */
-    boolean start(){
+    boolean start() {
         return true;
     }
 
     /**
      * loads the data from local DB
+     *
      * @return true if system data was loaded successfully, false if an error occurred
      */
-    public boolean load(){
-        try{
+    public boolean load() {
+        try {
             games = loadGamesJson();
             players = loadPlayersJson();
             questions = loadQuestionsJson();
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
      * Saves the system data to local DB
+     *
      * @return true if system data was saved successfully, false if an error occurred
      */
-    public boolean save(){
-        try{
+    public boolean save() {
+        try {
             saveGames();
             savePlayers();
             saveQuestions();
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
      * adds the question to local DB
+     *
      * @param question
      * @return true if question was added successfuly and false if an error occurred
      */
-    boolean addQuestion(Question question){
+    boolean addQuestion(Question question) {
 
 
         return true;
@@ -125,54 +133,57 @@ public class SysData {
 
     /**
      * removes the question from local DB
+     *
      * @param question
      * @return true if question was removed successfully and false if an error occurred
      */
-    boolean removeQuestion(Question question){
+    boolean removeQuestion(Question question) {
         return true;
     }
 
 
     /**
      * gets the actual question from the system data
+     *
      * @param question
      * @return the question similar to the given question from the system data if exists
      * and a question with empty fields otherwise
      */
-    Question getQuestion(Question question){
+    Question getQuestion(Question question) {
         return new Question();
     }
 
     /**
      * edits the question with similar id to the given question and replaces it with the given question's data
+     *
      * @param question
      * @return true if the question was edited successfully, false if an error Occurred
      */
-    Question editQuestion(Question question){
+    Question editQuestion(Question question) {
         return new Question();
     }
 
     /**
      * adds the given game data to the games history in local DB
+     *
      * @param game
      * @return true if the game was added successfully, false if an error occurred
      */
-    boolean addGame(GameData game){
+    boolean addGame(GameData game) {
         return true;
     }
 
 
-    public ArrayList loadGamesJson(){
+    public ArrayList loadGamesJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<GameData> games = new ArrayList<>();
-        try (FileReader reader =new FileReader("src/main/resources/com/hawks/twistedPacman/data/games.json"))
-        {
+        try (FileReader reader = new FileReader("src/main/resources/com/hawks/twistedPacman/data/games.json")) {
 
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
-            JSONArray gamesList = (JSONArray) (((JSONObject)obj).get("src/main/resources/com/hawks/twistedPacman/data/games"));
+            JSONArray gamesList = (JSONArray) (((JSONObject) obj).get("games"));
             for (Object game : gamesList) {
                 GameData newGame = new GameData();
                 newGame.fromJson((JSONObject) game);
@@ -189,22 +200,18 @@ public class SysData {
         return games;
     }
 
-    private ArrayList loadQuestionsJson(){
+    private ArrayList loadQuestionsJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<Question> questions = new ArrayList<>();
-        try (FileReader reader = new FileReader("src/main/resources/com/hawks/twistedPacman/data/questions.json"))
-        {
-            //Read JSON file
+        try (FileReader reader = new FileReader("src/main/resources/com/hawks/twistedPacman/data/questions.json")) {
             Object obj = jsonParser.parse(reader);
-
-            JSONArray questionsList = (JSONArray) ((JSONObject)obj).get("questions");
+            JSONArray questionsList = (JSONArray) ((JSONObject) obj).get("questions");
             for (Object question : questionsList) {
                 Question newQuestion = new Question();
                 newQuestion.fromJson((JSONObject) question);
                 questions.add(newQuestion);
             }
-            System.out.println(questionsList);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -216,18 +223,17 @@ public class SysData {
 
     }
 
-    private ArrayList loadPlayersJson(){
+    private ArrayList loadPlayersJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<String> players = new ArrayList<>();
-        try (FileReader reader = new FileReader("questions.json"))
-        {
+        try (FileReader reader = new FileReader("src/mairs.json")) {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
             JSONArray questionsList = (JSONArray) obj;
             for (Object player : questionsList) {
-                players.add(String.valueOf(((JSONObject)player).get("nickName")));
+                players.add(String.valueOf(((JSONObject) player).get("nickName")));
             }
             System.out.println(questionsList);
         } catch (FileNotFoundException e) {
@@ -240,9 +246,9 @@ public class SysData {
         return questions;
     }
 
-    private boolean savePlayers(){
+    private boolean savePlayers() {
         //Write JSON file
-        try (FileWriter file = new FileWriter("employees.json")) {
+        try (FileWriter file = new FileWriter("src/main/resources/com/hawks/twistedPacman/data/employees.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
             json.put("players", players);
@@ -254,9 +260,10 @@ public class SysData {
         }
         return true;
     }
-    private boolean saveGames(){
+
+    private boolean saveGames() {
 //Write JSON file
-        try (FileWriter file = new FileWriter("games.json")) {
+        try (FileWriter file = new FileWriter("src/main/resources/com/hawks/twistedPacman/data/games.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
             json.put("games", games);
@@ -269,12 +276,17 @@ public class SysData {
             return false;
         }
     }
-    private boolean saveQuestions(){
+
+    private boolean saveQuestions() {
         //Write JSON file
-        try (FileWriter file = new FileWriter("questions.json")) {
+        try (FileWriter file = new FileWriter("src/main/resources/com/hawks/twistedPacman/data/questions.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
-            json.put("questions", questions);
+            JSONArray jsonQuestions = new JSONArray();
+            for (Question question : questions){
+                jsonQuestions.add(question.toJson());
+            }
+            json.put("questions", jsonQuestions);
             file.write(json.toJSONString());
             file.flush();
             return true;
@@ -283,7 +295,6 @@ public class SysData {
             return false;
         }
     }
-
 
 
 }

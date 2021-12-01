@@ -42,7 +42,6 @@ public class HomeCtrl {
 
         try {
             this.games = controller.getGames();
-            System.out.println(this.games);
             for (GameData game : this.games) {
                 TableRow row = new TableRow();
                 scoresTbl.getItems().add(game);

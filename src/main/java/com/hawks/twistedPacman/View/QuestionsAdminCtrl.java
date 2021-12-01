@@ -6,6 +6,7 @@ import com.hawks.twistedPacman.Model.Question;
 import com.hawks.twistedPacman.Model.SysData;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableFloatArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class QuestionsAdminCtrl implements Initializable {
+    ObservableList<Question> questions = FXCollections.observableArrayList();
+
     SysData sysData = new SysData();
     Parent root;
     Stage stage;
@@ -43,7 +46,7 @@ public class QuestionsAdminCtrl implements Initializable {
     private TableView<Question> questionsTbl;
     @FXML
     private TableColumn<Question, String> colAns;
-//    @FXML
+    //    @FXML
 //    private TableColumn<Question, Void> colBtns;
     @FXML
     private TableColumn<Question, Difficulty> colDiff;
@@ -56,42 +59,25 @@ public class QuestionsAdminCtrl implements Initializable {
         questionsTbl.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-//    private void fillTable() {
-//                tvObservableList.addAll(
-//                        new Question("1", "abc", "1", Difficulty.EASY),
-//                        new Question("2", "ques2","2", Difficulty.HARD),
-//                        new Question("3", "que3", "3", Difficulty.HARD),
-//                        new Question("4", "ques4", "2", Difficulty.MEDIUM),
-//                        new Question("5", "ques5", "4", Difficulty.EASY));
-//    }
-
-
-    public void fillQuestions() {
-
-        ObservableList<Question> questions;
-
-        questions = FXCollections.observableArrayList();
-
-//        try {
-//
-//            for (Question q : DataAccessObject.getRooms(cruiseShip)) {
-//                questions.add(q);
-//            }
-//        } catch (Exception e) {
-//            Alerts.generateErrorAlert(e, "Exception", "Exception Has Occurred", "Could not load rooms from DataBase!");
-//
-//        }
-        ArrayList<Question> questions1 = sysData.getQuestions();
-        questions.addAll(questions1);
-
+    private void createTable() {
         colID.setCellValueFactory(new PropertyValueFactory<Question, String>("id"));
         colQues.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
         colAns.setCellValueFactory(new PropertyValueFactory<Question, String>("correctAnswer"));
-        colDiff .setCellValueFactory(new PropertyValueFactory<Question, Difficulty>("difficulty"));
+        colDiff.setCellValueFactory(new PropertyValueFactory<Question, Difficulty>("difficulty"));
         questionsTbl.setItems(questions);
+    }
+
+    /**
+     * Fills the table with the  questions loaded from the json.
+     */
+    public void fillQuestions() {
+        // load the question from json, fill observable object with data and
+        ArrayList<Question> questionsData = sysData.getQuestions();
+        questions.addAll(questionsData);
+        createTable();
 
         if (questionsTbl.getColumns().size() == 4) {
-
+            // prevent unnecessary columns from being created?
             TableColumn<Question, Void> deleteCol = new TableColumn<Question, Void>("Action");
             deleteCol.setPrefWidth(80);
             deleteCol.setMinWidth(80);
@@ -104,24 +90,36 @@ public class QuestionsAdminCtrl implements Initializable {
                         private final Button deleteBtn = new Button();
                         private final Button updateBtn = new Button();
                         private final HBox pane = new HBox(updateBtn, deleteBtn);
+
                         {
                             deleteBtn.getStyleClass().add("deleteBtn");
                             updateBtn.getStyleClass().add("updateBtn");
+                            deleteBtn.setText("delete");
+                            updateBtn.setText("update");
                             updateBtn.setOnAction((ActionEvent event) -> {
-                                Question data = getTableView().getItems().get(getIndex());
-                                System.out.println("update : " + data);
+                                try{
+                                    Question data = getTableView().getItems().get(getIndex());
+                                    Alerts.generateUpdateQuestionAlert(data);
+                                    System.out.println("update : " + data);
+                                    SysData.getInstance().load();
+                                    ArrayList<Question> questionsData = sysData.getQuestions();
+                                    questions.removeAll(questions.stream().toList());
+                                    questions.addAll(questionsData);
+                                }catch (Exception e){
+                                    System.out.println("caught error : " + e.getMessage());
+                                }
                             });
                             deleteBtn.setOnAction((ActionEvent event) -> {
                                 Question data = getTableView().getItems().get(getIndex());
-//                                    DataAccessObject.deleteRoom(data);
-                                    questionsTbl.getColumns().remove(deleteCol);
-                                    fillQuestions();
-                                    Alerts.generateSuccessAlert("transaction completed",
-                                            "Data was deleted successfully","");
-//                                            "Room " + data.getRoomNumber() + " was deleted from the data Base ");
-//                                    mainPageController.getInstance().fillDashBoard();
+                                questions.remove(data);
+                                ArrayList<Question> questionsData = (ArrayList<Question>) questions.stream().toList();
+                                sysData.setQuestions(questionsData);
+                                sysData.save();
+                                Alerts.generateSuccessAlert("Operation Successfully",
+                                        "Question removed successffully !", "");
                             });
                         }
+
                         @Override
                         protected void updateItem(Void item, boolean empty) {
                             super.updateItem(item, empty);
@@ -139,6 +137,7 @@ public class QuestionsAdminCtrl implements Initializable {
 
     /**
      * adds questions to list of question and to JSON file
+     *
      * @param event
      * @throws IOException
      */
@@ -153,13 +152,14 @@ public class QuestionsAdminCtrl implements Initializable {
 
     /**
      * back button returns the user to the main screen.
+     *
      * @param event
      * @throws IOException
      */
     @FXML
     private void backClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/fxml/home-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -168,15 +168,7 @@ public class QuestionsAdminCtrl implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        addButtonToTable();
-        System.out.println("HEREEEEEEEEE");
-
         setTableappearance();
-
-//        fillTable();
-//        questionsTbl.setItems(/);
         fillQuestions();
-
-
     }
 }
