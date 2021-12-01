@@ -48,28 +48,28 @@
                   </RadioButton>
                </children>
             </Pane>
-            <TextArea prefHeight="61.0" prefWidth="492.0" promptText="Insert the question.." />
+            <TextArea fx:id="questionText" prefHeight="61.0" prefWidth="492.0" promptText="Insert the question.." />
             <Pane prefHeight="36.0" prefWidth="510.0">
                <children>
-                  <TextField layoutX="32.0" layoutY="2.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
+                  <TextField fx:id="firstAnswer" layoutX="32.0" layoutY="2.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
                   <RadioButton fx:id="firstRadio" layoutX="8.0" layoutY="5.0" mnemonicParsing="false" />
                </children>
             </Pane>
             <Pane prefHeight="37.0" prefWidth="510.0">
                <children>
-                  <TextField layoutX="32.0" layoutY="1.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
+                  <TextField fx:id="secondAnswer" layoutX="32.0" layoutY="1.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
                   <RadioButton fx:id="secondRadio" layoutX="8.0" layoutY="4.0" mnemonicParsing="false" />
                </children>
             </Pane>
             <Pane prefHeight="35.0" prefWidth="510.0">
                <children>
-                  <TextField layoutX="32.0" layoutY="-2.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
+                  <TextField fx:id="thirdAnswer" layoutX="32.0" layoutY="-2.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
                   <RadioButton fx:id="thirdRadio" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" />
                </children>
             </Pane>
             <Pane prefHeight="27.0" prefWidth="510.0">
                <children>
-                  <TextField layoutX="32.0" layoutY="-3.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
+                  <TextField fx:id="fourthAnswer" layoutX="32.0" layoutY="-3.0" prefHeight="25.0" prefWidth="479.0" promptText="Insert answer" />
                   <RadioButton fx:id="fourthRadio" layoutX="8.0" mnemonicParsing="false" />
                </children>
             </Pane>
