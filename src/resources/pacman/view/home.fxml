@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="700.0" prefWidth="1250.0"
+  styleClass="root" xmlns="http://javafx.com/javafx/11.0.1"
+  fx:controller="pacman.controller.HomeController">
+  <stylesheets>
+    <URL value="@../css/home.css"/>
+  </stylesheets>
+  <center>
+    <Pane BorderPane.alignment="CENTER" styleClass="center">
+      <children>
+        <VBox prefHeight="450.0" prefWidth="850.0" styleClass="menu">
+          <children>
+            <Button mnemonicParsing="false" onAction="#handleClickStart" styleClass="menu-item"
+              text="Start"/>
+            <Button fx:id="music" mnemonicParsing="false" onAction="#handleClickMusic" styleClass="menu-item"
+              text="&lt; Music: ON &gt;"/>
+            <Button mnemonicParsing="false" onAction="#handleClickExit" styleClass="menu-item"
+              text="Exit"/>
+          </children>
+        </VBox>
+      </children>
+    </Pane>
+  </center>
+  <top>
+    <Pane BorderPane.alignment="CENTER" prefHeight="200.0" prefWidth="200.0" styleClass="top"/>
+  </top>
+  <left>
+    <Pane BorderPane.alignment="CENTER" prefHeight="450.0" prefWidth="200.0"/>
+  </left>
+  <right>
+    <Pane BorderPane.alignment="CENTER" prefHeight="450.0" prefWidth="200.0"/>
+  </right>
+  <bottom>
+    <Pane BorderPane.alignment="CENTER" prefHeight="50.0" prefWidth="200.0"/>
+  </bottom>
+</BorderPane>
