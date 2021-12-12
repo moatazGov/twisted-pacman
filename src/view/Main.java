@@ -65,7 +65,7 @@ public class Main extends Application {
 
         // set up start scene
 
-        SceneSwitch.INSTANCE.switchToHome()
+        SceneSwitch.INSTANCE.switchToHome();
 //        SceneSwitch.INSTANCE.switchToGame();
     }
 }

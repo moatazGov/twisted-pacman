@@ -109,19 +109,19 @@ public class Ghost extends MovableGrid implements Runnable {
         switch (direction) {
             case UP:
             case DOWN:
-                if (!isGoingToTouchGrids(Direction.LEFT, obstacles)) {
+                if (!isGoingToTouchGrids(Direction.LEFT, obstacles, Ghost.this.getParentMap().getMapConfig().getGridLength())) {
                     directionsToGo.add(Direction.LEFT);
                 }
-                if (!isGoingToTouchGrids(Direction.RIGHT, obstacles)) {
+                if (!isGoingToTouchGrids(Direction.RIGHT, obstacles, Ghost.this.getParentMap().getMapConfig().getGridLength())) {
                     directionsToGo.add(Direction.RIGHT);
                 }
                 break;
             case LEFT:
             case RIGHT:
-                if (!isGoingToTouchGrids(Direction.UP, obstacles)) {
+                if (!isGoingToTouchGrids(Direction.UP, obstacles, Ghost.this.getParentMap().getMapConfig().getGridLength())) {
                     directionsToGo.add(Direction.UP);
                 }
-                if (!isGoingToTouchGrids(Direction.DOWN, obstacles)) {
+                if (!isGoingToTouchGrids(Direction.DOWN, obstacles, Ghost.this.getParentMap().getMapConfig().getGridLength())) {
                     directionsToGo.add(Direction.DOWN);
                 }
                 break;
@@ -129,7 +129,7 @@ public class Ghost extends MovableGrid implements Runnable {
         }
 
         // check if there is no directions to go but the opposite one
-        if (directionsToGo.size() == 0 && isGoingToTouchGrids(direction, obstacles)) {
+        if (directionsToGo.size() == 0 && isGoingToTouchGrids(direction, obstacles, Ghost.this.getParentMap().getMapConfig().getGridLength())) {
             return Direction.getOpposite(direction);
         } else {
             //  pick a direction randomly

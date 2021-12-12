@@ -21,10 +21,10 @@ public class FileName {
   public static final Set<String> MAPS =
       new TreeSet<>(
           Arrays.asList(
-              "resources/map/#001 So Easy.txt",
-              "resources/map/#002 Easy Again?.txt",
-              "resources/map/#003 A Traitor.txt",
-              "resources/map/#004 Freedom.txt",
+              "resources/map/map1.txt",
+              "resources/map/map2.txt",
+              "resources/map/map3.txt",
+              "resources/map/map4.txt",
               "resources/map/#005 Less is More.txt",
               "resources/map/#006 Up and Down.txt",
               "resources/map/#007 One Way.txt",

@@ -1,5 +1,6 @@
 package util;
 
+import constant.Direction;
 import javafx.scene.input.KeyEvent;
 import model.PacItem;
 import model.Score;
@@ -44,6 +45,8 @@ public enum GameManager {
 
   /** The current {@link GameController}. */
   private GameController gameController;
+
+  private Direction currentPacDirection;
 
   /** The current {@link GameStatus}. */
   private GameStatus gameStatus;
@@ -122,9 +125,9 @@ public enum GameManager {
    */
   public void loseGame() {
     if (getGameStatus() == GameStatus.START) {
-      endGame();
-      calculateScore();
-      navigateBack();
+//      endGame();
+//      calculateScore();
+//      navigateBack();
     }
   }
 
@@ -166,7 +169,7 @@ public enum GameManager {
     life.lose();
     score.lose(ghost.getValue());
     if (life.getRemaining() <= 0) {
-      MusicPlayer.INSTANCE.playDeath();
+      //MusicPlayer.INSTANCE.playDeath();
       loseGame();
     }
     updateUi();
@@ -179,10 +182,28 @@ public enum GameManager {
    */
   public void handlePacItemTouched(PacItem cookie) {
     cookie.eat();
-    MusicPlayer.INSTANCE.playChomp();
+//    MusicPlayer.INSTANCE.playChomp();
     score.gain(cookie.getValue());
     updateUi();
     checkWin();
+  }
+
+
+  private void adjustPacmanPosition(){
+    if(currentPacDirection != null){
+      if (currentPacDirection == Direction.RIGHT){
+        map.getPacman().setX((map.getPacman().getX())/ map.getMapConfig().getGridLength());
+      }
+      if (currentPacDirection == Direction.LEFT){
+        map.getPacman().setX((map.getPacman().getX())/ map.getMapConfig().getGridLength());
+      }
+      if (currentPacDirection == Direction.UP){
+        map.getPacman().setY((map.getPacman().getY() )/ map.getMapConfig().getGridLength());
+      }
+      if (currentPacDirection == Direction.DOWN){
+        map.getPacman().setY((map.getPacman().getY())/ map.getMapConfig().getGridLength());
+      }
+    }
   }
 
   /**
@@ -191,54 +212,67 @@ public enum GameManager {
    * @param event the {@link KeyEvent} happens when the key is pressed.
    */
   public void handleKeyPressed(KeyEvent event) {
+
+    Set<Grid> obstacles = (Set<Grid>) (Set<?>) map.getPacman().getParentMap().getWalls();
+
     if (gameStatus == GameStatus.END) {
       return;
     }
     switch (event.getCode()) {
-      case RIGHT:
-        startGame();
-        map.getPacman().moveRight.start();
+      case RIGHT: {
+        adjustPacmanPosition();
+        if (!map.getPacman().isGoingToTouchGrids(Direction.RIGHT, obstacles, map.getMapConfig().getGridLength())) {
+          startGame();
+          map.getPacman().moveDown.stop();
+          map.getPacman().moveRight.stop();
+          map.getPacman().moveLeft.stop();
+          map.getPacman().moveUp.stop();
+          map.getPacman().moveRight.start();
+        }
         break;
-      case LEFT:
-        startGame();
-        map.getPacman().moveLeft.start();
+      }
+      case LEFT: {
+        adjustPacmanPosition();
+        if (!map.getPacman().isGoingToTouchGrids(Direction.LEFT, obstacles, map.getMapConfig().getGridLength())) {
+          startGame();
+          map.getPacman().moveDown.stop();
+          map.getPacman().moveRight.stop();
+          map.getPacman().moveLeft.stop();
+          map.getPacman().moveUp.stop();
+          map.getPacman().moveLeft.start();
+        }
         break;
-      case UP:
-        startGame();
-        map.getPacman().moveUp.start();
+      }
+      case UP: {
+        adjustPacmanPosition();
+        if (!map.getPacman().isGoingToTouchGrids(Direction.UP, obstacles, map.getMapConfig().getGridLength())) {
+
+          startGame();
+          map.getPacman().moveDown.stop();
+          map.getPacman().moveRight.stop();
+          map.getPacman().moveLeft.stop();
+          map.getPacman().moveUp.stop();
+          map.getPacman().moveUp.start();
+        }
         break;
-      case DOWN:
-        startGame();
-        map.getPacman().moveDown.start();
+      }
+      case DOWN: {
+        adjustPacmanPosition();
+        if (!map.getPacman().isGoingToTouchGrids(Direction.DOWN, obstacles, map.getMapConfig().getGridLength())) {
+          startGame();
+          map.getPacman().moveDown.stop();
+          map.getPacman().moveRight.stop();
+          map.getPacman().moveLeft.stop();
+          map.getPacman().moveUp.stop();
+          map.getPacman().moveDown.start();
+        }
         break;
+      }
       case ESCAPE:
         pauseGame();
         break;
       default:
         startGame();
-    }
-  }
-
-  /**
-   * This method is called when any key is released.
-   *
-   * @param event the {@link KeyEvent} happens when the key is released.
-   */
-  public void handleKeyReleased(KeyEvent event) {
-    switch (event.getCode()) {
-      case RIGHT:
-        map.getPacman().moveRight.stop();
-        break;
-      case LEFT:
-        map.getPacman().moveLeft.stop();
-        break;
-      case UP:
-        map.getPacman().moveUp.stop();
-        break;
-      case DOWN:
-        map.getPacman().moveDown.stop();
-        break;
-      default:
     }
   }
 
@@ -288,16 +322,16 @@ public enum GameManager {
   /** Tests if all cookies are eaten. If true, calls {@link #winGame()}. */
   private void checkWin() {
     // check if all cookie is touched
-    boolean isAllEaten = true;
-    Set<PacItem> cookies = map.getPacItems();
-    for (PacItem cookie : cookies) {
-      if (cookie.isExisting()) {
-        isAllEaten = false;
-      }
-    }
-    if (isAllEaten) {
-      winGame();
-    }
+//    boolean isAllEaten = true;
+//    Set<PacItem> cookies = map.getPacItems();
+//    for (PacItem cookie : cookies) {
+//      if (cookie.isExisting()) {
+//        isAllEaten = false;
+//      }
+//    }
+//    if (isAllEaten) {
+//      winGame();
+//    }
   }
 
   /** Navigates back to the Select scene, and pops up the ScoreBoard stage at the same time. */
@@ -306,6 +340,5 @@ public enum GameManager {
     SceneSwitch.INSTANCE.switchToSelect();
 
     // popup score board
-    SceneSwitch.INSTANCE.popupScoreBoard(map.getMapConfig().getTitle());
   }
 }

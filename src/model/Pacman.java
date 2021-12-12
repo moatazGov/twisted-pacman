@@ -14,7 +14,6 @@ public class Pacman extends MovableGrid {
      */
     public Pacman(Map map, double row, double column) {
         super(map, row, column, MovableGridType.PACMAN);
-
         this.setImage(FileName.IMAGE_PACMAN);
     }
 

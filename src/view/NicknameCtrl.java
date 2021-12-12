@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.SceneSwitch;
 
 import java.io.IOException;
 
@@ -18,12 +19,7 @@ public class NicknameCtrl {
 
     @FXML
     private void startClicked(ActionEvent event) throws IOException {
-        // Open game screen
-        root = FXMLLoader.load(getClass().getResource("resources/fxml/game.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        SceneSwitch.INSTANCE.switchToGame();
     }
 
     @FXML

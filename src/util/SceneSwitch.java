@@ -50,7 +50,7 @@ public enum SceneSwitch {
   /**
    * Changes the scene in the primary stage to the given one.
    *
-   * @param scene a {@link Scene} object
+   * @param scene a {@link Scene} objeclpo,t
    */
   private void setScene(Scene scene) {
     Main.getPrimaryStage().setScene(scene);
@@ -61,7 +61,7 @@ public enum SceneSwitch {
     try {
 //      MusicPlayer.INSTANCE.playBeginning();
       hideStage();
-      URL location = Main.class.getResource("/resources/fxml/game.fxml");
+      URL location = Main.class.getResource("/resources/fxml/home-view.fxml");
       Pane root = FXMLLoader.load(location);
       Scene scene = new Scene(root);
       setScene(scene);
@@ -75,7 +75,7 @@ public enum SceneSwitch {
   /** Switched the current scene to Select. */
   public void switchToSelect() {
     try {
-      MusicPlayer.INSTANCE.playSetup();
+//      MusicPlayer.INSTANCE.playSetup();
       hideStage();
       Pane root = FXMLLoader.load(getClass().getResource(FileName.VIEW_SELECT));
       Scene scene = new Scene(root);
@@ -94,7 +94,7 @@ public enum SceneSwitch {
     try {
       Map map = new Map();
       map.setNickname("Unknown Player");
-      map.setFileName("/resources/pacman/map/#002 Easy Again?.txt");
+      map.setFileName("/resources/pacman/map/map2.txt");
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
       hideStage();
@@ -123,39 +123,15 @@ public enum SceneSwitch {
 
       gameScene.addEventHandler(
           KeyEvent.KEY_PRESSED, event -> GameManager.INSTANCE.handleKeyPressed(event));
-      gameScene.addEventHandler(
-          KeyEvent.KEY_RELEASED, event -> GameManager.INSTANCE.handleKeyReleased(event));
+//      gameScene.addEventHandler(
+//          KeyEvent.KEY_RELEASED, event -> GameManager.INSTANCE.handleKeyReleased(event));
       showStage();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  /**
-   * Switched the current scene to ScoreBoard.
-   *
-   * @param title the current title of this level
-   */
-  public void popupScoreBoard(String title) {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource(FileName.VIEW_SCOREBOARD));
-      Pane root = loader.load();
-      Scene scoreBoardScene = new Scene(root);
-      Stage popup = new Stage();
-      popup.setScene(scoreBoardScene);
-      popup.initModality(Modality.WINDOW_MODAL);
-      popup.initOwner(Main.getPrimaryStage().getScene().getWindow());
-      popup.setResizable(false);
-      popup.setTitle("Score Board");
 
-      ScoreBoardController scoreBoardController = loader.getController();
-      scoreBoardController.setTitle(title);
-      scoreBoardController.initUi();
-      popup.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
   public void exitApplication() {
     Platform.exit();

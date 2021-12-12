@@ -35,16 +35,16 @@ public class MapConfig {
   private double ghostPadding;
 
   /** The pacman step rate in this {@link Map} */
-  private double pacmanStepRate = 0.1;
+  private double pacmanStepRate = 0.05;
 
   /** The ghost step rate in this {@link Map} */
-  private double ghostStepRate = 0.1;
+  private double ghostStepRate = 0.03;
 
   /** The cookie padding rate in this {@link Map} */
   private double cookiePaddingRate = 0.3;
 
   /** The ghost padding rate in this {@link Map} */
-  private double ghostPaddingRate = 0.2;
+  private double ghostPaddingRate = 0.7;
 
   /**
    * Allocates a new {@link MapConfig} object.
@@ -52,7 +52,7 @@ public class MapConfig {
    * @param gridLength the grid length in this {@link Map}
    */
   public MapConfig(double gridLength) {
-    this.gridLength = gridLength;
+    this.gridLength = gridLength ;
     this.calculate();
   }
 

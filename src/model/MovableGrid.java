@@ -1,10 +1,12 @@
 package model;
 
+import com.sun.scenario.animation.AbstractMasterTimer;
 import constant.Direction;
 import constant.MovableGridType;
 import javafx.animation.AnimationTimer;
 
 import java.util.Set;
+import java.util.Timer;
 
 /**
  *
@@ -73,37 +75,45 @@ public abstract class MovableGrid extends Grid {
     return new AnimationTimer() {
       public void handle(long currentNanoTime) {
         Set<Grid> obstacles = (Set<Grid>) (Set<?>) MovableGrid.this.getParentMap().getWalls();
-
+        double length = MovableGrid.this.getParentMap().getMapConfig().getGridLength();
         switch (direction) {
           case RIGHT:
-            if (!MovableGrid.this.isGoingToTouchGrids(Direction.RIGHT, obstacles)) {
+            if (!MovableGrid.this.isGoingToTouchGrids(Direction.RIGHT, obstacles, length)) {
+              System.out.println("moving right");
               MovableGrid.this.setX(MovableGrid.this.getX() + step);
               MovableGrid.this.handleMove(Direction.RIGHT);
             } else {
+              System.out.println("cant move right");
               MovableGrid.this.handleCantMove(Direction.RIGHT);
             }
             break;
           case LEFT:
-            if (!MovableGrid.this.isGoingToTouchGrids(Direction.LEFT, obstacles)) {
+            if (!MovableGrid.this.isGoingToTouchGrids(Direction.LEFT, obstacles,length)) {
+              System.out.println("moving left");
               MovableGrid.this.setX(MovableGrid.this.getX() - step);
               MovableGrid.this.handleMove(Direction.LEFT);
             } else {
+              System.out.println("cant move left");
               MovableGrid.this.handleCantMove(Direction.LEFT);
             }
             break;
           case UP:
-            if (!MovableGrid.this.isGoingToTouchGrids(Direction.UP, obstacles)) {
+            if (!MovableGrid.this.isGoingToTouchGrids(Direction.UP, obstacles,length)) {
+              System.out.println("moving up");
               MovableGrid.this.setY(MovableGrid.this.getY() - step);
               MovableGrid.this.handleMove(Direction.UP);
             } else {
+              System.out.println("cant move up");
               MovableGrid.this.handleCantMove(Direction.UP);
             }
             break;
           case DOWN:
-            if (!MovableGrid.this.isGoingToTouchGrids(Direction.DOWN, obstacles)) {
+            if (!MovableGrid.this.isGoingToTouchGrids(Direction.DOWN, obstacles,length)) {
+              System.out.println("moving down");
               MovableGrid.this.setY(MovableGrid.this.getY() + step);
               MovableGrid.this.handleMove(Direction.DOWN);
             } else {
+              System.out.println("cant move down");
               MovableGrid.this.handleCantMove(Direction.DOWN);
             }
             break;
@@ -159,7 +169,7 @@ public abstract class MovableGrid extends Grid {
    * @return {@code true} if this {@link MovableGrid} is going to touch a set of another given
    *     {@link Grid}; {@code false} otherwise
    */
-  public boolean isGoingToTouchGrids(Direction direction, Set<Grid> grids, double padding) {
+  public boolean isGoingToTouchGrids(Direction direction, Set<Grid> grids, double padding, double gridLength) {
     // calculate next step based on direction
     double nextX = getX();
     double nextY = getY();
@@ -178,18 +188,7 @@ public abstract class MovableGrid extends Grid {
         break;
       default:
     }
-
-    // check if the next step is beyond screen
-    //    if (nextX < 0
-    //        || nextY < 0
-    //        || nextX + getParentMap().getMapConfig().getGridLength() + step > MapResolution.WIDTH
-    //        || nextY + getParentMap().getMapConfig().getGridLength() + step >
-    // MapResolution.HEIGHT) {
-    //      return true;
-    //    }
-
     // generate a mock grid at the next step
-    double gridLength = getParentMap().getMapConfig().getGridLength();
     Grid nextPositionGrid = new Grid(getParentMap(), nextX / gridLength, nextY / gridLength);
     nextPositionGrid.setX(nextX);
     nextPositionGrid.setY(nextY);
@@ -207,7 +206,6 @@ public abstract class MovableGrid extends Grid {
   /**
    * Tests if this {@link MovableGrid} is going to touch a set of another given {@link Grid}.
    *
-   * <p>This method does the same thing as what {@link #isGoingToTouchGrids(Direction, Set, double)}
    * does. But with the third parameter {@code padding} being {@code 1} (which is a recommended
    * minimal value).
    *
@@ -216,8 +214,8 @@ public abstract class MovableGrid extends Grid {
    * @return {@code true} if this {@link MovableGrid} is going to touch a set of another given *
    *     {@link Grid}; {@code false} otherwise
    */
-  public boolean isGoingToTouchGrids(Direction direction, Set<Grid> grids) {
-    return isGoingToTouchGrids(direction, grids, 1); // padding = 1 for the error
+  public boolean isGoingToTouchGrids(Direction direction, Set<Grid> grids, double gridLength) {
+    return isGoingToTouchGrids(direction, grids, 1, gridLength); // padding = 1 for the error
   }
 
   /**

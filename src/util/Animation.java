@@ -39,7 +39,7 @@ public class Animation {
     Timeline timelineX =
         new Timeline(
             new KeyFrame(
-                Duration.seconds(0.1),
+                Duration.seconds(0.5),
                 t -> {
                   if (stageX == 0) {
                     Main.getPrimaryStage().setX(Main.getPrimaryStage().getX() + 10);
@@ -58,7 +58,7 @@ public class Animation {
     Timeline timelineY =
         new Timeline(
             new KeyFrame(
-                Duration.seconds(0.1),
+                Duration.seconds(0.5),
                 t -> {
                   if (stageY == 0) {
                     Main.getPrimaryStage().setY(Main.getPrimaryStage().getY() + 10);
