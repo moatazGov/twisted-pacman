@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="TwistedPacman">
+    <output-path>$PROJECT_DIR$/out/artifacts/TwistedPacman</output-path>
+    <root id="root">
+      <element id="library" level="project" name="json-simple-1.1.1" />
+      <element id="archive" name="twisted-pacman.jar">
+        <element id="module-output" name="twisted-pacman" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/resources/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

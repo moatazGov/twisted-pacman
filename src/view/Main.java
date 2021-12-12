@@ -64,6 +64,8 @@ public class Main extends Application {
         primaryStage.setTitle("Pacman");
 
         // set up start scene
-        SceneSwitch.INSTANCE.switchToGame();
+
+        SceneSwitch.INSTANCE.switchToHome()
+//        SceneSwitch.INSTANCE.switchToGame();
     }
 }
