@@ -79,41 +79,33 @@ public abstract class MovableGrid extends Grid {
         switch (direction) {
           case RIGHT:
             if (!MovableGrid.this.isGoingToTouchGrids(Direction.RIGHT, obstacles, length)) {
-              System.out.println("moving right");
               MovableGrid.this.setX(MovableGrid.this.getX() + step);
               MovableGrid.this.handleMove(Direction.RIGHT);
             } else {
-              System.out.println("cant move right");
               MovableGrid.this.handleCantMove(Direction.RIGHT);
             }
             break;
           case LEFT:
             if (!MovableGrid.this.isGoingToTouchGrids(Direction.LEFT, obstacles,length)) {
-              System.out.println("moving left");
               MovableGrid.this.setX(MovableGrid.this.getX() - step);
               MovableGrid.this.handleMove(Direction.LEFT);
             } else {
-              System.out.println("cant move left");
               MovableGrid.this.handleCantMove(Direction.LEFT);
             }
             break;
           case UP:
             if (!MovableGrid.this.isGoingToTouchGrids(Direction.UP, obstacles,length)) {
-              System.out.println("moving up");
               MovableGrid.this.setY(MovableGrid.this.getY() - step);
               MovableGrid.this.handleMove(Direction.UP);
             } else {
-              System.out.println("cant move up");
               MovableGrid.this.handleCantMove(Direction.UP);
             }
             break;
           case DOWN:
             if (!MovableGrid.this.isGoingToTouchGrids(Direction.DOWN, obstacles,length)) {
-              System.out.println("moving down");
               MovableGrid.this.setY(MovableGrid.this.getY() + step);
               MovableGrid.this.handleMove(Direction.DOWN);
             } else {
-              System.out.println("cant move down");
               MovableGrid.this.handleCantMove(Direction.DOWN);
             }
             break;
@@ -139,11 +131,15 @@ public abstract class MovableGrid extends Grid {
           // send to another portal
           setX(portal.getTwinPortal().getX());
           setY(portal.getTwinPortal().getY());
-
           // close portal
           portal.getTwinPortal().close();
+        }else{
+          System.out.println("here");
         }
         return;
+      }else{
+        System.out.println("there");
+
       }
     }
 

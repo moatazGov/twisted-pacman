@@ -1,5 +1,7 @@
 package model;
 
+import sun.misc.InnocuousThread;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -50,8 +52,9 @@ public class Score implements Serializable {
      *
      * @param value an integer to be added to the {@link #value}.
      */
-    public void gain(int value) {
+    public Integer gain(int value) {
         this.value += value;
+        return this.value;
     }
 
     /**

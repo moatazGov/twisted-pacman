@@ -19,7 +19,7 @@ public class NicknameCtrl {
 
     @FXML
     private void startClicked(ActionEvent event) throws IOException {
-        SceneSwitch.INSTANCE.switchToGame();
+        SceneSwitch.INSTANCE.switchToGameLevelZero();
     }
 
     @FXML

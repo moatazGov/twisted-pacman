@@ -38,7 +38,7 @@ public class MapConfig {
   private double pacmanStepRate = 0.05;
 
   /** The ghost step rate in this {@link Map} */
-  private double ghostStepRate = 0.03;
+  private double ghostStepRate = 0.01;
 
   /** The cookie padding rate in this {@link Map} */
   private double cookiePaddingRate = 0.3;
@@ -54,6 +54,16 @@ public class MapConfig {
   public MapConfig(double gridLength) {
     this.gridLength = gridLength ;
     this.calculate();
+  }
+
+
+  /**
+   * Gets pacman step rate.
+   *
+   * @return the pacman step rate
+   */
+  public double getPacmanStepRate() {
+    return pacmanStepRate;
   }
 
   /** Updates all configuration based on the given ones. */

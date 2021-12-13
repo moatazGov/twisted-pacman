@@ -203,6 +203,34 @@ public class MapReader {
   }
 
   /**
+   * Tests if a given string letter represents a {@link PacItem}.
+   *
+   * <p>{@code #} - a {@link PacItem}.
+   *
+   * @param grid a string letter representing a grid
+   * @return {@code true} if the given string letter represents a {@link PacItem}; {@code false}
+   *     otherwise
+   */
+  private boolean isPacItemGrid(String grid) {
+    return grid.equals(".");
+  }
+
+  /**
+   * Tests if a given string letter represents a {@link Question}.
+   *
+   * <p>{@code #} - a {@link Question}.
+   *
+   * @param grid a string letter representing a grid
+   * @return {@code true} if the given string letter represents a {@link Question}; {@code false}
+   *     otherwise
+   */
+  private boolean isQuestionGrid(String grid) {
+    return grid.equals("o");
+  }
+
+
+
+  /**
    * Tests if a given string letter represents a {@link Portal} A.
    *
    * <p>{@code <} - a {@link Portal} A.
@@ -386,8 +414,8 @@ public class MapReader {
         spawn = new Spawn(map, gridCount, lineCount);
       }
 
-      // cookie
-      if (isPacmanGrid(grid)) {
+      // pacitem
+      if (isPacItemGrid(grid)) {
         PacItem pacItem = new PacItem(map, gridCount, lineCount, getPacItemScore(grid));
         pacItems.add(pacItem);
       }

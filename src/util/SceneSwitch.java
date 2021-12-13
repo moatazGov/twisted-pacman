@@ -36,7 +36,13 @@ import java.net.URL;
 public enum SceneSwitch {
   /** The shared instance for global use. */
   INSTANCE;
-
+  Map map;
+  Pane mapPane;
+  Canvas canvas;
+  URL location;
+  FXMLLoader loader;
+  Pane root;
+  Scene gameScene;
   /** Hides the primary stage. */
   private void hideStage() {
     Main.getPrimaryStage().hide();
@@ -90,11 +96,11 @@ public enum SceneSwitch {
    * Switched the current scene to Game.
    *
    */
-  public void switchToGame() {
+  public void switchToGameLevelZero() {
     try {
-      Map map = new Map();
+      map = new Map();
       map.setNickname("Unknown Player");
-      map.setFileName("/resources/pacman/map/map2.txt");
+      map.setFileName("/resources/pacman/map/map1.txt");
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
       hideStage();
@@ -104,8 +110,8 @@ public enum SceneSwitch {
       Scene gameScene = new Scene(root);
       setScene(gameScene);
 
-      Pane mapPane = (Pane) gameScene.lookup("#map");
-      Canvas canvas = new Canvas();
+       mapPane = (Pane) gameScene.lookup("#map");
+       canvas = new Canvas();
       mapPane.getChildren().add(canvas);
       map.draw(mapPane);
       mapPane.setStyle(
@@ -131,6 +137,34 @@ public enum SceneSwitch {
     }
   }
 
+  /**
+   * Switched the current scene to Game.
+   *
+   */
+  public void switchToGameLevelOne() {
+    try {
+//      map = new Map();
+//      map.setNickname("Unknown Player");
+//      map.setFileName("/resources/pacman/map/map2.txt");
+//      map.setBackgroundFileName("/resources/image/floor/bedrock.png");
+//      map.setWallFileName("/resources/image/obstacle/bricks.png");
+
+      map.addPortalsToScreen(mapPane);
+//      mapPane.setStyle(
+//              "-fx-background-image: url('"
+//                      + map.getBackgroundFileName()
+//                      + "');"
+//                      + "-fx-background-size: "
+//                      + map.getMapConfig().getGridLength()
+//                      + "px "
+//                      + map.getMapConfig().getGridLength()
+//                      + "px;");
+
+      showStage();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
 
   public void exitApplication() {
