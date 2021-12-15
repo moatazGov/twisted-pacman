@@ -1,6 +1,6 @@
 package model;
 
-import com.sun.tools.javac.util.List;
+//import com.sun.tools.javac.util.List;
 import constant.PortalType;
 import javafx.scene.layout.Pane;
 import util.MapConfig;
@@ -211,7 +211,8 @@ public class Map {
       portal_2.setTwinPortal(portal_1);
       portal_1.setTwinPortal(portal_2);
 //    portal_3.setTwinPortal(portal_2);
-      portals.addAll(List.of(portal_1, portal_2));
+      portals.add(portal_1);
+      portals.add(portal_2);
       MapPainter mapPainter = new MapPainter(root);
 //      mapPainter.drawWalls(walls);
       mapPainter.drawPortals(portals);
