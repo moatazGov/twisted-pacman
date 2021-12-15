@@ -110,7 +110,7 @@ public abstract class MovableGrid extends Grid {
             }
             break;
         }
-
+  checkIfTouchingPortal();
       }
     };
   }
@@ -190,7 +190,7 @@ public abstract class MovableGrid extends Grid {
 
     // check if the mock grid overlaps any obstacle
     for (Grid grid : grids) {
-      if (grid.isTouching(nextPositionGrid, padding)) {
+      if (grid.isTouching(nextPositionGrid, padding) && grid instanceof Wall) {
         return true;
       }
     }
@@ -235,7 +235,6 @@ public abstract class MovableGrid extends Grid {
    * @see Ghost#handleCantMove(Direction)
    */
   public void handleCantMove(Direction direction) {
-    checkIfTouchingPortal();
 
   }
 }

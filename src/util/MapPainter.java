@@ -15,10 +15,7 @@ public class MapPainter {
     this.root = root;
   }
 
-
-  public void drawWalls(Set<Wall> walls) {
-    root.getChildren().addAll(walls);
-  }
+  public void drawWalls(Set<Wall> walls) { root.getChildren().addAll(walls); }
 
   public void drawPacman(Pacman pacman) {
     root.getChildren().add(pacman);
