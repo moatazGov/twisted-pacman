@@ -21,7 +21,6 @@ public class Portal extends Grid {
    */
   public Portal(Map map, double row, double column, PortalType portalType) {
     super(map, row, column);
-
     // set image
     switch (portalType) {
       case A:
@@ -33,7 +32,6 @@ public class Portal extends Grid {
       default:
         setImage(FileName.IMAGE_PORTAL_A);
     }
-
     // init status
     isOpen = true;
   }
@@ -52,9 +50,7 @@ public class Portal extends Grid {
    *
    * @param portal the twin of this {@link Portal}
    */
-  public void setTwinPortal(Portal portal) {
-    this.twinPortal = portal;
-  }
+  public void setTwinPortal(Portal portal) {this.twinPortal = portal;}
 
   /** Closes this {@link Portal}. */
   public void close() {

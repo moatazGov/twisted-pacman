@@ -20,6 +20,7 @@ public class PacItem extends Grid {
      */
     public PacItem(Map map, double row, double column, int value) {
         super(map, row, column);
+        this.setImage(FileName.IMAGE_COOKIE_BIG);
         this.value = 1;
     }
 

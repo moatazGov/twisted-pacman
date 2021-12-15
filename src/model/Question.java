@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * The type Question.
  */
-public class Question {
+public class Question  {
     private String id;
     private String question;
     private ArrayList<String> answers;

@@ -111,7 +111,6 @@ public abstract class MovableGrid extends Grid {
             break;
         }
 
-        checkIfTouchingPortal();
       }
     };
   }
@@ -235,5 +234,8 @@ public abstract class MovableGrid extends Grid {
    * @param direction the current direction of moving
    * @see Ghost#handleCantMove(Direction)
    */
-  public void handleCantMove(Direction direction) {}
+  public void handleCantMove(Direction direction) {
+    checkIfTouchingPortal();
+
+  }
 }
