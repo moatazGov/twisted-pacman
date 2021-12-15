@@ -1,14 +1,11 @@
 package util;
 
-import controller.ScoreBoardController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import view.Main;
 import constant.FileName;
 import view.GameController;
@@ -143,23 +140,8 @@ public enum SceneSwitch {
    */
   public void switchToGameLevelOne() {
     try {
-//      map = new Map();
-//      map.setNickname("Unknown Player");
-//      map.setFileName("/resources/pacman/map/map2.txt");
-//      map.setBackgroundFileName("/resources/image/floor/bedrock.png");
-//      map.setWallFileName("/resources/image/obstacle/bricks.png");
-
       map.addPortalsToScreen(mapPane);
-//      mapPane.setStyle(
-//              "-fx-background-image: url('"
-//                      + map.getBackgroundFileName()
-//                      + "');"
-//                      + "-fx-background-size: "
-//                      + map.getMapConfig().getGridLength()
-//                      + "px "
-//                      + map.getMapConfig().getGridLength()
-//                      + "px;");
-
+//      map.getMapConfig().setGhostStepRate(map.getMapConfig().getPacmanStepRate() * 19);
       showStage();
     } catch (Exception e) {
       e.printStackTrace();

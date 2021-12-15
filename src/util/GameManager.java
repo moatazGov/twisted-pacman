@@ -232,7 +232,6 @@ public enum GameManager {
         }
         switch (event.getCode()) {
             case RIGHT: {
-                adjustPacmanPosition();
                 if (!map.getPacman().isGoingToTouchGrids(Direction.RIGHT, obstacles, map.getMapConfig().getGridLength())) {
                     startGame();
                     map.getPacman().moveDown.stop();
@@ -244,7 +243,6 @@ public enum GameManager {
                 break;
             }
             case LEFT: {
-                adjustPacmanPosition();
                 if (!map.getPacman().isGoingToTouchGrids(Direction.LEFT, obstacles, map.getMapConfig().getGridLength())) {
                     startGame();
                     map.getPacman().moveDown.stop();
@@ -256,7 +254,6 @@ public enum GameManager {
                 break;
             }
             case UP: {
-                adjustPacmanPosition();
                 if (!map.getPacman().isGoingToTouchGrids(Direction.UP, obstacles, map.getMapConfig().getGridLength())) {
 
                     startGame();
@@ -269,7 +266,6 @@ public enum GameManager {
                 break;
             }
             case DOWN: {
-                adjustPacmanPosition();
                 if (!map.getPacman().isGoingToTouchGrids(Direction.DOWN, obstacles, map.getMapConfig().getGridLength())) {
                     startGame();
                     map.getPacman().moveDown.stop();
