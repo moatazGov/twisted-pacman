@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Difficulty;
+import model.Level;
 import model.Question;
 import model.SysData;
 
@@ -64,11 +65,12 @@ public class AddCtrl implements Initializable{
         try{
             ArrayList<Question> current = SysData.getInstance().getQuestions();
             current.add(new Question(
-                    UUID.randomUUID().toString(),
+//                    UUID.randomUUID().toString(),
                     questionText.getText(),
                     new ArrayList<String>(Arrays.asList(secondAnswer.getText(), thirdAnswer.getText(), fourthAnswer.getText())),
                     firstAnswer.getText(),
-                    (Difficulty) difficultyGroup.getUserData()
+                    (Level) difficultyGroup.getUserData(),
+                    "Hawk"
                     ));
             SysData.getInstance().setQuestions(current);
             SysData.getInstance().save();
@@ -88,9 +90,9 @@ public class AddCtrl implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // grouping radio buttons together, in order to choose only one at a time.
-        easyRadio.setUserData(Difficulty.EASY);
-        mediumRadio.setUserData(Difficulty.MEDIUM);
-        hardRadio.setUserData(Difficulty.HARD);
+        easyRadio.setUserData(Level.EASY);
+        mediumRadio.setUserData(Level.MEDIUM);
+        hardRadio.setUserData(Level.HARD);
 
         easyRadio.setToggleGroup(difficultyGroup);
         mediumRadio.setToggleGroup(difficultyGroup);

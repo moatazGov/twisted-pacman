@@ -14,7 +14,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 public class Alerts {
@@ -62,7 +61,7 @@ public class Alerts {
 
     }
 
-    public static void generateUpdateQuestionAlert(Question quesetion) {
+    public static void generateUpdateQuestionAlert(Question question) {
         Dialog dialog = new Dialog<>();
         dialog.setTitle("Update Question ");
         dialog.setResizable(true);
@@ -72,13 +71,13 @@ public class Alerts {
         Label answer2Lbl = new Label("answer 1: ");
         Label answer3Lbl = new Label("answer 2: ");
         Label answer4Lbl = new Label("answer 3: ");
-        TextField questionText = new TextField(quesetion.getQuestion());
-        TextField answer1Text = new TextField(quesetion.getCorrectAnswer());
-        quesetion.getAnswers().remove(quesetion.getCorrectAnswer());
-        TextField answer2Text = new TextField(quesetion.getAnswers().get(0));
-        TextField answer3Text = new TextField(quesetion.getAnswers().get(1));
-        TextField answer4Text = new TextField(quesetion.getAnswers().get(2));
-        quesetion.getAnswers().add(quesetion.getCorrectAnswer());
+        TextField questionText = new TextField(question.getQuestion());
+        TextField answer1Text = new TextField(question.getCorrect_ans());
+        question.getAnswers().remove(question.getCorrect_ans());
+        TextField answer2Text = new TextField(question.getAnswers().get(0));
+        TextField answer3Text = new TextField(question.getAnswers().get(1));
+        TextField answer4Text = new TextField(question.getAnswers().get(2));
+        question.getAnswers().add(question.getCorrect_ans());
 
         ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -89,12 +88,12 @@ public class Alerts {
                 SysData sysData = new SysData();
                 sysData.load();
                 if (b == buttonTypeOk) {
-                    Question newQuestion = new Question(quesetion.getId(), questionText.getText(),
+                    Question newQuestion = new Question(questionText.getText(),
                             new ArrayList(Arrays.asList(answer1Text.getText(), answer2Text.getText(), answer3Text.getText(), answer4Text.getText())),
-                            answer1Text.getText(), quesetion.getDifficulty());
+                            answer1Text.getText(), question.getLevel(), "Hawk");
                     ArrayList<Question> currentQuestions = SysData.getInstance().getQuestions();
-                    Integer oldIndex = currentQuestions.indexOf(quesetion);
-                    currentQuestions.remove(quesetion);
+                    Integer oldIndex = currentQuestions.indexOf(question);
+                    currentQuestions.remove(question);
                     currentQuestions.add(oldIndex, newQuestion);
                     sysData.setQuestions(currentQuestions);
                     sysData.save();
