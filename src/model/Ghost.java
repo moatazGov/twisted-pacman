@@ -229,7 +229,6 @@ public class Ghost extends MovableGrid implements Runnable {
      * @return the value of {@link Score} of this {@link Ghost}
      */
     public int getValue() {
-        // TODO: 2018-12-12
         //  This value should be changeable according to map configuration in a map file, but need to
         //  figure out a better way to make the configuration.
         return 5;

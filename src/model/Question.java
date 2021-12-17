@@ -10,7 +10,9 @@ import java.util.Objects;
 /**
  * The type Question.
  */
-public class Question  {
+
+
+public class Question {
     private String id;
     private String question;
     private ArrayList<String> answers;
@@ -26,6 +28,8 @@ public class Question  {
      * @param correctAnswer the correct answer
      * @param difficulty    the difficulty
      */
+
+
     public Question(String id, String question, ArrayList<String> answers, String correctAnswer, Difficulty difficulty) {
         this.id = id;
         this.question = question;
