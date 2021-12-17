@@ -10,39 +10,38 @@ import java.util.Objects;
 /**
  * The type Question.
  */
-
-
-public class Question {
-    private String id;
+public class Question  {
+//    private String id;
     private String question;
     private ArrayList<String> answers;
-    private String correctAnswer;
-    private Difficulty difficulty;
+    private String correct_ans;
+    private Level level;
+    private String team;
 
     /**
      * Instantiates a new Question with the given parameters.
      *
-     * @param id            the id
+//     * @param id            the id
      * @param question      the question
      * @param answers       the answers
-     * @param correctAnswer the correct answer
-     * @param difficulty    the difficulty
+     * @param correct_ans the correct answer
+     * @param level         the level
      */
-
-
-    public Question(String id, String question, ArrayList<String> answers, String correctAnswer, Difficulty difficulty) {
-        this.id = id;
+    public Question( String question, ArrayList<String> answers, String correct_ans, Level level, String team) {
+//        this.id = id;
         this.question = question;
         this.answers = answers;
-        this.correctAnswer = correctAnswer;
-        this.difficulty = difficulty;
+        this.correct_ans = correct_ans;
+        this.level = level;
+        this.team = team;
     }
 
-    public Question(String id, String question, String correctAnswer, Difficulty difficulty) {
-        this.id = id;
+    public Question( String question, String correct_ans, Level level, String team) {
+//        this.id = id;
         this.question = question;
-        this.correctAnswer = correctAnswer;
-        this.difficulty = difficulty;
+        this.correct_ans = correct_ans;
+        this.level = level;
+        this.team = team;
     }
 
     /**
@@ -52,18 +51,18 @@ public class Question {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Question)) return false;
-        Question question = (Question) o;
-        return getId().equals(question.getId());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Question)) return false;
+//        Question question = (Question) o;
+//        return getId().equals(question.getId());
+//    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId());
+//    }
 
     public void fromJson(JSONObject obj) {
         JSONArray answers1 = (JSONArray) obj.get("answers");
@@ -72,19 +71,17 @@ public class Question {
         for (Object answer : answers1) {
             answersList.add(((String) answer));
         }
-        id = obj.get("id").toString();
         question = obj.get("question").toString();
-        correctAnswer = obj.get("correctAnswer").toString();
-        difficulty = obj.get("difficulty").toString() == "hard" ? Difficulty.HARD : obj.get("difficulty").toString() == "easy" ? Difficulty.EASY : Difficulty.MEDIUM;
+        correct_ans = obj.get("correct_ans").toString();
+        level = obj.get("level").toString().equals("3") ? Level.HARD : obj.get("level").toString().equals("1") ? Level.EASY : Level.MEDIUM;
         answers = answersList;
     }
 
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
-        obj.put("id", id);
         obj.put("question", question);
-        obj.put("correctAnswer", correctAnswer);
-        obj.put("difficulty", difficulty == Difficulty.EASY ? "easy" : difficulty == Difficulty.HARD ? "hard" : "medium");
+        obj.put("correct_ans", correct_ans);
+        obj.put("level", level == Level.EASY ? "1" : level == Level.HARD ? "3" : "2");
         obj.put("answers", answers);
         return obj;
     }
@@ -94,18 +91,18 @@ public class Question {
      *
      * @return the id
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    /**
+//     * Sets id.
+//     *
+//     * @param id the id
+//     */
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     /**
      * Gets question.
@@ -148,34 +145,52 @@ public class Question {
      *
      * @return the correct answer
      */
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public String getCorrect_ans() {
+        return correct_ans;
     }
 
     /**
      * Sets correct answer.
      *
-     * @param correctAnswer the correct answer
+     * @param correct_ans the correct answer
      */
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrect_ans(String correct_ans) {
+        this.correct_ans = correct_ans;
     }
 
     /**
-     * Gets difficulty.
+     * Gets level.
      *
-     * @return the difficulty
+     * @return the level
      */
-    public Difficulty getDifficulty() {
-        return difficulty;
+    public Level getLevel() {
+        return level;
     }
 
     /**
-     * Sets difficulty.
+     * Sets level.
      *
-     * @param difficulty the difficulty
+     * @param level the level
      */
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    /**
+     * Gets team.
+     *
+     * @return the team
+     */
+    public String getTeam() {
+        return team;
+    }
+
+    /**
+     * Sets team.
+     *
+     * @param team the team
+     */
+    public void setTeam(String team) {
+        this.team = team;
     }
 }

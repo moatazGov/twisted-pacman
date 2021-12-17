@@ -93,8 +93,8 @@ public class SysData {
      */
     public boolean load() {
         try {
-            games = loadGamesJson();
-            players = loadPlayersJson();
+//            games = loadGamesJson();
+//            players = loadPlayersJson();
             questions = loadQuestionsJson();
             return true;
         } catch (Exception e) {
@@ -203,6 +203,7 @@ public class SysData {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<Question> questions = new ArrayList<>();
+
         try (FileReader reader = new FileReader("src/resources/json/questions.json")) {
             Object obj = jsonParser.parse(reader);
             JSONArray questionsList = (JSONArray) ((JSONObject) obj).get("questions");
@@ -222,28 +223,28 @@ public class SysData {
 
     }
 
-    private ArrayList loadPlayersJson() {
-        //JSON parser object to parse read file
-        JSONParser jsonParser = new JSONParser();
-        ArrayList<String> players = new ArrayList<>();
-        try (FileReader reader = new FileReader("src/resources/json/mairs.json")) {
-            //Read JSON file
-            Object obj = jsonParser.parse(reader);
-
-            JSONArray questionsList = (JSONArray) obj;
-            for (Object player : questionsList) {
-                players.add(String.valueOf(((JSONObject) player).get("nickName")));
-            }
-            System.out.println(questionsList);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return questions;
-    }
+//    private ArrayList loadPlayersJson() {
+//        //JSON parser object to parse read file
+//        JSONParser jsonParser = new JSONParser();
+//        ArrayList<String> players = new ArrayList<>();
+//        try (FileReader reader = new FileReader("src/resources/json/BANANA.json")) {
+//            //Read JSON file
+//            Object obj = jsonParser.parse(reader);
+//
+//            JSONArray questionsList = (JSONArray) obj;
+//            for (Object player : questionsList) {
+//                players.add(String.valueOf(((JSONObject) player).get("nickName")));
+//            }
+//            System.out.println(questionsList);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return questions;
+//    }
 
     private boolean savePlayers() {
         //Write JSON file
