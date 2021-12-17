@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.scenario.animation.AbstractMasterTimer;
 import constant.Direction;
 import constant.MovableGridType;
 import javafx.animation.AnimationTimer;
