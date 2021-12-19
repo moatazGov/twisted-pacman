@@ -59,4 +59,7 @@ public class GameController {
     this.scoreCount.setText(Integer.toString(scoreCount));
   }
 
+  public Text getScoreCount() {
+    return scoreCount;
+  }
 }

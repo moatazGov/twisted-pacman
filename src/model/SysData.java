@@ -295,6 +295,4 @@ public class SysData {
             return false;
         }
     }
-
-
 }

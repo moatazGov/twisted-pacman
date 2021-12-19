@@ -128,6 +128,7 @@ public enum SceneSwitch {
 
       GameController gameController = loader.getController();
       GameManager.INSTANCE.init(map, gameController);
+      gameController.setTitle("level - 1 ");
 
       gameScene.addEventHandler(
           KeyEvent.KEY_PRESSED, event -> GameManager.INSTANCE.handleKeyPressed(event));
