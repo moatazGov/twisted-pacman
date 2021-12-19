@@ -58,6 +58,9 @@ public class FileName {
   public static final String IMAGE_COOKIE_SMALL = "/resources/image/cookie/cookie1.png";
   public static final String IMAGE_COOKIE_MEDIUM = "/resources/image/cookie/cookie5.png";
   public static final String IMAGE_COOKIE_BIG = "/resources/image/cookie/cookie10.png";
+  public static final String IMAGE_BOMB = "/resources/images/bomb.png";
+  public static final String IMAGE_ANGRYPAC = "/resources/image/angryPac.png";
+
   public static final Set<String> IMAGE_GHOSTS =
       new HashSet<>(
           Arrays.asList(

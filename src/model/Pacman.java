@@ -9,12 +9,37 @@ import util.GameManager;
  */
 public class Pacman extends MovableGrid {
 
+    private int bombCount = 0;
+
+
     /**
      *     from 0
+     *     Pacman starts in his position.
+     *     Pacman has normal color and doesn't have a bomb.
      */
     public Pacman(Map map, double row, double column) {
         super(map, row, column, MovableGridType.PACMAN);
         this.setImage(FileName.IMAGE_PACMAN);
+
+    }
+
+
+    /**
+     * Gets bombCount.
+     *
+     * @return the bombCount
+     */
+    public int getBombCount() {
+        return bombCount;
+    }
+
+    /**
+     * Sets bombCount.
+     *
+     * @param bombCount the question
+     */
+    public void setBombCount(int bombCount) {
+        this.bombCount = bombCount;
     }
 
     /**
@@ -38,7 +63,11 @@ public class Pacman extends MovableGrid {
             default:
         }
         checkTouchingCookies();
+        checkTouchingBomb();
+        checkHoldingBomb();
+
     }
+
 
     /**
      */
@@ -49,6 +78,29 @@ public class Pacman extends MovableGrid {
                 GameManager.INSTANCE.handlePacItemTouched(cookie);
                 return;
             }
+        }
+    }
+
+    /**
+     * if pacman touches a bomb he takes it and changes color.
+     */
+    private void checkTouchingBomb() {
+        for (BombItem bomb : getParentMap().getBombItems()) {
+            if (bomb.isExisting()
+                    && isTouching(bomb, getParentMap().getMapConfig().getBombPadding())) {
+                GameManager.INSTANCE.handleBombItemTouched(bomb);
+                bombCount++;
+                return;
+            }
+        }
+    }
+
+    private void checkHoldingBomb(){
+        if(bombCount > 0){
+            this.setImage(FileName.IMAGE_ANGRYPAC);
+        }
+        else{
+            this.setImage(FileName.IMAGE_PACMAN);
         }
     }
 }

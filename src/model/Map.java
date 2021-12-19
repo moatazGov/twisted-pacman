@@ -30,6 +30,7 @@ public class Map {
 
   private Set<Wall> walls;
   private Set<PacItem> pacItems;
+  private Set<BombItem> bombItems;
 
   private Set<QuestionGrid>questionGrids; //TODO
   private Set<Question> questions; // TODO a Set to Store Questions
@@ -73,6 +74,10 @@ public class Map {
 
   public Set<PacItem> getPacItems() {
     return pacItems;
+  }
+
+  public Set<BombItem> getBombItems() {
+    return bombItems;
   }
 
   public Set<Question> getQuestions(){ return questions;} // TODO getter for Questions
@@ -186,6 +191,7 @@ public class Map {
     mapReader.readFileForMap();
     walls = mapReader.getWalls();
     pacItems = mapReader.getPacItems();
+    bombItems = mapReader.getBombItems();
     pacman = mapReader.getPacman();
     ghosts = mapReader.getGhosts();
     spawn = mapReader.getSpawn();
@@ -211,6 +217,7 @@ public class Map {
     MapPainter mapPainter = new MapPainter(root);
     mapPainter.drawWalls(walls);
     mapPainter.drawCookies(pacItems);
+    mapPainter.drawBombs(bombItems);
     mapPainter.drawPacman(pacman);
     mapPainter.drawGhost(ghosts);
     mapPainter.drawQuestion(questions); //TODO
