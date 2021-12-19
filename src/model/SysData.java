@@ -188,7 +188,6 @@ public class SysData {
                 newGame.fromJson((JSONObject) game);
                 games.add(newGame);
             }
-            System.out.println(gamesList);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -234,7 +233,6 @@ public class SysData {
             for (Object player : questionsList) {
                 players.add(String.valueOf(((JSONObject) player).get("nickName")));
             }
-            System.out.println(questionsList);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
