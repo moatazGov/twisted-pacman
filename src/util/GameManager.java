@@ -365,6 +365,7 @@ public enum GameManager {
     private void updateUi() {
         gameController.setLifeCount(life.getRemaining(), life.getTotal());
         gameController.setScoreCount(score.getValue());
+//        gameController.setBombCount((map.getPacman().getBombCount()));
     }
 
     /**

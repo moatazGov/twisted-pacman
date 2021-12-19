@@ -2,6 +2,7 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import model.Map;
 
 /**
  *
@@ -17,6 +18,11 @@ import javafx.scene.text.Text;
 public class GameController {
 
   /**
+   * current playing map.
+   */
+  Map map;
+
+  /**
    * The title shown on the screen.
    */
   @FXML private Text title;
@@ -30,6 +36,11 @@ public class GameController {
    * The count of score shown on the screen.
    */
   @FXML private Text scoreCount;
+
+  /**
+   * The count of the bombs that the pacman is currently holding.
+   */
+//  @FXML private Text bombCount;
 
   /**
    * Changes the title shown on the screen.
@@ -62,4 +73,11 @@ public class GameController {
   public Text getScoreCount() {
     return scoreCount;
   }
+
+//  @FXML
+//  public void setBombCount(int bombCount) {this.bombCount.setText((Integer.toString(map.getPacman().getBombCount())));}
+//
+//  public Text getBombCount(){
+//      return bombCount;
+//  }
 }
