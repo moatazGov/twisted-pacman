@@ -51,6 +51,21 @@ public class Question  {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question1 = (Question) o;
+        return Objects.equals(question, question1.question) &&
+                Objects.equals(answers, question1.answers) &&
+                Objects.equals(correct_ans, question1.correct_ans) &&
+                level == question1.level;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, answers, correct_ans, level);
+    }
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;

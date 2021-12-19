@@ -4,6 +4,7 @@ import constant.Direction;
 import constant.GameLevel;
 import constant.GameStatus;
 import constant.PortalType;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import model.*;
 import view.GameController;
@@ -128,8 +129,16 @@ public enum GameManager {
      * GameStatus#PAUSE}.
      */
     public void pauseGame() {
+        if(gameStatus == GameStatus.PAUSE)
+        {
+            SceneSwitch.INSTANCE.returnToGame();
+        }
+
         freezeGhosts();
+        map.getPacman().freeze();
+        SceneSwitch.INSTANCE.switchToPause();
         gameStatus = GameStatus.PAUSE;
+
     }
 
     /**
@@ -316,6 +325,7 @@ public enum GameManager {
             }
             case ESCAPE:
                 pauseGame();
+
                 break;
             default:
                 startGame();

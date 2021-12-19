@@ -12,6 +12,7 @@ public class GameData {
     private Integer score;
 
     public GameData(Integer id, String nickName, Integer score) {
+       this.id = id;
         this.nickName = nickName;
         this.score = score;
 

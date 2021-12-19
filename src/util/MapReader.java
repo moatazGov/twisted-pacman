@@ -454,9 +454,9 @@ public class MapReader {
 
       }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
         //question TODO oday
-=======
+//=======
       // bombitem
       if (isBombGrid(grid)) {
         BombItem bombItem = new BombItem(map, gridCount, lineCount);
@@ -464,7 +464,7 @@ public class MapReader {
       }
 
         //question TODO
->>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
+//>>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
         if(isQuestionGrid(grid)){
 
             ArrayList<Question> questions = SysData.getInstance().getQuestions(); // getting the JSON arraylist from SysData

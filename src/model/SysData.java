@@ -93,7 +93,7 @@ public class SysData {
      */
     public boolean load() {
         try {
-//            games = loadGamesJson();
+          games = loadGamesJson();
 //            players = loadPlayersJson();
             questions = loadQuestionsJson();
             return true;
@@ -198,7 +198,7 @@ public class SysData {
         return games;
     }
 
-    private ArrayList loadQuestionsJson() {
+    public ArrayList loadQuestionsJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<Question> questions = new ArrayList<>();
@@ -246,7 +246,7 @@ public class SysData {
 //        return questions;
 //    }
 
-    private boolean savePlayers() {
+    public boolean savePlayers() {
         //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/employees.json")) {
             //We can write any JSONArray or JSONObject instance to the file
@@ -261,12 +261,17 @@ public class SysData {
         return true;
     }
 
-    private boolean saveGames() {
+    public boolean saveGames() {
 //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/games.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
-            json.put("games", games);
+            JSONArray jsonGames = new JSONArray();
+            for(GameData game: games)
+            {
+                jsonGames.add(game.toJson());
+            }
+            json.put("games", jsonGames);
             file.write(json.toJSONString());
             file.flush();
             return true;
@@ -277,7 +282,7 @@ public class SysData {
         }
     }
 
-    private boolean saveQuestions() {
+    public boolean saveQuestions() {
         //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/questions.json")) {
             //We can write any JSONArray or JSONObject instance to the file
