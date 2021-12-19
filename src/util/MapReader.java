@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.lang.Math;
+import model.PacItem;
+import controller.FactoryQuestionGrid;
 
 public class MapReader {
   int index = 0;
@@ -444,11 +447,16 @@ public class MapReader {
       }
 
       // pacitem
-      if (isPacItemGrid(grid)) {
+      if (isPacItemGrid(grid)) { //TODO
         PacItem pacItem = new PacItem(map, gridCount, lineCount, getPacItemScore(grid));
         pacItems.add(pacItem);
+       // ArrayList <PacItem> itemList= ArrayList <PacItem> ();
+
       }
 
+<<<<<<< HEAD
+        //question TODO oday
+=======
       // bombitem
       if (isBombGrid(grid)) {
         BombItem bombItem = new BombItem(map, gridCount, lineCount);
@@ -456,12 +464,14 @@ public class MapReader {
       }
 
         //question TODO
+>>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
         if(isQuestionGrid(grid)){
 
             ArrayList<Question> questions = SysData.getInstance().getQuestions(); // getting the JSON arraylist from SysData
             Question currentQuestion = questions.get(index%questions.size());
             index++;
-            QuestionGrid questionGrid= new QuestionGrid(map,gridCount, lineCount, currentQuestion);
+            FactoryQuestionGrid factoryQuestionGrid = new FactoryQuestionGrid();
+            QuestionGrid questionGrid = factoryQuestionGrid.getQuestionGrid(map,gridCount, lineCount, currentQuestion);
             this.questions.add(currentQuestion);
           getQuestionsGrids().add(questionGrid); //TODO
         }

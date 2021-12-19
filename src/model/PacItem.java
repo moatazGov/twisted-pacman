@@ -1,10 +1,16 @@
 package model;
 
 import constant.FileName;
+<<<<<<< HEAD
+import java.util.concurrent.ThreadLocalRandom;
+import model.Map;
+import model.QuestionGrid;
+=======
 import java.util.Timer;
 import java.util.TimerTask;
 
 
+>>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
 /**
  *
  *
@@ -26,12 +32,23 @@ public class PacItem extends Grid {
 
     /**
      */
-    public PacItem(Map map, double row, double column, int value) {
+    public PacItem(Map map, double row, double column, int value) { // TODO
         super(map, row, column);
         this.setImage(FileName.IMAGE_COOKIE_BIG);
         this.value = 1;
+//        double rowNumber = ThreadLocalRandom.current().nextDouble(0, row);
+//        double columnNumber = ThreadLocalRandom.current().nextDouble(0, column);
+//        randChange(rowNumber,columnNumber,this);
     }
 
+
+//        public void randChange(double Row,double Column,PacItem pacItem ){ //TODO
+//
+//        pacItem.setVisible(false);
+//
+//       // QuestionGrid questiuonGrid= new QuestionGrid(double row, double column, Question question);
+//
+//        }
     /**
      */
     public int getValue() {
