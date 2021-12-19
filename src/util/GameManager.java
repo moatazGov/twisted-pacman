@@ -9,6 +9,8 @@ import model.*;
 import view.GameController;
 
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Predicate;
 
 /**
@@ -279,25 +281,35 @@ public enum GameManager {
                 break;
             }
             case SPACE: {
-                if(map.getPacman().getBombCount() > 0){
+                if (map.getPacman().getBombCount() > 0) {
+
                     double gridLen = map.getMapConfig().getGridLength();
+                    Timer timer = new Timer();
+
+
                     System.out.println("Pac got a bomb and hes not afraid to use it");
-                    map.getPacman().setBombCount(map.getPacman().getBombCount()-1);
+                    map.getPacman().setBombCount(map.getPacman().getBombCount() - 1);
 //                    Set<Ghost> ghosts = map.getGhosts();
-                    for(Ghost g : map.getGhosts()){
-                        if(((g.getX() <= (map.getPacman().getX() + 3*gridLen)) && (g.getX() >= (map.getPacman().getX() - 3*gridLen))) && ((g.getY() <= (map.getPacman().getY() + 3*gridLen)) && (g.getY() >= (map.getPacman().getY() - 3*gridLen)))){
-                                g.setVisible(false);
-
-                                g.freeze();
-                                System.out.println("****************************************************************");
-                                System.out.println("GHOST EXPLODED");
-                                System.out.println("****************************************************************");
-
+                    for (Ghost g : map.getGhosts()) {
+                        if (((g.getX() <= (map.getPacman().getX() + 3 * gridLen))
+                                && (g.getX() >= (map.getPacman().getX() - 3 * gridLen)))
+                                && ((g.getY() <= (map.getPacman().getY() + 3 * gridLen))
+                                && (g.getY() >= (map.getPacman().getY() - 3 * gridLen)))) {
+                            g.setVisible(false);
+                            g.freeze();
+                            g.setIsAlive(false);
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    g.setIsAlive(true);
+                                    g.setVisible(true);
+                                    g.run();
+                                }
+                            }, 5 * 1000);
                         }
                     }
 
-                }
-                else{
+                } else {
                     System.out.println("no bomb attack him");
                 }
                 break;
@@ -383,24 +395,24 @@ public enum GameManager {
         checkLevelChange(currentScore);
     }
 
-  /**
-   * adds portals to the sides of the screen.
-   */
-  private void addPortalsToScreen(){
-      // a predicate that returns true if the wall is in the position the the portal should be in
-      Predicate<Wall> isPortal = w -> ((w.getX() == 6 && w.getY() == 23)|| (w.getX() == 6 && w.getY() == 0));
-      map.getWalls().removeIf(isPortal);
+    /**
+     * adds portals to the sides of the screen.
+     */
+    private void addPortalsToScreen() {
+        // a predicate that returns true if the wall is in the position the the portal should be in
+        Predicate<Wall> isPortal = w -> ((w.getX() == 6 && w.getY() == 23) || (w.getX() == 6 && w.getY() == 0));
+        map.getWalls().removeIf(isPortal);
 
-      // add the walls to the map
-      map.getPortals().add(new Portal(map, 6, 23, PortalType.A));
-      map.getPortals().add(new Portal(map, 6, 0, PortalType.B));
-  }
+        // add the walls to the map
+        map.getPortals().add(new Portal(map, 6, 23, PortalType.A));
+        map.getPortals().add(new Portal(map, 6, 0, PortalType.B));
+    }
 
 
     /**
      * increases the speed of the pacman.
      */
-    private void increasePacmanSpeed(){
+    private void increasePacmanSpeed() {
         map.getMapConfig().setPacmanStepRate(2 * map.getMapConfig().getPacmanStepRate());
     }
 

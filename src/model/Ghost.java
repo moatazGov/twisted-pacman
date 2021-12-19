@@ -39,6 +39,12 @@ public class Ghost extends MovableGrid implements Runnable {
     private int timeWalked;
 
     /**
+     * isAlive parameter checks if the ghost is alive or has been "killed" by the pacman.
+     *
+     */
+    private Boolean isAlive = true;
+
+    /**
      * Allocates a new {@link Ghost} object.
      *
      * <p>This constructor sets the {@link Ghost} in the given position of the given {@link Map}, sets
@@ -64,6 +70,24 @@ public class Ghost extends MovableGrid implements Runnable {
 
         // set initial direction
         this.direction = Direction.UP;
+    }
+
+    /**
+     * Gets isAlive.
+     *
+     * @return the isAlive
+     */
+    public Boolean getIsAlive() {
+        return isAlive;
+    }
+
+    /**
+     * Sets isAlive.
+     *
+     * @param isAlive either true or false, depends on the ghost's status
+     */
+    public void setIsAlive(Boolean isAlive) {
+        this.isAlive = isAlive;
     }
 
     /**
@@ -164,11 +188,16 @@ public class Ghost extends MovableGrid implements Runnable {
      * GameManager#handleGhostTouched(Ghost)}.
      */
     private void checkTouchingPacman() {
-        if (getParentMap()
-                .getPacman()
-                .isTouching(this, getParentMap().getMapConfig().getGhostPadding())) {
-            GameManager.INSTANCE.handleGhostTouched(this);
+        if(this.isAlive) {
+            if (getParentMap()
+                    .getPacman()
+                    .isTouching(this, getParentMap().getMapConfig().getGhostPadding())) {
+                GameManager.INSTANCE.handleGhostTouched(this);
+            }
         }
+//        else{
+//
+//        }
     }
 
     /**
