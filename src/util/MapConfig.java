@@ -38,7 +38,7 @@ public class MapConfig {
   private double pacmanStepRate = 0.05;
 
   /** The ghost step rate in this {@link Map} */
-  private double ghostStepRate = 0.01;
+  private double ghostStepRate = 0.06;
 
   /** The cookie padding rate in this {@link Map} */
   private double cookiePaddingRate = 0.3;

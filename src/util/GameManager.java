@@ -340,15 +340,7 @@ public enum GameManager {
      * Tests if all cookies are eaten. If true, calls {@link #winGame()}.
      */
     private void checkWin(Integer currentScore) {
-        // check if all cookie is touched
-        boolean isAllEaten = true;
-        Set<PacItem> cookies = map.getPacItems();
-        for (PacItem cookie : cookies) {
-            if (cookie.isExisting()) {
-                isAllEaten = false;
-            }
-        }
-        if (isAllEaten) {
+        if (Integer.parseInt(gameController.getScoreCount().getText())>=200) {
             winGame();
         }
         checkLevelChange(currentScore);
@@ -386,6 +378,7 @@ public enum GameManager {
         if (currentScore >= 10 && currentLevel == GameLevel.ZERO) {
             currentLevel = GameLevel.PASSED_ONE;
             SceneSwitch.INSTANCE.switchToGameLevelOne();
+            gameController.setTitle("level - 2 ");
             return true;
         }
 
@@ -393,6 +386,7 @@ public enum GameManager {
             currentLevel = GameLevel.PASSED_TWO;
             // remove portals from the screen
             SceneSwitch.INSTANCE.switchToGameLevelTwo();
+            gameController.setTitle("level - 3 ");
             return true;
 
             // increase pacman's speed
@@ -401,6 +395,7 @@ public enum GameManager {
         if (currentScore >= 30 && currentLevel == GameLevel.PASSED_TWO) {
             currentLevel = GameLevel.PASSED_THREE;
             SceneSwitch.INSTANCE.switchToGameLevelThree();
+            gameController.setTitle("level - 4 ");
             return true;
 
             // increase ghosts speed
