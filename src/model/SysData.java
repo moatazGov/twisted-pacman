@@ -188,7 +188,6 @@ public class SysData {
                 newGame.fromJson((JSONObject) game);
                 games.add(newGame);
             }
-            System.out.println(gamesList);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -222,6 +221,7 @@ public class SysData {
         return questions;
 
     }
+
 
 //    private ArrayList loadPlayersJson() {
 //        //JSON parser object to parse read file
@@ -295,6 +295,4 @@ public class SysData {
             return false;
         }
     }
-
-
 }

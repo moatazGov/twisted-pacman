@@ -1,9 +1,16 @@
 package model;
 
 import constant.FileName;
+<<<<<<< HEAD
 import java.util.concurrent.ThreadLocalRandom;
 import model.Map;
 import model.QuestionGrid;
+=======
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+>>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
 /**
  *
  *
@@ -17,6 +24,11 @@ public class PacItem extends Grid {
 
     /** The value of {@link Score} of this cookie. */
     private int value;
+
+    /**
+     * a timer to make the cookies reappear after 30 seconds
+     */
+    Timer timer = new Timer();
 
     /**
      */
@@ -50,6 +62,12 @@ public class PacItem extends Grid {
      */
     public void eat() {
         setVisible(false);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        }, 30*1000);
     }
 
     /**

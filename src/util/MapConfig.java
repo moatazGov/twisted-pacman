@@ -31,6 +31,9 @@ public class MapConfig {
   /** The cookie padding in this {@link Map} */
   private double cookiePadding;
 
+  /** The bomb padding in this {@link Map} */
+  private double bombPadding;
+
   /** The ghost padding in this {@link Map} */
   private double ghostPadding;
 
@@ -38,10 +41,13 @@ public class MapConfig {
   private double pacmanStepRate = 0.05;
 
   /** The ghost step rate in this {@link Map} */
-  private double ghostStepRate = 0.01;
+  private double ghostStepRate = 0.06;
 
   /** The cookie padding rate in this {@link Map} */
   private double cookiePaddingRate = 0.3;
+
+  /** The bomb padding rate in this {@link Map} */
+  private double bombPaddingRate = 0.3;
 
   /** The ghost padding rate in this {@link Map} */
   private double ghostPaddingRate = 0.7;
@@ -76,7 +82,7 @@ public class MapConfig {
 
   /** Updates the pacman step. */
   private void updatePacmanStep() {
-    pacmanStep = gridLength * pacmanStepRate;
+     pacmanStep = gridLength * pacmanStepRate;
   }
 
   /** Updates the ghost step. */
@@ -87,6 +93,11 @@ public class MapConfig {
   /** Updates the cookie padding. */
   private void updateCookiePadding() {
     cookiePadding = gridLength * cookiePaddingRate;
+  }
+
+  /** Updates the bomb padding. */
+  private void updateBOmbPadding() {
+    bombPadding = gridLength * bombPaddingRate;
   }
 
   /** Updates the ghost padding. */
@@ -101,6 +112,15 @@ public class MapConfig {
    */
   public double getCookiePadding() {
     return cookiePadding;
+  }
+
+  /**
+   * Returns the bomb padding in this {@link Map}.
+   *
+   * @return the bomb padding in this {@link Map}
+   */
+  public double getBombPadding() {
+    return bombPadding;
   }
 
   /**
@@ -186,6 +206,11 @@ public class MapConfig {
     updateGhostStep();
   }
 
+
+  public double getGhostStepRate() {
+    return ghostStepRate;
+  }
+
   /**
    * Changes the ghost padding in this {@link Map}, and updates the ghost padding.
    *
@@ -198,7 +223,6 @@ public class MapConfig {
 
   /**
    * Changes the cookie padding in this {@link Map}, and updates the cookie padding.
-   *
    * @param cookiePadding the cookie padding in this {@link Map}
    */
   public void setCookiePaddingRate(double cookiePadding) {

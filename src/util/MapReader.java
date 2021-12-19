@@ -42,6 +42,9 @@ public class MapReader {
   /** The {@link PacItem} set in the map. */
   private Set<PacItem> pacItems;
 
+  /** The {@link BombItem} set in the map. */
+  private Set<BombItem> bombItems;
+
   /** The {@link Ghost} set in the map. */
   private Set<Ghost> ghosts;
 
@@ -74,6 +77,7 @@ public class MapReader {
     this.gridCount = 0;
     this.walls = new HashSet<>();
     this.pacItems = new HashSet<PacItem>();
+    this.bombItems = new HashSet<BombItem>();
     this.ghosts = new HashSet<>();
     this.mapConfig = new MapConfig(50);
     this.questions=new HashSet<Question>();
@@ -113,6 +117,10 @@ public class MapReader {
 
   public Set<PacItem> getPacItems() {
     return pacItems;
+  }
+
+  public Set<BombItem> getBombItems() {
+    return bombItems;
   }
 
   public Set<QuestionGrid> getQuestionsGrids(){return questionsGrids;}
@@ -241,7 +249,18 @@ public class MapReader {
     return grid.equals("?");
   }
 
-
+  /**
+   * Tests if a given string letter represents a {@link BombItem}.
+   *
+   * <p>{@code $} - a {@link BombItem}.
+   *
+   * @param grid a string letter representing a grid
+   * @return {@code true} if the given string letter represents a {@link BombItem}; {@code false}
+   *     otherwise
+   */
+  private boolean isBombGrid(String grid) {
+    return grid.equals("$");
+  }
 
   /**
    * Tests if a given string letter represents a {@link Portal} A.
@@ -435,7 +454,17 @@ public class MapReader {
 
       }
 
+<<<<<<< HEAD
         //question TODO oday
+=======
+      // bombitem
+      if (isBombGrid(grid)) {
+        BombItem bombItem = new BombItem(map, gridCount, lineCount);
+        bombItems.add(bombItem);
+      }
+
+        //question TODO
+>>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
         if(isQuestionGrid(grid)){
 
             ArrayList<Question> questions = SysData.getInstance().getQuestions(); // getting the JSON arraylist from SysData

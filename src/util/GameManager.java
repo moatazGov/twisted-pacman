@@ -9,6 +9,8 @@ import model.*;
 import view.GameController;
 
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Predicate;
 
 /**
@@ -200,6 +202,11 @@ public enum GameManager {
         updateUi();
     }
 
+    public void handleBombItemTouched(BombItem bomb) {
+        bomb.eat();
+//    MusicPlayer.INSTANCE.playChomp();
+        updateUi();
+    }
 
     private void adjustPacmanPosition() {
         if (currentPacDirection != null) {
@@ -224,9 +231,7 @@ public enum GameManager {
      * @param event the {@link KeyEvent} happens when the key is pressed.
      */
     public void handleKeyPressed(KeyEvent event) {
-
         Set<Grid> obstacles = (Set<Grid>) (Set<?>) map.getPacman().getParentMap().getWalls();
-
         if (gameStatus == GameStatus.END) {
             return;
         }
@@ -255,7 +260,6 @@ public enum GameManager {
             }
             case UP: {
                 if (!map.getPacman().isGoingToTouchGrids(Direction.UP, obstacles, map.getMapConfig().getGridLength())) {
-
                     startGame();
                     map.getPacman().moveDown.stop();
                     map.getPacman().moveRight.stop();
@@ -273,6 +277,40 @@ public enum GameManager {
                     map.getPacman().moveLeft.stop();
                     map.getPacman().moveUp.stop();
                     map.getPacman().moveDown.start();
+                }
+                break;
+            }
+            case SPACE: {
+                if (map.getPacman().getBombCount() > 0) {
+
+                    double gridLen = map.getMapConfig().getGridLength();
+                    Timer timer = new Timer();
+
+
+                    System.out.println("Pac got a bomb and hes not afraid to use it");
+                    map.getPacman().setBombCount(map.getPacman().getBombCount() - 1);
+//                    Set<Ghost> ghosts = map.getGhosts();
+                    for (Ghost g : map.getGhosts()) {
+                        if (((g.getX() <= (map.getPacman().getX() + 3 * gridLen))
+                                && (g.getX() >= (map.getPacman().getX() - 3 * gridLen)))
+                                && ((g.getY() <= (map.getPacman().getY() + 3 * gridLen))
+                                && (g.getY() >= (map.getPacman().getY() - 3 * gridLen)))) {
+                            g.setVisible(false);
+                            g.freeze();
+                            g.setIsAlive(false);
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    g.setIsAlive(true);
+                                    g.setVisible(true);
+                                    g.run();
+                                }
+                            }, 5 * 1000);
+                        }
+                    }
+
+                } else {
+                    System.out.println("no bomb attack him");
                 }
                 break;
             }
@@ -343,38 +381,30 @@ public enum GameManager {
      * Tests if all cookies are eaten. If true, calls {@link #winGame()}.
      */
     private void checkWin(Integer currentScore) {
-        // check if all cookie is touched
-        boolean isAllEaten = true;
-        Set<PacItem> cookies = map.getPacItems();
-        for (PacItem cookie : cookies) {
-            if (cookie.isExisting()) {
-                isAllEaten = false;
-            }
-        }
-        if (isAllEaten) {
+        if (Integer.parseInt(gameController.getScoreCount().getText())>=200) {
             winGame();
         }
         checkLevelChange(currentScore);
     }
 
-  /**
-   * adds portals to the sides of the screen.
-   */
-  private void addPortalsToScreen(){
-      // a predicate that returns true if the wall is in the position the the portal should be in
-      Predicate<Wall> isPortal = w -> ((w.getX() == 6 && w.getY() == 23)|| (w.getX() == 6 && w.getY() == 0));
-      map.getWalls().removeIf(isPortal);
+    /**
+     * adds portals to the sides of the screen.
+     */
+    private void addPortalsToScreen() {
+        // a predicate that returns true if the wall is in the position the the portal should be in
+        Predicate<Wall> isPortal = w -> ((w.getX() == 6 && w.getY() == 23) || (w.getX() == 6 && w.getY() == 0));
+        map.getWalls().removeIf(isPortal);
 
-      // add the walls to the map
-      map.getPortals().add(new Portal(map, 6, 23, PortalType.A));
-      map.getPortals().add(new Portal(map, 6, 0, PortalType.B));
-  }
+        // add the walls to the map
+        map.getPortals().add(new Portal(map, 6, 23, PortalType.A));
+        map.getPortals().add(new Portal(map, 6, 0, PortalType.B));
+    }
 
 
     /**
      * increases the speed of the pacman.
      */
-    private void increasePacmanSpeed(){
+    private void increasePacmanSpeed() {
         map.getMapConfig().setPacmanStepRate(2 * map.getMapConfig().getPacmanStepRate());
     }
 
@@ -389,18 +419,25 @@ public enum GameManager {
         if (currentScore >= 10 && currentLevel == GameLevel.ZERO) {
             currentLevel = GameLevel.PASSED_ONE;
             SceneSwitch.INSTANCE.switchToGameLevelOne();
+            gameController.setTitle("level - 2 ");
             return true;
         }
 
-        if (currentScore >= 15 && currentLevel == GameLevel.PASSED_ONE) {
+        if (currentScore >= 20 && currentLevel == GameLevel.PASSED_ONE) {
             currentLevel = GameLevel.PASSED_TWO;
             // remove portals from the screen
+            SceneSwitch.INSTANCE.switchToGameLevelTwo();
+            gameController.setTitle("level - 3 ");
+            return true;
 
             // increase pacman's speed
 
         }
-        if (currentScore >= 15 && currentLevel == GameLevel.PASSED_TWO) {
+        if (currentScore >= 30 && currentLevel == GameLevel.PASSED_TWO) {
             currentLevel = GameLevel.PASSED_THREE;
+            SceneSwitch.INSTANCE.switchToGameLevelThree();
+            gameController.setTitle("level - 4 ");
+            return true;
 
             // increase ghosts speed
         }
