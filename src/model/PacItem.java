@@ -1,16 +1,11 @@
 package model;
 
 import constant.FileName;
-<<<<<<< HEAD
-import java.util.concurrent.ThreadLocalRandom;
-import model.Map;
-import model.QuestionGrid;
-=======
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 
->>>>>>> 7567b3983df02cb9c2b9aea6c19feaad5be995b2
 /**
  *
  *
