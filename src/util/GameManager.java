@@ -200,6 +200,11 @@ public enum GameManager {
         updateUi();
     }
 
+    public void handleBombItemTouched(BombItem bomb) {
+        bomb.eat();
+//    MusicPlayer.INSTANCE.playChomp();
+        updateUi();
+    }
 
     private void adjustPacmanPosition() {
         if (currentPacDirection != null) {
@@ -270,6 +275,30 @@ public enum GameManager {
                     map.getPacman().moveLeft.stop();
                     map.getPacman().moveUp.stop();
                     map.getPacman().moveDown.start();
+                }
+                break;
+            }
+            case SPACE: {
+                if(map.getPacman().getBombCount() > 0){
+                    double gridLen = map.getMapConfig().getGridLength();
+                    System.out.println("Pac got a bomb and hes not afraid to use it");
+                    map.getPacman().setBombCount(map.getPacman().getBombCount()-1);
+//                    Set<Ghost> ghosts = map.getGhosts();
+                    for(Ghost g : map.getGhosts()){
+                        if(((g.getX() <= (map.getPacman().getX() + 3*gridLen)) && (g.getX() >= (map.getPacman().getX() - 3*gridLen))) && ((g.getY() <= (map.getPacman().getY() + 3*gridLen)) && (g.getY() >= (map.getPacman().getY() - 3*gridLen)))){
+                                g.setVisible(false);
+
+                                g.freeze();
+                                System.out.println("****************************************************************");
+                                System.out.println("GHOST EXPLODED");
+                                System.out.println("****************************************************************");
+
+                        }
+                    }
+
+                }
+                else{
+                    System.out.println("no bomb attack him");
                 }
                 break;
             }

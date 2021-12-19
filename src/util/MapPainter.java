@@ -18,8 +18,17 @@ public class MapPainter {
     root.getChildren().add(pacman);
   }
 
+  public void drawAngryPacman(Pacman pacman) {
+    root.getChildren().add(pacman);
+  }
+
+
   public void drawCookies(Set<PacItem> cookies) {
     root.getChildren().addAll(cookies);
+  }
+
+  public void drawBombs(Set<BombItem> bombs) {
+    root.getChildren().addAll(bombs);
   }
 
   public void drawGhost(Set<Ghost> ghosts) {

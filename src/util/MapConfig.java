@@ -31,6 +31,9 @@ public class MapConfig {
   /** The cookie padding in this {@link Map} */
   private double cookiePadding;
 
+  /** The bomb padding in this {@link Map} */
+  private double bombPadding;
+
   /** The ghost padding in this {@link Map} */
   private double ghostPadding;
 
@@ -42,6 +45,9 @@ public class MapConfig {
 
   /** The cookie padding rate in this {@link Map} */
   private double cookiePaddingRate = 0.3;
+
+  /** The bomb padding rate in this {@link Map} */
+  private double bombPaddingRate = 0.3;
 
   /** The ghost padding rate in this {@link Map} */
   private double ghostPaddingRate = 0.7;
@@ -89,6 +95,11 @@ public class MapConfig {
     cookiePadding = gridLength * cookiePaddingRate;
   }
 
+  /** Updates the bomb padding. */
+  private void updateBOmbPadding() {
+    bombPadding = gridLength * bombPaddingRate;
+  }
+
   /** Updates the ghost padding. */
   private void updateGhostPadding() {
     ghostPadding = gridLength * ghostPaddingRate;
@@ -101,6 +112,15 @@ public class MapConfig {
    */
   public double getCookiePadding() {
     return cookiePadding;
+  }
+
+  /**
+   * Returns the bomb padding in this {@link Map}.
+   *
+   * @return the bomb padding in this {@link Map}
+   */
+  public double getBombPadding() {
+    return bombPadding;
   }
 
   /**
