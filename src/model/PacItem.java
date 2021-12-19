@@ -1,6 +1,9 @@
 package model;
 
 import constant.FileName;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  *
@@ -15,6 +18,11 @@ public class PacItem extends Grid {
 
     /** The value of {@link Score} of this cookie. */
     private int value;
+
+    /**
+     * a timer to make the cookies reappear after 30 seconds
+     */
+    Timer timer = new Timer();
 
     /**
      */
@@ -37,6 +45,12 @@ public class PacItem extends Grid {
      */
     public void eat() {
         setVisible(false);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        }, 30*1000);
     }
 
     /**

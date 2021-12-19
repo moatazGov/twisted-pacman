@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.Difficulty;
+import model.Level;
 import model.Question;
 import model.SysData;
 
@@ -37,19 +37,15 @@ public class QuestionsAdminCtrl implements Initializable {
     Stage stage;
     Scene scene;
 
-    private final ObservableList<Question> tvObservableList = FXCollections.observableArrayList();
-
 
     @FXML
     private TableView<Question> questionsTbl;
     @FXML
     private TableColumn<Question, String> colAns;
-    //    @FXML
-//    private TableColumn<Question, Void> colBtns;
     @FXML
-    private TableColumn<Question, Difficulty> colDiff;
-    @FXML
-    private TableColumn<Question, String> colID;
+    private TableColumn<Question, Level> colDiff;
+//    @FXML
+//    private TableColumn<Question, String> colID;
     @FXML
     private TableColumn<Question, String> colQues;
 
@@ -58,10 +54,10 @@ public class QuestionsAdminCtrl implements Initializable {
     }
 
     private void createTable() {
-        colID.setCellValueFactory(new PropertyValueFactory<Question, String>("id"));
+//        colID.setCellValueFactory(new PropertyValueFactory<Question, String>("id"));
         colQues.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
-        colAns.setCellValueFactory(new PropertyValueFactory<Question, String>("correctAnswer"));
-        colDiff.setCellValueFactory(new PropertyValueFactory<Question, Difficulty>("difficulty"));
+        colAns.setCellValueFactory(new PropertyValueFactory<Question, String>("correct_ans"));
+        colDiff.setCellValueFactory(new PropertyValueFactory<Question, Level>("level"));
         questionsTbl.setItems(questions);
     }
 
@@ -74,7 +70,7 @@ public class QuestionsAdminCtrl implements Initializable {
         questions.addAll(questionsData);
         createTable();
 
-        if (questionsTbl.getColumns().size() == 4) {
+        if (questionsTbl.getColumns().size() == 3) {
             // prevent unnecessary columns from being created?
             TableColumn<Question, Void> deleteCol = new TableColumn<Question, Void>("Action");
             deleteCol.setPrefWidth(80);
@@ -114,7 +110,7 @@ public class QuestionsAdminCtrl implements Initializable {
                                 sysData.setQuestions(questionsData);
                                 sysData.save();
                                 Alerts.generateSuccessAlert("Operation Successfully",
-                                        "Question removed successffully !", "");
+                                        "Question removed successfully !", "");
                             });
                         }
 

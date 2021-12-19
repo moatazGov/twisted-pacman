@@ -103,6 +103,7 @@ public enum SceneSwitch {
       map.setFileName("/resources/pacman/map/map1.txt");
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
+//      map.setQuestionGridFileName("/resources/image/med_ques.png");
       hideStage();
       URL location = Main.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);

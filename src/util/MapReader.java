@@ -10,11 +10,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class MapReader {
+  int index = 0;
 
   /** The filename of the map file. */
   private String fileName;
@@ -39,6 +41,10 @@ public class MapReader {
 
   /** The {@link Ghost} set in the map. */
   private Set<Ghost> ghosts;
+
+  private Set<Question>questions;
+
+  private Set<QuestionGrid>questionsGrids;
 
   /** The {@link Pacman} in the map. */
   private Pacman pacman;
@@ -67,7 +73,8 @@ public class MapReader {
     this.pacItems = new HashSet<PacItem>();
     this.ghosts = new HashSet<>();
     this.mapConfig = new MapConfig(50);
-
+    this.questions=new HashSet<Question>();
+    this.questionsGrids=new HashSet<QuestionGrid>();
     // set title
     String title = fileName.substring(fileName.lastIndexOf("/") + 1); // remove path
     title = title.substring(0, title.lastIndexOf(".")); // remove type suffix
@@ -105,6 +112,9 @@ public class MapReader {
     return pacItems;
   }
 
+  public Set<QuestionGrid> getQuestionsGrids(){return questionsGrids;}
+
+  public Set<Question> getQuestions(){ return questions;}
   /**
    * Returns the {@link Spawn} in this {@link Map}.
    *
@@ -225,7 +235,7 @@ public class MapReader {
    *     otherwise
    */
   private boolean isQuestionGrid(String grid) {
-    return grid.equals("o");
+    return grid.equals("?");
   }
 
 
@@ -420,6 +430,16 @@ public class MapReader {
         pacItems.add(pacItem);
       }
 
+        //question TODO
+        if(isQuestionGrid(grid)){
+
+            ArrayList<Question> questions = SysData.getInstance().getQuestions(); // getting the JSON arraylist from SysData
+            Question currentQuestion = questions.get(index%questions.size());
+            index++;
+            QuestionGrid questionGrid= new QuestionGrid(map,gridCount, lineCount, currentQuestion);
+            this.questions.add(currentQuestion);
+          getQuestionsGrids().add(questionGrid); //TODO
+        }
       // ghost
       if (isGhostGrid(grid)) {
         Ghost ghost = new Ghost(map, gridCount, lineCount);

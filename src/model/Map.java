@@ -22,11 +22,17 @@ public class Map {
   /** The filename of the walls. */
   private String wallFileName;
 
+//  /** The filename of the Question Grid */
+//  private String questGridFileName; //TODO
+
   /** The configuration object of this {@link Map}. */
   private MapConfig mapConfig;
 
   private Set<Wall> walls;
   private Set<PacItem> pacItems;
+
+  private Set<QuestionGrid>questionGrids; //TODO
+  private Set<Question> questions; // TODO a Set to Store Questions
   /** The {@link Ghost} set in this {@link Map}. */
   private Set<Ghost> ghosts;
   /** The {@link Pacman} in this {@link Map}. */
@@ -69,7 +75,9 @@ public class Map {
     return pacItems;
   }
 
+  public Set<Question> getQuestions(){ return questions;} // TODO getter for Questions
 
+  public Set<QuestionGrid> getQuestionsGrid(){ return questionGrids;}// TODO
   /**
    * Returns the {@link Portal} set in this {@link Map}.
    *
@@ -142,6 +150,8 @@ public class Map {
     return wallFileName;
   }
 
+
+
   /**
    * Changes the filename of the walls.
    *
@@ -151,6 +161,13 @@ public class Map {
     this.wallFileName = wallFileName;
   }
 
+//  //TODO what the fuck did i do here
+//  public String getQuestionGridFileName(){
+//    return questGridFileName;
+//  }
+//  public void setQuestionGridFileName(String questGridFileName){
+//    this.questGridFileName=questGridFileName;
+//  }
   /**
    * Reads the map file of {@link #fileName}.
    *
@@ -173,6 +190,8 @@ public class Map {
     ghosts = mapReader.getGhosts();
     spawn = mapReader.getSpawn();
     portals = mapReader.getPortals();
+    questions=mapReader.getQuestions();// TODO
+    questionGrids=mapReader.getQuestionsGrids();
   }
 
   /**
@@ -194,6 +213,8 @@ public class Map {
     mapPainter.drawCookies(pacItems);
     mapPainter.drawPacman(pacman);
     mapPainter.drawGhost(ghosts);
+    mapPainter.drawQuestion(questions); //TODO
+    mapPainter.drawQuestionGrid(questionGrids); //TODO
   }
 
   /**

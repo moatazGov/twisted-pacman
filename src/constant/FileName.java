@@ -53,6 +53,7 @@ public class FileName {
               "/resources/image/obstacle/prismarine_bricks.png",
               "/resources/image/obstacle/red_nether_bricks.png",
               "/resources/image/obstacle/stone_bricks.png"));
+  public static final String IMAGE_QUESTION = "/resources/image/med_ques.png";
   public static final String IMAGE_PACMAN = "/resources/image/pacman.png";
   public static final String IMAGE_COOKIE_SMALL = "/resources/image/cookie/cookie1.png";
   public static final String IMAGE_COOKIE_MEDIUM = "/resources/image/cookie/cookie5.png";
