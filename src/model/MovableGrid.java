@@ -30,6 +30,14 @@ public abstract class MovableGrid extends Grid {
   /** The step to go every time moving happens, in px */
   private double step;
 
+  public double getStep() {
+    return step;
+  }
+
+  public void setStep(double step) {
+    this.step = step;
+  }
+
   /**
    */
   public MovableGrid(Map map, double row, double column, MovableGridType movableGridType) {
@@ -109,7 +117,7 @@ public abstract class MovableGrid extends Grid {
             }
             break;
         }
-  checkIfTouchingPortal();
+        checkIfTouchingPortal();
       }
     };
   }
@@ -122,32 +130,7 @@ public abstract class MovableGrid extends Grid {
    * <p>This method gets all {@link Portal}s from the parent {@link Map} and calls {@link
    * Grid#isTouching(Grid, double)} to check it one by one.
    */
-  private void checkIfTouchingPortal() {
-    for (Portal portal : getParentMap().getPortals()) {
-      if (isTouching(portal, getParentMap().getMapConfig().getGridLength() * 0.8)) {
-        if (portal.isOpen()) {
-          // send to another portal
-          setX(portal.getTwinPortal().getX());
-          setY(portal.getTwinPortal().getY());
-          // close portal
-          portal.getTwinPortal().close();
-        }else{
-          System.out.println("here");
-        }
-        return;
-      }else{
-        System.out.println("there");
-
-      }
-    }
-
-    // open portals if leaving portals
-    for (Portal portal : getParentMap().getPortals()) {
-      if (isTouching(portal, 0)) {
-        portal.open();
-      }
-    }
-  }
+  public void checkIfTouchingPortal() {}
 
   /**
    * Tests if this {@link MovableGrid} is going to touch a set of another given {@link Grid}.
@@ -234,6 +217,19 @@ public abstract class MovableGrid extends Grid {
    * @see Ghost#handleCantMove(Direction)
    */
   public void handleCantMove(Direction direction) {
-
+//      if(direction.equals(Direction.DOWN)){
+//        Double gridLength = getParentMap().getMapConfig().getGridLength();
+//        setY(((getY()/gridLength)*gridLength));
+//      }
+//    if(direction.equals(Direction.UP)){
+//      Double gridLength = getParentMap().getMapConfig().getGridLength();
+//      setY(((getY()/gridLength)*gridLength));
+//    }if(direction.equals(Direction.RIGHT)){
+//      Double gridLength = getParentMap().getMapConfig().getGridLength();
+//      setX(((getX()/gridLength)*gridLength) + gridLength);
+//    }if(direction.equals(Direction.LEFT)){
+//      Double gridLength = getParentMap().getMapConfig().getGridLength();
+//      setX(((getX()/gridLength)*gridLength));
+//    }
   }
 }

@@ -6,12 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import model.Portal;
 import view.Main;
 import constant.FileName;
 import view.GameController;
 import model.Map;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  *
@@ -36,6 +38,7 @@ public enum SceneSwitch {
   Map map;
   Pane mapPane;
   Canvas canvas;
+  ArrayList<Portal> portal;
   URL location;
   FXMLLoader loader;
   Pane root;
@@ -112,6 +115,7 @@ public enum SceneSwitch {
        canvas = new Canvas();
       mapPane.getChildren().add(canvas);
       map.draw(mapPane);
+
       mapPane.setStyle(
           "-fx-background-image: url('"
               + map.getBackgroundFileName()
@@ -137,12 +141,33 @@ public enum SceneSwitch {
 
   /**
    * Switched the current scene to Game.
-   *
    */
   public void switchToGameLevelOne() {
     try {
       map.addPortalsToScreen(mapPane);
-//      map.getMapConfig().setGhostStepRate(map.getMapConfig().getPacmanStepRate() * 19);
+      showStage();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void switchToGameLevelTwo() {
+    try {
+      map.removePortalsToScreen(mapPane);
+      map.getMapConfig().setPacmanStepRate( map.getMapConfig().getPacmanStepRate() + 0.1);
+      map.getPacman().setStep(map.getMapConfig().getPacmanStep());
+      showStage();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  public void switchToGameLevelThree() {
+    try {
+      map.removePortalsToScreen(mapPane);
+      map.getMapConfig().setGhostStepRate( map.getMapConfig().getGhostStepRate() + 0.1);
+      map.getGhosts().forEach(ghost->{
+        ghost.setStep(map.getMapConfig().getGhostStep());
+      });
       showStage();
     } catch (Exception e) {
       e.printStackTrace();

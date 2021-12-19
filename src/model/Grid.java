@@ -12,6 +12,18 @@ public class Grid extends Rectangle {
   /** The map where this grid stays. */
   private Map parentMap;
 
+  Integer offset = 0 ;
+
+
+
+  public Integer getOffset() {
+    return offset;
+  }
+
+  public void setOffset(Integer offset) {
+    this.offset = offset;
+  }
+
   /**
    * Allocates a new {@link Grid} object.
    *

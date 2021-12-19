@@ -229,9 +229,7 @@ public enum GameManager {
      * @param event the {@link KeyEvent} happens when the key is pressed.
      */
     public void handleKeyPressed(KeyEvent event) {
-
         Set<Grid> obstacles = (Set<Grid>) (Set<?>) map.getPacman().getParentMap().getWalls();
-
         if (gameStatus == GameStatus.END) {
             return;
         }
@@ -260,7 +258,6 @@ public enum GameManager {
             }
             case UP: {
                 if (!map.getPacman().isGoingToTouchGrids(Direction.UP, obstacles, map.getMapConfig().getGridLength())) {
-
                     startGame();
                     map.getPacman().moveDown.stop();
                     map.getPacman().moveRight.stop();
@@ -421,15 +418,19 @@ public enum GameManager {
             return true;
         }
 
-        if (currentScore >= 15 && currentLevel == GameLevel.PASSED_ONE) {
+        if (currentScore >= 20 && currentLevel == GameLevel.PASSED_ONE) {
             currentLevel = GameLevel.PASSED_TWO;
             // remove portals from the screen
+            SceneSwitch.INSTANCE.switchToGameLevelTwo();
+            return true;
 
             // increase pacman's speed
 
         }
-        if (currentScore >= 15 && currentLevel == GameLevel.PASSED_TWO) {
+        if (currentScore >= 30 && currentLevel == GameLevel.PASSED_TWO) {
             currentLevel = GameLevel.PASSED_THREE;
+            SceneSwitch.INSTANCE.switchToGameLevelThree();
+            return true;
 
             // increase ghosts speed
         }

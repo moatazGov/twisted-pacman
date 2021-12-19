@@ -1,19 +1,16 @@
 package util;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import model.*;
 
 import java.util.Set;
-import java.util.function.Predicate;
 
 public class MapPainter {
 
   private Pane root;
 
   public MapPainter(Pane root) {
-    this.root = root;
-  }
+    this.root = root; }
 
   public void drawWalls(Set<Wall> walls) { root.getChildren().addAll(walls); }
 
@@ -46,6 +43,7 @@ public class MapPainter {
   }
 
   public void drawPortals(Set<Portal> portals) {
+    root.getChildren().removeIf(x->x instanceof Portal);
     root.getChildren().addAll(portals);
   }
 

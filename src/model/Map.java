@@ -230,7 +230,6 @@ public class Map {
   public void addPortalsToScreen(Pane root){
     try{// a predicate that returns true if the wall is in the position the the portal should be in
       Predicate<Wall> isPortal = w -> ((w.getX() == 24 * mapConfig.getGridLength() && w.getY() == 6 * mapConfig.getGridLength()) || (w.getX() == 0 && w.getY() == 6 * mapConfig.getGridLength()));
-      walls.removeIf(isPortal);
 
       // add the portals to the map
       Portal portal_1 = new Portal(this, 24, 6, PortalType.A);
@@ -243,6 +242,19 @@ public class Map {
       portals.add(portal_2);
       MapPainter mapPainter = new MapPainter(root);
 //      mapPainter.drawWalls(walls);
+      mapPainter.drawPortals(portals);
+    }catch (Exception e){
+      System.out.println("error");
+    }
+
+  }
+
+  public void removePortalsToScreen(Pane root){
+    try{// a predicate that returns true if the wall is in the position the the portal should be in
+
+      portals.forEach(x -> x.setVisible(false));
+      MapPainter mapPainter = new MapPainter(root);
+      mapPainter.drawWalls(walls);
       mapPainter.drawPortals(portals);
     }catch (Exception e){
       System.out.println("error");

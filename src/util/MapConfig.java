@@ -82,7 +82,7 @@ public class MapConfig {
 
   /** Updates the pacman step. */
   private void updatePacmanStep() {
-    pacmanStep = gridLength * pacmanStepRate;
+     pacmanStep = gridLength * pacmanStepRate;
   }
 
   /** Updates the ghost step. */
@@ -206,6 +206,11 @@ public class MapConfig {
     updateGhostStep();
   }
 
+
+  public double getGhostStepRate() {
+    return ghostStepRate;
+  }
+
   /**
    * Changes the ghost padding in this {@link Map}, and updates the ghost padding.
    *
@@ -218,7 +223,6 @@ public class MapConfig {
 
   /**
    * Changes the cookie padding in this {@link Map}, and updates the cookie padding.
-   *
    * @param cookiePadding the cookie padding in this {@link Map}
    */
   public void setCookiePaddingRate(double cookiePadding) {
