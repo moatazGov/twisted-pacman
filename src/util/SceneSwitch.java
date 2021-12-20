@@ -2,10 +2,12 @@ package util;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
 import model.Portal;
 import model.SysData;
@@ -46,6 +48,7 @@ public enum SceneSwitch {
   FXMLLoader loader;
   Pane root;
   Scene gameScene;
+  Stage PauseStage;
   /** Hides the primary stage. */
   private void hideStage() {
     Main.getPrimaryStage().hide();
@@ -95,6 +98,26 @@ public enum SceneSwitch {
     }
   }
 
+  public void returnToGame()
+  {
+    PauseStage.hide();
+  }
+
+  public void switchToPause()
+  {
+   try {
+     PauseStage = new Stage();
+     URL location = Main.class.getResource("/resources/fxml/pause.fxml");
+     FXMLLoader loader = new FXMLLoader(location);
+     Parent root2 = loader.load();
+     Scene PauseScene = new Scene(root2);
+     PauseStage.setScene(PauseScene);
+     PauseStage.show();
+   }
+     catch (Exception e) {
+    e.printStackTrace();
+  }
+  }
   /**
    * Switched the current scene to Game.
    *

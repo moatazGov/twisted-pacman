@@ -453,8 +453,6 @@ public class MapReader {
        // ArrayList <PacItem> itemList= ArrayList <PacItem> ();
 
       }
-
-
       // bombitem
       if (isBombGrid(grid)) {
         BombItem bombItem = new BombItem(map, gridCount, lineCount);
