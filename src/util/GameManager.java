@@ -354,11 +354,6 @@ public enum GameManager {
         SceneSwitch.INSTANCE.switchToQuestion(questionGrid);
     }
 
-    public void handleBombItemTouched(BombItem bomb) {
-        bomb.eat();
-//    MusicPlayer.INSTANCE.playChomp();
-        updateUi();
-    }
 
     public void checkQuestionGrid(QuestionGrid questionGrid){
         questionGrid.eat();

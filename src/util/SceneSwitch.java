@@ -150,22 +150,21 @@ public enum SceneSwitch {
       map.setFileName("/resources/pacman/map/map1.txt");
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
-//      map.setQuestionGridFileName("/resources/image/med_ques.png");
+//    map.setQuestionGridFileName("/resources/image/med_ques.png");
       hideStage();
       URL location = Main.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);
 
-       root = loader.load();
+      root = loader.load();
       gameScene = new Scene(root);
       GameController controller = loader.<GameController>getController();
       controller.setNickName(nickName);
       setScene(gameScene);
 
-       mapPane = (Pane) gameScene.lookup("#map");
-       canvas = new Canvas();
+      mapPane = (Pane) gameScene.lookup("#map");
+      canvas = new Canvas();
       mapPane.getChildren().add(canvas);
       map.draw(mapPane);
-
       mapPane.setStyle(
           "-fx-background-image: url('"
               + map.getBackgroundFileName()
