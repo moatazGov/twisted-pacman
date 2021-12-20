@@ -33,14 +33,8 @@
               </FlowPane.margin>
             </ImageView>
             <Text id="title" fx:id="lifeCount" fill="#e12525" text="0" textAlignment="CENTER" />
-            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" styleClass="top-icon">
-              <image>
-                <Image url="@../image/cookie/cookie.psd" />
-              </image>
-              <FlowPane.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-              </FlowPane.margin>
-            </ImageView>
+            <Text id="nickName" fx:id="nickName" fill="#e12525" text="0" textAlignment="CENTER"/>
+
             <Text id="title" fx:id="scoreCount" fill="#d0b323" text="0" textAlignment="CENTER" />
           </children>
         </FlowPane>

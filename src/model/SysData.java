@@ -93,7 +93,7 @@ public class SysData {
      */
     public boolean load() {
         try {
-//            games = loadGamesJson();
+            games = loadGamesJson();
 //            players = loadPlayersJson();
             questions = loadQuestionsJson();
             return true;
@@ -110,7 +110,7 @@ public class SysData {
     public boolean save() {
         try {
             saveGames();
-            savePlayers();
+//            savePlayers();
             saveQuestions();
             return true;
         } catch (Exception e) {
@@ -266,11 +266,15 @@ public class SysData {
         try (FileWriter file = new FileWriter("src/resources/json/games.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
-            json.put("games", games);
+            JSONArray jsonGames = new JSONArray();
+            for (GameData game : games){
+                jsonGames.add(game.toJson());
+            }
+            json.put("games", jsonGames);
             file.write(json.toJSONString());
             file.flush();
-            return true;
 
+return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
