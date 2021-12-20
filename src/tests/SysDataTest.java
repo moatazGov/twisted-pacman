@@ -18,7 +18,7 @@
 //    @org.junit.jupiter.api.Test
 //    void loadGamesJson() {
 //        SysData test = SysData.getInstance();
-//        GameData game = new GameData(1, "yosi", 32);
+//        GameData game = new GameData("yosi", 32);
 //        ArrayList<GameData> games = new ArrayList<>();
 //        games.add(game);
 //      assertEquals(test.loadGamesJson(), games);

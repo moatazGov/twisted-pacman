@@ -157,14 +157,20 @@ public enum GameManager {
     public void pauseGame() {
         if(gameStatus == GameStatus.PAUSE)
         {
-            SceneSwitch.INSTANCE.returnToGame();
+            freezeGhosts();
+            map.getPacman().freeze();
+            SceneSwitch.INSTANCE.switchToPause();
+            gameStatus = GameStatus.PAUSE;
+
         }
 
-        freezeGhosts();
-        map.getPacman().freeze();
-        SceneSwitch.INSTANCE.switchToPause();
-        gameStatus = GameStatus.PAUSE;
+//        SceneSwitch.INSTANCE.returnToGame();
+    }
 
+    public void continueGame(){
+        if(gameStatus == GameStatus.CONTINUE){
+
+        }
     }
 
     public void pauseGameNoPopUp() {
@@ -187,9 +193,8 @@ public enum GameManager {
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
-            endGame(map.getNickname(),"LOST",String.valueOf(0));
+            endGame(map.getNickname(),"LOST",String.valueOf(score.getValue()));
             calculateScore();
-//            navigateBack();
         }
     }
 
@@ -202,15 +207,13 @@ public enum GameManager {
     public void winGame() {
         if (getGameStatus() == GameStatus.START) {
             endGame(map.getNickname(), "WON", String.valueOf(this.score.getValue()));
-//      calculateScore();
-//      navigateBack();
         }
     }
 
     private boolean storeScore(String name, String status, String score){
         try {
             sysData.load();
-            sysData.getGames().add(new GameData(0, name, Integer.valueOf(score)));
+            sysData.getGames().add(new GameData(name, Integer.valueOf(score)));
             sysData.save();
             return true;
         }catch (Exception e){
@@ -268,6 +271,11 @@ public enum GameManager {
     **/
     private boolean showQuestionPopUp(Question question){
         return true;
+    }
+  
+    public void handleBombItemTouched(BombItem bomb) {
+        bomb.eat();
+        updateUi();
     }
 
     /**
@@ -447,7 +455,14 @@ public enum GameManager {
                 break;
             }
             case ESCAPE:
-                pauseGame();
+                if(this.gameStatus == GameStatus.START){
+                    this.gameStatus = GameStatus.PAUSE;
+                    pauseGame();
+                }
+                else if(this.gameStatus == GameStatus.PAUSE){
+                    this.gameStatus = GameStatus.CONTINUE;
+                    continueGame();
+                }
 
                 break;
             default:
@@ -467,7 +482,7 @@ public enum GameManager {
     /**
      * Freezes all {@link Ghost}s to make them not able to move.
      */
-    private void freezeGhosts() {
+    private void  freezeGhosts() {
         for (Ghost ghost : map.getGhosts()) {
             ghost.freeze();
         }
@@ -550,21 +565,22 @@ public enum GameManager {
      */
     private boolean checkLevelChange(Integer currentScore) {
 
-        if (currentScore >= 50 && currentLevel == GameLevel.ZERO) {
+      if (currentScore >= 51 && currentLevel == GameLevel.ZERO) {
             currentLevel = GameLevel.PASSED_ONE;
             SceneSwitch.INSTANCE.switchToGameLevelOne();
             gameController.setTitle("level - 2 ");
             return true;
         }
 
-        if (currentScore >= 100 && currentLevel == GameLevel.PASSED_ONE) {
+        if (currentScore >= 101 && currentLevel == GameLevel.PASSED_ONE) {
             currentLevel = GameLevel.PASSED_TWO;
             // remove portals from the screen
             SceneSwitch.INSTANCE.switchToGameLevelTwo();
             gameController.setTitle("level - 3 ");
             return true;
         }
-        if (currentScore >= 150 && currentLevel == GameLevel.PASSED_TWO) {
+
+        if (currentScore >= 151 && currentLevel == GameLevel.PASSED_TWO) {
             currentLevel = GameLevel.PASSED_THREE;
             SceneSwitch.INSTANCE.switchToGameLevelThree();
             gameController.setTitle("level - 4 ");
@@ -574,13 +590,4 @@ public enum GameManager {
         return true;
     }
 
-    /**
-     * Navigates back to the Select scene, and pops up the ScoreBoard stage at the same time.
-     */
-    private void navigateBack() {
-        // navigate back to select
-//        SceneSwitch.INSTANCE.switchToSelect();
-
-        // popup score board
-    }
 }

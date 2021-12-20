@@ -27,8 +27,8 @@ public class Pacman extends MovableGrid {
         super(map, row, column, MovableGridType.PACMAN);
         this.setImage(FileName.IMAGE_PACMAN);
         setWidth(40);
-        this.setX(row * getParentMap().getMapConfig().getGridLength() );
-        this.setY(column * getParentMap().getMapConfig().getGridLength() );
+        this.setX(row * getParentMap().getMapConfig().getGridLength());
+        this.setY(column * getParentMap().getMapConfig().getGridLength());
         setHeight(40);
 
     }
@@ -130,7 +130,6 @@ public class Pacman extends MovableGrid {
         // open portals if leaving portals
         for (Portal portal : getParentMap().getPortals()) {
             portal.open();
-
         }
     }
     /**

@@ -44,16 +44,7 @@ public class NicknameCtrl {
 
     @FXML
     private void cancelClicked(ActionEvent event) throws IOException {
-        // Close popup
-        // currently it is a separate window.
-//        this.stage.close();
-
-
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
-        stage = new Stage();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        SceneSwitch.INSTANCE.switchToHome();
     }
 
 }

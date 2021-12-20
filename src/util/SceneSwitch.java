@@ -155,8 +155,8 @@ public enum SceneSwitch {
       URL location = Main.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);
 
-      Pane root = loader.load();
-      Scene gameScene = new Scene(root);
+       root = loader.load();
+      gameScene = new Scene(root);
       GameController controller = loader.<GameController>getController();
       controller.setNickName(nickName);
       setScene(gameScene);
@@ -197,7 +197,7 @@ public enum SceneSwitch {
       hideStage();
 
       SysData.getInstance().load();
-      URL location = Main.class.getResource("/resources/fxml/end-game.fxml");
+      URL location = Main.class.getResource("/resources/fxml/game-over.fxml");
       FXMLLoader loader = new FXMLLoader(location);
       Pane root = loader.load();
       Scene gameScene = new Scene(root);

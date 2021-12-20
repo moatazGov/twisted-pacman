@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -10,20 +12,25 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="35.0" prefHeight="95.0" prefWidth="200.0" text="Pause" textFill="#fffd00">
+            <Label fx:id="pauseLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="35.0" prefHeight="95.0" prefWidth="200.0" text="Pause" textFill="#fffd00">
                <font>
                   <Font name="Eras Bold ITC" size="42.0" />
                </font>
             </Label>
-            <Button fx:id="homeButt" layoutX="246.0" layoutY="301.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="48.0" prefWidth="103.0" text="home" textFill="#fffd00">
+            <Button fx:id="mainBtn" layoutX="206.0" layoutY="246.0" mnemonicParsing="false" onAction="#mainmenuClicked" prefHeight="48.0" prefWidth="189.0" style="-fx-background-color: black;" text="Main Menu" textFill="#fffd00">
                <font>
-                  <Font name="Eras Bold ITC" size="20.0" />
+                  <Font name="Eras Bold ITC" size="24.0" />
                </font></Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="113.0" layoutY="130.0" prefHeight="95.0" prefWidth="369.0" text="press escape to resume" textFill="#fffd00">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="137.0" prefHeight="95.0" prefWidth="369.0" text="Press escape to resume" textFill="#fffd00">
                <font>
-                  <Font name="Eras Bold ITC" size="25.0" />
+                  <Font name="Eras Bold ITC" size="24.0" />
                </font>
             </Label>
+            <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="67.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/pac-chase-ghosts.jpg" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

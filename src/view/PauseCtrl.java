@@ -10,10 +10,10 @@ import java.io.IOException;
 public class PauseCtrl {
 
     @FXML
-    private Button homeButt;
+    private Button mainBtn;
 
     @FXML
-    private void startClicked(ActionEvent event) throws IOException {
+    private void mainmenuClicked(ActionEvent event) throws IOException {
         SceneSwitch.INSTANCE.switchToHome();
         SceneSwitch.INSTANCE.returnToGame();
     }
