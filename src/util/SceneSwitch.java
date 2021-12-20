@@ -9,13 +9,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
-import model.Portal;
-import model.SysData;
+import model.*;
 import view.EndGameCtrl;
 import view.Main;
 import constant.FileName;
 import view.GameController;
-import model.Map;
+import view.QuestionCtrl;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,6 +48,7 @@ public enum SceneSwitch {
   Pane root;
   Scene gameScene;
   Stage PauseStage;
+  Stage questionStage;
   /** Hides the primary stage. */
   private void hideStage() {
     Main.getPrimaryStage().hide();
@@ -98,9 +98,11 @@ public enum SceneSwitch {
     }
   }
 
-  public void returnToGame()
-  {
+  public void returnToGame() {
     PauseStage.hide();
+  }
+  public void exitQuestion() {
+    questionStage.hide();
   }
 
   public void switchToPause()
@@ -117,6 +119,25 @@ public enum SceneSwitch {
      catch (Exception e) {
     e.printStackTrace();
   }
+  }
+
+  public void switchToQuestion(QuestionGrid questionGrid)
+  {
+    try {
+      questionStage = new Stage();
+      URL location = Main.class.getResource("/resources/fxml/question.fxml");
+      FXMLLoader loader = new FXMLLoader(location);
+      Parent root2 = loader.load();
+
+      QuestionCtrl controller = loader.<QuestionCtrl>getController();
+      controller.setQuestion(questionGrid.getQuestion());
+      Scene PauseScene = new Scene(root2);
+      questionStage.setScene(PauseScene);
+      questionStage.show();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   /**
    * Switched the current scene to Game.

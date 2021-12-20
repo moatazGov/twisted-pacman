@@ -14,14 +14,24 @@ public class QuestionGrid extends Grid {
      * <p>This constructor sets the {@link Grid} in the given position of the given {@link Map}.
      *
      * @param parentMap the {@link Map} where this {@link Grid} stays
-     * @param row       the row index in the {@link Map} where this {@link Grid} stays, starting from 0
+     * @param row       the row index igo the {@link Map} where this {@link Grid} stays, starting from 0
      * @param column    the column index in the {@link Map} where this {@link Grid} stays, starting from
      */
         public QuestionGrid(Map parentMap, double row, double column, Question question) {
         super(parentMap, row, column);
        QuestionLevel(question);
+        this.question = question;
     }
-        public void QuestionLevel(Question question) {
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void QuestionLevel(Question question) {
                 if (question.getLevel() == Level.HARD) {
                     this.setImage(FileName.IMAGE_HARD_QUESTION);
                 }if (question.getLevel() == Level.EASY) {
@@ -29,22 +39,12 @@ public class QuestionGrid extends Grid {
                 }if (question.getLevel() == Level.MEDIUM) {
                     this.setImage(FileName.IMAGE_MED_QUESTION);
                 }
-//                else {
-//                    this.setImage(FileName.IMAGE_EASY_QUESTION);
-//                    i++;
-//                }
 
             }
 
 
     public void eat() {
         setVisible(false);
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                setVisible(true);
-            }
-        }, 30 * 1000);
     }
     /**
      * Tests if this {@link } still exists (i.e. not eaten yet) in the screen.

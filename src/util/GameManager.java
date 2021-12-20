@@ -7,8 +7,10 @@ import constant.PortalType;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import model.*;
+import sun.management.jdp.JdpGenericPacket;
 import view.GameController;
 
+import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -75,6 +77,21 @@ public enum GameManager {
      */
     private Score score;
 
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
+    }
+    public void incScore(int newScore) {
+        this.score.gain(newScore);
+    }
+    public void decScore(int newScore) {
+        this.score.gain(newScore);
+    }
+
     /**
      * Initializes the game properties based on the given {@link Map} and updates UI via {@link
      * GameController}.
@@ -139,6 +156,18 @@ public enum GameManager {
         freezeGhosts();
         map.getPacman().freeze();
         SceneSwitch.INSTANCE.switchToPause();
+        gameStatus = GameStatus.PAUSE;
+
+    }
+
+    public void pauseGameNoPopUp() {
+        if(gameStatus == GameStatus.PAUSE)
+        {
+            SceneSwitch.INSTANCE.returnToGame();
+        }
+
+        freezeGhosts();
+        map.getPacman().freeze();
         gameStatus = GameStatus.PAUSE;
 
     }
@@ -222,7 +251,6 @@ public enum GameManager {
      */
     public void handlePacItemTouched(PacItem cookie) {
         cookie.eat();
-//    MusicPlayer.INSTANCE.playChomp();
         checkWin(score.gain(cookie.getValue()));
         updateUi();
     }
@@ -238,21 +266,54 @@ public enum GameManager {
     /**
      * generate a new question at a random grid
      */
-    private boolean generateRandomQuestionGrid(){
-        return true;
+    private boolean generateRandomQuestionGrid(QuestionGrid questionGrid){
+        int index = 0;
+        int wantedIndex = getRandomNumberUsingNextInt(0, map.getPacItems().size());
+        // find random pacItem to replace and set visible value to false;
+        PacItem randPacItem = null;
+        for (PacItem pacItem : map.getPacItems()) {
+            if(index == wantedIndex){
+                randPacItem = pacItem;
+            }
+            index++;
+        }
+        if(randPacItem != null) {
+            randPacItem.setVisible(false);
+            questionGrid.setVisible(false);
+            Double itemXTmp = randPacItem.getX();
+            Double itemYTmp = randPacItem.getY();
+
+            randPacItem.setX(questionGrid.getX());
+            randPacItem.setY(questionGrid.getY());
+
+            questionGrid.setX(itemXTmp);
+            questionGrid.setY(itemYTmp);
+//            randPacItem.setVisible(true);
+//            questionGrid.setVisible(true);
+            return true;
+        }return false;
     }
 
-
+    /**
+     *
+     * Generate random number in the given range.
+     * @param min
+     * @param max
+     * @return
+     */
+    public int getRandomNumberUsingNextInt(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
 
     /**
      * handles pacman touching a question
      * @param questionGrid
      */
     public void handleQuestionGrid(QuestionGrid questionGrid) { //TODO
-        questionGrid.eat();
-        questionGrid.setVisible(false);
-//    MusicPlayer.INSTANCE.playChomp();
-       // updateUi();
+        pauseGameNoPopUp();
+        generateRandomQuestionGrid(questionGrid);
+        SceneSwitch.INSTANCE.switchToQuestion(questionGrid);
     }
 
     public void handleBombItemTouched(BombItem bomb) {
@@ -404,7 +465,7 @@ public enum GameManager {
     /**
      * Updates the UI (life count, score count).
      */
-    private void updateUi() {
+    public void updateUi() {
         gameController.setLifeCount(life.getRemaining(), life.getTotal());
         gameController.setScoreCount(score.getValue());
 //        gameController.setBombCount((map.getPacman().getBombCount()));
@@ -459,30 +520,25 @@ public enum GameManager {
      */
     private boolean checkLevelChange(Integer currentScore) {
 
-        if (currentScore >= 10 && currentLevel == GameLevel.ZERO) {
+        if (currentScore >= 50 && currentLevel == GameLevel.ZERO) {
             currentLevel = GameLevel.PASSED_ONE;
             SceneSwitch.INSTANCE.switchToGameLevelOne();
             gameController.setTitle("level - 2 ");
             return true;
         }
 
-        if (currentScore >= 20 && currentLevel == GameLevel.PASSED_ONE) {
+        if (currentScore >= 100 && currentLevel == GameLevel.PASSED_ONE) {
             currentLevel = GameLevel.PASSED_TWO;
             // remove portals from the screen
             SceneSwitch.INSTANCE.switchToGameLevelTwo();
             gameController.setTitle("level - 3 ");
             return true;
-
-            // increase pacman's speed
-
         }
-        if (currentScore >= 30 && currentLevel == GameLevel.PASSED_TWO) {
+        if (currentScore >= 150 && currentLevel == GameLevel.PASSED_TWO) {
             currentLevel = GameLevel.PASSED_THREE;
             SceneSwitch.INSTANCE.switchToGameLevelThree();
             gameController.setTitle("level - 4 ");
             return true;
-
-            // increase ghosts speed
         }
 
         return true;

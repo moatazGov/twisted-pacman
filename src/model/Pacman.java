@@ -191,6 +191,7 @@ public class Pacman extends MovableGrid {
             if (questionGrid.isExisting()
                     && isTouching(questionGrid, getParentMap().getMapConfig().getQuestionGridPadding())) {
                 GameManager.INSTANCE.handleQuestionGrid(questionGrid);
+
                //bombCount++;
 
                 return;
