@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import util.SceneSwitch;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 
 public class NicknameCtrl {
@@ -28,7 +29,7 @@ public class NicknameCtrl {
         try {
             if (nicknameTxt.getText().length() != 0) {
                     try {
-                        SceneSwitch.INSTANCE.switchToGameLevelZero();
+                        SceneSwitch.INSTANCE.switchToGameLevelZero(nicknameTxt.getText());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -49,7 +50,7 @@ public class NicknameCtrl {
 
 
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = new Stage();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

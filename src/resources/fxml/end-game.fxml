@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.text.Text?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #3E3C3C;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EndGameCtrl">
+   <children>
+      <Text id="title" fx:id="gameOver" fill="#e12525" text="0" textAlignment="CENTER"  />
+
+      <Text id="title" fx:id="nickName" fill="#e12525" text="0" textAlignment="CENTER" />
+
+      <Text id="title" fx:id="result" fill="#e12525" text="0" textAlignment="CENTER" />
+
+      <Text id="title" fx:id="score" fill="#e12525" text="0" textAlignment="CENTER" />
+
+      <Button id="exit" fx:id="playBtn" alignment="BASELINE_LEFT" layoutX="52.0" layoutY="153.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: black;" text="Play" textFill="#fffd00">
+         <font>
+            <Font name="Eras Bold ITC" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

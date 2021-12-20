@@ -18,6 +18,10 @@ import model.Map;
 public class GameController {
 
   /**
+   * Player's nickName.
+   */
+  @FXML private Text nickName;
+  /*
    * current playing map.
    */
   Map map;
@@ -49,6 +53,20 @@ public class GameController {
   @FXML
   public void setTitle(String title) {
     this.title.setText(title);
+  }
+
+
+  /**
+   * Changes the title shown on the screen.
+   * @param nickName the desired title
+   */
+  @FXML
+  public void setNickName(String nickName) {
+    this.nickName.setText(" - " + nickName);
+  }
+
+  public Text getNickName() {
+    return nickName;
   }
 
   /**
