@@ -10,11 +10,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.lang.Math;
 
 import model.PacItem;
 import controller.FactoryQuestionGrid;
@@ -522,7 +520,7 @@ public class MapReader {
             //question TODO
             if (isQuestionGrid(grid)) {
                 Question easyQuestion = SysData.getInstance().getEasyQuestions().get(0); // getting the JSON arraylist from SysData
-                Question medQuestion = SysData.getInstance().getMedquestions().get(0); // getting the JSON arraylist from SysData
+                Question medQuestion = SysData.getInstance().getMedQuestions().get(0); // getting the JSON arraylist from SysData
                 Question hardQuestion = SysData.getInstance().getHardquestions().get(0); // getting the JSON arraylist from SysData
 
                 FactoryQuestionGrid factoryQuestionGrid = new FactoryQuestionGrid();

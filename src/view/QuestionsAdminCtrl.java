@@ -65,7 +65,11 @@ public class QuestionsAdminCtrl implements Initializable {
      */
     public void fillQuestions() {
         // load the question from json, fill observable object with data and
-        ArrayList<Question> questionsData = sysData.getQuestions();
+        SysData sysData = SysData.getInstance();
+        sysData.load();
+        ArrayList<Question> questionsData = sysData.getEasyQuestions();
+        questionsData.addAll(sysData.getMedQuestions());
+        questionsData.addAll(sysData.getHardquestions());
         questions.addAll(questionsData);
         createTable();
 
@@ -95,7 +99,9 @@ public class QuestionsAdminCtrl implements Initializable {
                                     Alerts.generateUpdateQuestionAlert(data);
                                     System.out.println("update : " + data);
                                     SysData.getInstance().load();
-                                    ArrayList<Question> questionsData = sysData.getQuestions();
+                                    ArrayList<Question> questionsData = sysData.getEasyQuestions();
+                                    questionsData.addAll(sysData.getMedQuestions());
+                                    questionsData.addAll(sysData.getHardquestions());
                                     questions.removeAll(questions.stream().collect(Collectors.toList()));
                                     questions.addAll(questionsData);
                                 } catch (Exception e) {
@@ -104,9 +110,25 @@ public class QuestionsAdminCtrl implements Initializable {
                             });
                             deleteBtn.setOnAction((ActionEvent event) -> {
                                 Question data = getTableView().getItems().get(getIndex());
-                                questions.remove(data);
-                                ArrayList<Question> questionsData = (ArrayList<Question>) questions.stream().collect(Collectors.toList());
-                                sysData.setQuestions(questionsData);
+                                if (data.getLevel() == Level.EASY){
+                                    questions.remove(data);
+                                    SysData.getInstance().getEasyQuestions().remove(data);
+                                    ArrayList<Question> questionsData = sysData.getEasyQuestions();
+                                    sysData.setEasyQuestions(questionsData);
+                                }
+                                if (data.getLevel() == Level.MEDIUM){
+                                    questions.remove(data);
+                                    SysData.getInstance().getMedQuestions().remove(data);
+                                    ArrayList<Question> questionsData = sysData.getMedQuestions();
+                                    sysData.setMedQuestions(questionsData);
+                                }
+                                if (data.getLevel() == Level.HARD){
+                                    questions.remove(data);
+                                    SysData.getInstance().getHardquestions().remove(data);
+                                    ArrayList<Question> questionsData = sysData.getHardquestions();
+                                    sysData.setHardQuestions(questionsData);
+                                }
+
                                 sysData.save();
                                 Alerts.generateSuccessAlert("Operation Successfully",
                                         "Question removed successfully !", "");

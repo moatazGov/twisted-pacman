@@ -67,15 +67,15 @@ public class SysData {
         return hardquestions;
     }
 
-    public void setHardquestions(ArrayList<Question> hardquestions) {
+    public void setHardQuestions(ArrayList<Question> hardquestions) {
         this.hardquestions = hardquestions;
     }
 
-    public ArrayList<Question> getMedquestions() {
+    public ArrayList<Question> getMedQuestions() {
         return medquestions;
     }
 
-    public void setMedquestions(ArrayList<Question> medquestions) {
+    public void setMedQuestions(ArrayList<Question> medquestions) {
         this.medquestions = medquestions;
     }
 
@@ -308,7 +308,7 @@ public class SysData {
             file.write(json.toJSONString());
             file.flush();
 
-return true;
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;

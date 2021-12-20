@@ -90,7 +90,13 @@ public class AddCtrl implements Initializable {
                 }
 
 
-                ArrayList<Question> current = SysData.getInstance().getQuestions();
+                ArrayList<Question> current = new ArrayList<>();
+                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.EASY)
+                    current = SysData.getInstance().getEasyQuestions();
+                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.MEDIUM)
+                    current = SysData.getInstance().getMedQuestions();
+                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.HARD)
+                    current = SysData.getInstance().getHardquestions();
                 current.add(new Question(
                         questionText.getText(),
                         new ArrayList<String>(Arrays.asList(secondAnswer.getText(), thirdAnswer.getText(), fourthAnswer.getText())),
@@ -101,7 +107,13 @@ public class AddCtrl implements Initializable {
 
                 System.out.println((Level) difficultyGroup.getUserData());
 
-                SysData.getInstance().setQuestions(current);
+                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.EASY)
+                    SysData.getInstance().setEasyQuestions(current);
+                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.MEDIUM)
+                    SysData.getInstance().setMedQuestions(current);
+                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.HARD)
+                    SysData.getInstance().setHardQuestions(current);
+
                 SysData.getInstance().save();
 
                 MsgBox.display("Confirmation", "Question added successfully!");
