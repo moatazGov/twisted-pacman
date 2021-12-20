@@ -65,7 +65,6 @@ public class AddCtrl implements Initializable{
         try{
             ArrayList<Question> current = SysData.getInstance().getQuestions();
             current.add(new Question(
-//                    UUID.randomUUID().toString(),
                     questionText.getText(),
                     new ArrayList<String>(Arrays.asList(secondAnswer.getText(), thirdAnswer.getText(), fourthAnswer.getText())),
                     firstAnswer.getText(),

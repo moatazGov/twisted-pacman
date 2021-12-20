@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Popup;
+import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.control.TableRow;
@@ -84,6 +86,9 @@ public class HomeCtrl {
         stage.setScene(scene);
         stage.show();
 
+//        Popup pop = PopupBuilder.create().content(root).width(50).height(100).autoFix(true).build();
+//        pop.show(stage);
+//        pop.setOnCloseRequest(event1 -> event1.);
     }
 
     @FXML
@@ -93,6 +98,12 @@ public class HomeCtrl {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+//        Popup popup = new Popup();
+//        NicknameCtrl controller = new NicknameCtrl();
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/questionsAdmin.fxml"));
+//        loader.setController(controller);
+//        popup.getContent().add((Node) loader.load());
     }
 
     @FXML
