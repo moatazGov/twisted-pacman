@@ -251,6 +251,7 @@ public class Map {
     try{// a predicate that returns true if the wall is in the position the the portal should be in
 
       portals.forEach(x -> x.setVisible(false));
+      portals.forEach(x -> x.close());
       MapPainter mapPainter = new MapPainter(root);
 //      mapPainter.drawWalls(walls);
       mapPainter.drawPortals(portals);
