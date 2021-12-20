@@ -134,8 +134,8 @@ public enum SceneSwitch {
       URL location = Main.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);
 
-      Pane root = loader.load();
-      Scene gameScene = new Scene(root);
+       root = loader.load();
+      gameScene = new Scene(root);
       GameController controller = loader.<GameController>getController();
       controller.setNickName(nickName);
       setScene(gameScene);

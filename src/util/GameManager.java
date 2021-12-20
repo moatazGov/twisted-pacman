@@ -151,9 +151,8 @@ public enum GameManager {
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
-            endGame(map.getNickname(),"LOST",String.valueOf(0));
+            endGame(map.getNickname(),"LOST",String.valueOf(score.getValue()));
             calculateScore();
-//            navigateBack();
         }
     }
 
@@ -174,7 +173,7 @@ public enum GameManager {
     private boolean storeScore(String name, String status, String score){
         try {
             sysData.load();
-            sysData.getGames().add(new GameData(0, name, Integer.valueOf(score)));
+            sysData.getGames().add(new GameData(name, Integer.valueOf(score)));
             sysData.save();
             return true;
         }catch (Exception e){

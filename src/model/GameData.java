@@ -10,8 +10,7 @@ public class GameData {
     private String nickName;
     private Integer score;
 
-    public GameData(Integer id, String nickName, Integer score) {
-       this.id = id;
+    public GameData(String nickName, Integer score) {
         this.nickName = nickName;
         this.score = score;
     }

@@ -61,10 +61,16 @@ public class HomeCtrl {
         SysData.getInstance().load();
         SysData sysData = SysData.getInstance();
         ArrayList<GameData> gamesData = sysData.getGames();
-        games.addAll(gamesData);
+        gamesData.sort((x,y) -> x.getScore() > y.getScore() ? -1 : x.getScore() < y.getScore() ? 1 : 0);
+        ArrayList<GameData> wanted = new ArrayList<>();
+        for (int i = 0 ;  i < 4 ; i++) {
+            wanted.add(gamesData.get(i));
+        }
+        games.addAll(wanted);
         scoreCol.setCellValueFactory(new PropertyValueFactory<GameData, Integer>("score"));
         nameCol.setCellValueFactory(new PropertyValueFactory<GameData, String>("nickName"));
         gamesTbl.setItems(games);
+
     }
     public void initialize() {
 
@@ -85,10 +91,6 @@ public class HomeCtrl {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-//        Popup pop = PopupBuilder.create().content(root).width(50).height(100).autoFix(true).build();
-//        pop.show(stage);
-//        pop.setOnCloseRequest(event1 -> event1.);
     }
 
     @FXML
@@ -98,12 +100,6 @@ public class HomeCtrl {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-//        Popup popup = new Popup();
-//        NicknameCtrl controller = new NicknameCtrl();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/questionsAdmin.fxml"));
-//        loader.setController(controller);
-//        popup.getContent().add((Node) loader.load());
     }
 
     @FXML

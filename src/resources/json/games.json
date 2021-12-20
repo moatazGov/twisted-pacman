@@ -1,1 +1,20 @@
-{"games":[{"score":10,"nickName":"MOATAZ"},{"score":28,"nickName":"MOATAZ"},{"score":0,"nickName":"samer"}]}
+{
+  "games": [
+    {
+      "score": 10,
+      "nickName": "MOATAZ"
+    },
+    {
+      "score": 28,
+      "nickName": "MOATAZ"
+    },
+    {
+      "score": 15,
+      "nickName": "samer"
+    },
+    {
+      "score": 13,
+      "nickName": "samera"
+    }
+  ]
+}
