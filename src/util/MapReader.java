@@ -1,5 +1,6 @@
 package util;
 
+import model.Map;
 import model.Portal;
 import constant.MapResolution;
 import constant.PortalType;
@@ -9,10 +10,9 @@ import view.Main;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import model.PacItem;
 import controller.FactoryQuestionGrid;
@@ -20,6 +20,10 @@ import controller.FactoryQuestionGrid;
 public class MapReader {
     int index = 0;
 
+    /**
+     * a flag to determine if questions were parsed or not
+     */
+    private int _questionsRead = 0;
     /**
      * The filename of the map file.
      */
@@ -105,6 +109,7 @@ public class MapReader {
      */
     public MapReader(String fileName, Map map) {
         this.fileName = fileName;
+
         this.map = map;
         this.lineCount = 0;
         this.gridCount = 0;
@@ -113,13 +118,6 @@ public class MapReader {
         this.bombItems = new HashSet<BombItem>();
         this.ghosts = new HashSet<>();
         this.mapConfig = new MapConfig(50);
-
-
-        this.questions = new HashSet<Question>();
-        this.easyQuestions = new HashSet<Question>();
-        this.hardQuestions = new HashSet<Question>();
-        this.medQuestions = new HashSet<Question>();
-
         this.questionsGrids = new HashSet<QuestionGrid>();
         // set title
         String title = fileName.substring(fileName.lastIndexOf("/") + 1); // remove path
@@ -166,23 +164,6 @@ public class MapReader {
         return questionsGrids;
     }
 
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-
-    //TODO
-    public Set<Question> getEasyQuestions() {
-        return easyQuestions;
-    }
-
-    public Set<Question> gethardQuestions() {
-        return hardQuestions;
-    }
-
-    public Set<Question> getmedQuestions() {
-        return medQuestions;
-    }
 
     /**
      * Returns the {@link Spawn} in this {@link Map}.
@@ -518,7 +499,8 @@ public class MapReader {
             }
 
             //question TODO
-            if (isQuestionGrid(grid)) {
+            if (isQuestionGrid(grid) && _questionsRead < 3) {
+                _questionsRead++;
                 Question easyQuestion = SysData.getInstance().getEasyQuestions().get(0); // getting the JSON arraylist from SysData
                 Question medQuestion = SysData.getInstance().getMedQuestions().get(0); // getting the JSON arraylist from SysData
                 Question hardQuestion = SysData.getInstance().getHardquestions().get(0); // getting the JSON arraylist from SysData
@@ -527,9 +509,6 @@ public class MapReader {
                 QuestionGrid questionGrid1 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, easyQuestion);
                 QuestionGrid questionGrid2 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, medQuestion);
                 QuestionGrid questionGrid3 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, hardQuestion);
-                this.easyQuestions.add(easyQuestion);
-                this.medQuestions.add(medQuestion);
-                this.hardQuestions.add(hardQuestion);
                 getQuestionsGrids().add(questionGrid1); //TODO
                 getQuestionsGrids().add(questionGrid2); //TODO
                 getQuestionsGrids().add(questionGrid3); //TODO
@@ -549,7 +528,6 @@ public class MapReader {
             if (isPortalBGrid(grid)) {
                 portalB = new Portal(map, gridCount, lineCount, PortalType.B);
             }
-
             gridCount++;
         }
         lineCount++;

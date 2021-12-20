@@ -35,9 +35,6 @@ public class MapPainter {
     root.getChildren().addAll(ghosts);
   }
 
-  public void drawQuestion(Set<Question> questions){ //TODO
-    //root.getChildren().addAll(questions);
-  }
   public void drawQuestionGrid(Set<QuestionGrid> questionGrids) {
     root.getChildren().addAll(questionGrids);
   }
