@@ -188,7 +188,6 @@ public enum GameManager {
     /**
      * Loses the game.
      *
-     * <p>This method calls {@link #()}, {@link #calculateScore()} and {@link #navigateBack()}
      * to the Select scene.
      */
     public void loseGame() {
@@ -201,7 +200,6 @@ public enum GameManager {
     /**
      * Wins the game.
      *
-     * <p>This method calls {@link()}, {@link #calculateScore()} and {@link #navigateBack()}
      * to the Select scene.s
      */
     public void winGame() {
@@ -299,15 +297,15 @@ public enum GameManager {
             Double itemYTmp = randPacItem.getY();
 
             if(questionGrid.getQuestion().getLevel() == Level.EASY){
-                questionGrid.setQuestion(SysData.getInstance().getEasyQuestions().get(currentEasyIndex));
+                questionGrid.setQuestion(SysData.getInstance().getEasyQuestions().get(currentEasyIndex%SysData.getInstance().getEasyQuestions().size()));
                 currentEasyIndex++;
             }
             if(questionGrid.getQuestion().getLevel() == Level.MEDIUM){
-                questionGrid.setQuestion(SysData.getInstance().getMedQuestions().get(currentMedIndex));
+                questionGrid.setQuestion(SysData.getInstance().getMedQuestions().get(currentMedIndex%SysData.getInstance().getMedQuestions().size()));
                 currentMedIndex++;
             }
             if(questionGrid.getQuestion().getLevel() == Level.HARD){
-                questionGrid.setQuestion(SysData.getInstance().getHardquestions().get(currentHardIndex));
+                questionGrid.setQuestion(SysData.getInstance().getHardquestions().get(currentHardIndex%SysData.getInstance().getHardquestions().size()));
                 currentHardIndex++;
             }
 
