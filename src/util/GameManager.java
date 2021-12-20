@@ -171,8 +171,6 @@ public enum GameManager {
     public void winGame() {
         if (getGameStatus() == GameStatus.START) {
             endGame(map.getNickname(), "WON", String.valueOf(this.score.getValue()));
-//      calculateScore();
-//      navigateBack();
         }
     }
 
@@ -227,14 +225,12 @@ public enum GameManager {
      */
     public void handlePacItemTouched(PacItem cookie) {
         cookie.eat();
-//    MusicPlayer.INSTANCE.playChomp();
         checkWin(score.gain(cookie.getValue()));
         updateUi();
     }
 
     public void handleBombItemTouched(BombItem bomb) {
         bomb.eat();
-//    MusicPlayer.INSTANCE.playChomp();
         updateUi();
     }
 
@@ -455,14 +451,14 @@ public enum GameManager {
      */
     private boolean checkLevelChange(Integer currentScore) {
 
-        if (currentScore >= 10 && currentLevel == GameLevel.ZERO) {
+        if (currentScore >= 51 && currentLevel == GameLevel.ZERO) {
             currentLevel = GameLevel.PASSED_ONE;
             SceneSwitch.INSTANCE.switchToGameLevelOne();
             gameController.setTitle("level - 2 ");
             return true;
         }
 
-        if (currentScore >= 20 && currentLevel == GameLevel.PASSED_ONE) {
+        if (currentScore >= 101 && currentLevel == GameLevel.PASSED_ONE) {
             currentLevel = GameLevel.PASSED_TWO;
             // remove portals from the screen
             SceneSwitch.INSTANCE.switchToGameLevelTwo();
@@ -472,7 +468,7 @@ public enum GameManager {
             // increase pacman's speed
 
         }
-        if (currentScore >= 30 && currentLevel == GameLevel.PASSED_TWO) {
+        if (currentScore >= 151 && currentLevel == GameLevel.PASSED_TWO) {
             currentLevel = GameLevel.PASSED_THREE;
             SceneSwitch.INSTANCE.switchToGameLevelThree();
             gameController.setTitle("level - 4 ");
@@ -484,13 +480,4 @@ public enum GameManager {
         return true;
     }
 
-    /**
-     * Navigates back to the Select scene, and pops up the ScoreBoard stage at the same time.
-     */
-    private void navigateBack() {
-        // navigate back to select
-//        SceneSwitch.INSTANCE.switchToSelect();
-
-        // popup score board
-    }
 }

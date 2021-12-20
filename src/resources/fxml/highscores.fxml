@@ -31,6 +31,6 @@
          <image>
             <Image url="@../images/pac-chase-ghosts.jpg" />
          </image>
-      </ImageView>
+       </ImageView>
    </children>
 </Pane>
