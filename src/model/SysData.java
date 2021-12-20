@@ -110,7 +110,7 @@ public class SysData {
     public boolean save() {
         try {
             saveGames();
-            savePlayers();
+//            savePlayers();
             saveQuestions();
             return true;
         } catch (Exception e) {
@@ -177,24 +177,24 @@ public class SysData {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<GameData> games = new ArrayList<>();
-        try (FileReader reader = new FileReader("src/resources/json/games.json")) {
-
-            //Read JSON file
-            Object obj = jsonParser.parse(reader);
-
-            JSONArray gamesList = (JSONArray) (((JSONObject) obj).get("games"));
-            for (Object game : gamesList) {
-                GameData newGame = new GameData();
-                newGame.fromJson((JSONObject) game);
-                games.add(newGame);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try (FileReader reader = new FileReader("src/resources/json/games.json")) {
+//
+//            //Read JSON file
+//            Object obj = jsonParser.parse(reader);
+//
+//            JSONArray gamesList = (JSONArray) (((JSONObject) obj).get("games"));
+//            for (Object game : gamesList) {
+//                GameData newGame = new GameData();
+//                newGame.fromJson((JSONObject) game);
+//                games.add(newGame);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return games;
     }
 
@@ -267,15 +267,15 @@ public class SysData {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
             JSONArray jsonGames = new JSONArray();
-            for(GameData game: games)
-            {
+
+            for (GameData game : games){
                 jsonGames.add(game.toJson());
             }
             json.put("games", jsonGames);
             file.write(json.toJSONString());
             file.flush();
-            return true;
 
+return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;

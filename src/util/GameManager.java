@@ -51,6 +51,8 @@ public enum GameManager {
      */
     private Map map;
 
+    private  SysData sysData = new SysData();
+
     /**
      * The current {@link GameController}.
      */
@@ -144,30 +146,43 @@ public enum GameManager {
     /**
      * Loses the game.
      *
-     * <p>This method calls {@link #endGame()}, {@link #calculateScore()} and {@link #navigateBack()}
+     * <p>This method calls {@link #()}, {@link #calculateScore()} and {@link #navigateBack()}
      * to the Select scene.
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
-            endGame();
+            endGame(map.getNickname(),"LOST",String.valueOf(0));
             calculateScore();
-            navigateBack();
+//            navigateBack();
         }
     }
 
     /**
      * Wins the game.
      *
-     * <p>This method calls {@link #endGame()}, {@link #calculateScore()} and {@link #navigateBack()}
-     * to the Select scene.
+     * <p>This method calls {@link()}, {@link #calculateScore()} and {@link #navigateBack()}
+     * to the Select scene.s
      */
     public void winGame() {
         if (getGameStatus() == GameStatus.START) {
-//      endGame();
+            endGame(map.getNickname(), "WON", String.valueOf(this.score.getValue()));
 //      calculateScore();
 //      navigateBack();
         }
     }
+
+    private boolean storeScore(String name, String status, String score){
+        try {
+            sysData.load();
+            sysData.getGames().add(new GameData(0, name, Integer.valueOf(score)));
+            sysData.save();
+            return true;
+        }catch (Exception e){
+            System.out.println("caught error in store score");
+            return false;
+        }
+    }
+
 
     /**
      * Ends the game.
@@ -175,14 +190,15 @@ public enum GameManager {
      * <p>This method calls {@link #freezeGhosts()} and set the {@link #gameStatus} to {@link
      * GameStatus#END}.
      */
-    public void endGame() {
+    public void endGame(String name, String status, String score) {
         freezeGhosts();
+        storeScore(name,status,score);
+        SceneSwitch.INSTANCE.switchToEndGame(name, status, score);
         gameStatus = GameStatus.END;
     }
 
     /**
      * This method is called when any {@link Ghost} is touching the {@link Pacman}.
-     *
      * @param ghost the {@link Ghost} touching the {@link Pacman}
      */
     public void handleGhostTouched(Ghost ghost) {
@@ -375,16 +391,17 @@ public enum GameManager {
     private void updateUi() {
         gameController.setLifeCount(life.getRemaining(), life.getTotal());
         gameController.setScoreCount(score.getValue());
+//        gameController.setBombCount((map.getPacman().getBombCount()));
     }
 
     /**
      * Calculates the final {@link Score} and writes it into a corresponding file.
      */
     private void calculateScore() {
-        ScoreBoardWriter scoreBoardWriter =
-                new ScoreBoardWriter(map.getMapConfig().getTitle() + ".txt");
-        score.settle();
-        scoreBoardWriter.write(score);
+//        ScoreBoardWriter scoreBoardWriter =
+//                new ScoreBoardWriter(map.getMapConfig().getTitle() + ".txt");
+//        score.settle();
+//        scoreBoardWriter.write(score);
     }
 
     /**
@@ -460,7 +477,7 @@ public enum GameManager {
      */
     private void navigateBack() {
         // navigate back to select
-        SceneSwitch.INSTANCE.switchToSelect();
+//        SceneSwitch.INSTANCE.switchToSelect();
 
         // popup score board
     }

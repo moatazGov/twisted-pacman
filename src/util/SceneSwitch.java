@@ -8,7 +8,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
 import model.Portal;
+import model.SysData;
+import view.EndGameCtrl;
 import view.Main;
 import constant.FileName;
 import view.GameController;
@@ -119,10 +122,10 @@ public enum SceneSwitch {
    * Switched the current scene to Game.
    *
    */
-  public void switchToGameLevelZero() {
+  public void switchToGameLevelZero(String nickName) {
     try {
       map = new Map();
-      map.setNickname("Unknown Player");
+      map.setNickname(nickName);
       map.setFileName("/resources/pacman/map/map1.txt");
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
@@ -130,8 +133,11 @@ public enum SceneSwitch {
       hideStage();
       URL location = Main.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);
+
       Pane root = loader.load();
       Scene gameScene = new Scene(root);
+      GameController controller = loader.<GameController>getController();
+      controller.setNickName(nickName);
       setScene(gameScene);
 
        mapPane = (Pane) gameScene.lookup("#map");
@@ -155,8 +161,30 @@ public enum SceneSwitch {
 
       gameScene.addEventHandler(
           KeyEvent.KEY_PRESSED, event -> GameManager.INSTANCE.handleKeyPressed(event));
-//      gameScene.addEventHandler(
-//          KeyEvent.KEY_RELEASED, event -> GameManager.INSTANCE.handleKeyReleased(event));
+      showStage();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Switched the current scene to Game.
+   *
+   */
+  public void switchToEndGame(String nickName, String status, String score) {
+    try {
+      hideStage();
+
+      SysData.getInstance().load();
+      URL location = Main.class.getResource("/resources/fxml/end-game.fxml");
+      FXMLLoader loader = new FXMLLoader(location);
+      Pane root = loader.load();
+      Scene gameScene = new Scene(root);
+      EndGameCtrl controller = loader.<EndGameCtrl>getController();
+      controller.setNickName(nickName);
+      controller.setStatus(status);
+      controller.setScoreText(score);
+      setScene(gameScene);
       showStage();
     } catch (Exception e) {
       e.printStackTrace();
