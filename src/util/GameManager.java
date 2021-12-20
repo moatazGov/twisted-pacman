@@ -151,7 +151,7 @@ public enum GameManager {
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
-            endGame(map.getNickname(),"LOST",String.valueOf(0));
+            endGame(map.getNickname(),"LOST",String.valueOf(score.getValue()));
             calculateScore();
 //            navigateBack();
         }
