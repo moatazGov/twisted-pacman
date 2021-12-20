@@ -22,7 +22,6 @@ public class MapPainter {
     root.getChildren().add(pacman);
   }
 
-
   public void drawCookies(Set<PacItem> cookies) {
     root.getChildren().addAll(cookies);
   }
@@ -35,10 +34,8 @@ public class MapPainter {
     root.getChildren().addAll(ghosts);
   }
 
-  public void drawQuestion(Set<Question> questions){ //TODO
-    //root.getChildren().addAll(questions);
-  }
   public void drawQuestionGrid(Set<QuestionGrid> questionGrids) {
+    root.getChildren().removeIf(x -> x instanceof QuestionGrid);
     root.getChildren().addAll(questionGrids);
   }
 

@@ -196,7 +196,6 @@ public class Map {
     ghosts = mapReader.getGhosts();
     spawn = mapReader.getSpawn();
     portals = mapReader.getPortals();
-    questions=mapReader.getQuestions();// TODO
     questionGrids=mapReader.getQuestionsGrids();
   }
 
@@ -216,11 +215,17 @@ public class Map {
     // paint map
     MapPainter mapPainter = new MapPainter(root);
     mapPainter.drawWalls(walls);
+    mapPainter.drawQuestionGrid(questionGrids); //TODO
+
     mapPainter.drawCookies(pacItems);
     mapPainter.drawBombs(bombItems);
     mapPainter.drawPacman(pacman);
     mapPainter.drawGhost(ghosts);
-    mapPainter.drawQuestion(questions); //TODO
+  }
+
+  public void drawQuestions(Pane root) {
+    // paint map
+    MapPainter mapPainter = new MapPainter(root);
     mapPainter.drawQuestionGrid(questionGrids); //TODO
   }
 

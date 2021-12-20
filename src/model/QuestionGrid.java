@@ -1,23 +1,37 @@
 package model;
 import constant.FileName;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class QuestionGrid extends Grid {
         public static int i=0 ;
         private Question question;
+        Timer timer = new Timer();
     /**
      * Allocates a new {@link Grid} object.
      *
      * <p>This constructor sets the {@link Grid} in the given position of the given {@link Map}.
      *
      * @param parentMap the {@link Map} where this {@link Grid} stays
-     * @param row       the row index in the {@link Map} where this {@link Grid} stays, starting from 0
+     * @param row       the row index igo the {@link Map} where this {@link Grid} stays, starting from 0
      * @param column    the column index in the {@link Map} where this {@link Grid} stays, starting from
      */
         public QuestionGrid(Map parentMap, double row, double column, Question question) {
         super(parentMap, row, column);
        QuestionLevel(question);
+        this.question = question;
     }
-        public void QuestionLevel(Question question) {
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void QuestionLevel(Question question) {
                 if (question.getLevel() == Level.HARD) {
                     this.setImage(FileName.IMAGE_HARD_QUESTION);
                 }if (question.getLevel() == Level.EASY) {
@@ -25,18 +39,13 @@ public class QuestionGrid extends Grid {
                 }if (question.getLevel() == Level.MEDIUM) {
                     this.setImage(FileName.IMAGE_MED_QUESTION);
                 }
-//                else {
-//                    this.setImage(FileName.IMAGE_EASY_QUESTION);
-//                    i++;
-//                }
 
             }
 
 
     public void eat() {
         setVisible(false);
-    } //TODO
-
+    }
     /**
      * Tests if this {@link } still exists (i.e. not eaten yet) in the screen.
      *
@@ -45,8 +54,6 @@ public class QuestionGrid extends Grid {
     public boolean isExisting() {
         return isVisible();
     } //TODO
-//    private boolean isQuestionGrid(String grid) {
-   //         return grid.equals("?");
-    //}
+
 
 }

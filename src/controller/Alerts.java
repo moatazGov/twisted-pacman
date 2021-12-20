@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.Level;
 import model.Question;
 import model.SysData;
 
@@ -85,17 +86,44 @@ public class Alerts {
         dialog.setResultConverter(new Callback<ButtonType, Question>() {
             @Override
             public Question call(ButtonType b) {
+                // load system data
                 SysData sysData = new SysData();
                 sysData.load();
                 if (b == buttonTypeOk) {
+                    // generate the new question to add to the right array
                     Question newQuestion = new Question(questionText.getText(),
                             new ArrayList(Arrays.asList(answer1Text.getText(), answer2Text.getText(), answer3Text.getText(), answer4Text.getText())),
                             answer1Text.getText(), question.getLevel(), "Hawk");
-                    ArrayList<Question> currentQuestions = SysData.getInstance().getQuestions();
-                    Integer oldIndex = currentQuestions.indexOf(question);
-                    currentQuestions.remove(question);
-                    currentQuestions.add(oldIndex, newQuestion);
-                    sysData.setQuestions(currentQuestions);
+
+                    // remove the old instance
+                    if (newQuestion.getLevel() == Level.EASY) {
+                        ArrayList<Question> currentQuestions = SysData.getInstance().getEasyQuestions();
+                        Integer oldIndex = currentQuestions.indexOf(question);
+                        currentQuestions.remove(question);
+                        // add the new instance
+                        currentQuestions.add(oldIndex, newQuestion);
+                        sysData.setEasyQuestions(currentQuestions);
+
+                    }
+                    if (newQuestion.getLevel() == Level.MEDIUM) {
+                        ArrayList<Question> currentQuestions = SysData.getInstance().getMedQuestions();
+                        Integer oldIndex = currentQuestions.indexOf(question);
+                        currentQuestions.remove(question);
+                        // add the new instance
+                        currentQuestions.add(oldIndex, newQuestion);
+                        sysData.setMedQuestions(currentQuestions);
+
+                    }
+                    if (newQuestion.getLevel() == Level.HARD) {
+                        ArrayList<Question> currentQuestions = SysData.getInstance().getHardquestions();
+                        Integer oldIndex = currentQuestions.indexOf(question);
+                        currentQuestions.remove(question);
+                        // add the new instance
+                        currentQuestions.add(oldIndex, newQuestion);
+                        sysData.setHardQuestions(currentQuestions);
+
+                    }
+
                     sysData.save();
                     return newQuestion;
                 }

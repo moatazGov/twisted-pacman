@@ -1,13 +1,12 @@
 package model;
 
 import constant.FileName;
+ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.ThreadLocalRandom;
-import model.Map;
-import model.QuestionGrid;
 import java.util.Timer;
 import java.util.TimerTask;
-
-
+ /**
+=======
 
 /**
  *
