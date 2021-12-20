@@ -202,28 +202,44 @@ public enum GameManager {
         updateUi();
     }
 
+
+    /**
+     * shows question pop-up
+    **/
+    private boolean showQuestionPopUp(Question question){
+        return true;
+    }
+
+    /**
+     * generate a new question at a random grid
+     */
+    private boolean generateRandomQuestionGrid(){
+        return true;
+    }
+
+
+
+    /**
+     * handles pacman touching a question
+     * @param questionGrid
+     */
+    public void handleQuestionGrid(QuestionGrid questionGrid) { //TODO
+        questionGrid.eat();
+        questionGrid.setVisible(false);
+//    MusicPlayer.INSTANCE.playChomp();
+       // updateUi();
+    }
+
     public void handleBombItemTouched(BombItem bomb) {
         bomb.eat();
 //    MusicPlayer.INSTANCE.playChomp();
         updateUi();
     }
 
-    private void adjustPacmanPosition() {
-        if (currentPacDirection != null) {
-            if (currentPacDirection == Direction.RIGHT) {
-                map.getPacman().setX((map.getPacman().getX()) / map.getMapConfig().getGridLength());
-            }
-            if (currentPacDirection == Direction.LEFT) {
-                map.getPacman().setX((map.getPacman().getX()) / map.getMapConfig().getGridLength());
-            }
-            if (currentPacDirection == Direction.UP) {
-                map.getPacman().setY((map.getPacman().getY()) / map.getMapConfig().getGridLength());
-            }
-            if (currentPacDirection == Direction.DOWN) {
-                map.getPacman().setY((map.getPacman().getY()) / map.getMapConfig().getGridLength());
-            }
-        }
+    public void checkQuestionGrid(QuestionGrid questionGrid){
+        questionGrid.eat();
     }
+
 
     /**
      * This method is called when any key is pressed.

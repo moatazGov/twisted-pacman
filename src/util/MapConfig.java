@@ -52,6 +52,9 @@ public class MapConfig {
   /** The ghost padding rate in this {@link Map} */
   private double ghostPaddingRate = 0.7;
 
+  /** The Question Grid  padding rate in this {@link Map} */
+  private double questionGridPadding=0.3;
+
   /**
    * Allocates a new {@link MapConfig} object.
    *
@@ -96,7 +99,7 @@ public class MapConfig {
   }
 
   /** Updates the bomb padding. */
-  private void updateBOmbPadding() {
+  private void updateBombPadding() {
     bombPadding = gridLength * bombPaddingRate;
   }
 
@@ -121,6 +124,10 @@ public class MapConfig {
    */
   public double getBombPadding() {
     return bombPadding;
+  }
+
+  public double getQuestionGridPadding(){
+    return questionGridPadding;
   }
 
   /**

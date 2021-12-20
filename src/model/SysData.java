@@ -18,7 +18,9 @@ public class SysData {
     private static SysData instance;
     private ArrayList<Score> scores;
     private ArrayList<GameData> games;
-    private ArrayList<Question> questions;
+    private ArrayList<Question> easyQuestions = new ArrayList<>();
+    private ArrayList<Question> hardquestions = new ArrayList<>();
+    private ArrayList<Question> medquestions = new ArrayList<>();
     private ArrayList<String> players;
     //todo add to class diagram
     private String nickName;
@@ -52,14 +54,31 @@ public class SysData {
         this.games = games;
     }
 
-    public ArrayList<Question> getQuestions() {
-        load();
-        return questions;
+
+    public ArrayList<Question> getEasyQuestions() {
+        return easyQuestions;
     }
 
-    public void setQuestions(ArrayList<Question> questions) {
-        this.questions = questions;
+    public void setEasyQuestions(ArrayList<Question> easyQuestions) {
+        this.easyQuestions = easyQuestions;
     }
+
+    public ArrayList<Question> getHardquestions() {
+        return hardquestions;
+    }
+
+    public void setHardquestions(ArrayList<Question> hardquestions) {
+        this.hardquestions = hardquestions;
+    }
+
+    public ArrayList<Question> getMedquestions() {
+        return medquestions;
+    }
+
+    public void setMedquestions(ArrayList<Question> medquestions) {
+        this.medquestions = medquestions;
+    }
+
 
     public ArrayList<String> getPlayers() {
         return players;
@@ -95,7 +114,7 @@ public class SysData {
         try {
 //            games = loadGamesJson();
 //            players = loadPlayersJson();
-            questions = loadQuestionsJson();
+            loadQuestionsJson();
             return true;
         } catch (Exception e) {
             return false;
@@ -173,7 +192,7 @@ public class SysData {
     }
 
 
-    public ArrayList loadGamesJson() {
+    public ArrayList<GameData> loadGamesJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<GameData> games = new ArrayList<>();
@@ -198,18 +217,33 @@ public class SysData {
         return games;
     }
 
-    private ArrayList loadQuestionsJson() {
+    private void loadQuestionsJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
-        ArrayList<Question> questions = new ArrayList<>();
+        //  ArrayList<Question> questions = new ArrayList<>(); //TODO to Delete
 
+        easyQuestions = new ArrayList<>();
+        hardquestions = new ArrayList<>();
+        medquestions = new ArrayList<>();
         try (FileReader reader = new FileReader("src/resources/json/questions.json")) {
             Object obj = jsonParser.parse(reader);
             JSONArray questionsList = (JSONArray) ((JSONObject) obj).get("questions");
             for (Object question : questionsList) {
                 Question newQuestion = new Question();
                 newQuestion.fromJson((JSONObject) question);
-                questions.add(newQuestion);
+
+                if (newQuestion.getLevel() == Level.EASY) {
+                    easyQuestions.add(newQuestion);
+                }
+                if (newQuestion.getLevel() == Level.HARD) {
+                    hardquestions.add(newQuestion);
+
+                }
+                if (newQuestion.getLevel() == Level.MEDIUM) {
+                    medquestions.add(newQuestion);
+                }
+
+                //questions.add(newQuestion);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -218,7 +252,6 @@ public class SysData {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return questions;
 
     }
 
@@ -254,7 +287,6 @@ public class SysData {
             json.put("players", players);
             file.write(json.toJSONString());
             file.flush();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -283,7 +315,13 @@ public class SysData {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
             JSONArray jsonQuestions = new JSONArray();
-            for (Question question : questions){
+            for (Question question : easyQuestions) {
+                jsonQuestions.add(question.toJson());
+            }
+            for (Question question : medquestions) {
+                jsonQuestions.add(question.toJson());
+            }
+            for (Question question : hardquestions) {
                 jsonQuestions.add(question.toJson());
             }
             json.put("questions", jsonQuestions);

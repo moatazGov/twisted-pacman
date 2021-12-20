@@ -5,8 +5,13 @@ import constant.FileName;
 import constant.MovableGridType;
 import util.GameManager;
 
-import javax.security.auth.callback.PasswordCallback;
 import java.util.Set;
+
+import javax.swing.*;
+import javax.swing.event.HyperlinkListener;
+import java.awt.*;
+import java.util.List;
+import java.util.function.Function;
 
 public class Pacman extends MovableGrid {
 
@@ -151,7 +156,7 @@ public class Pacman extends MovableGrid {
         checkTouchingCookies();
         checkTouchingBomb();
         checkHoldingBomb();
-
+        checkTouchingQuestionGrid();
     }
 
     /**
@@ -180,6 +185,18 @@ public class Pacman extends MovableGrid {
         }
     }
 
+
+    private void checkTouchingQuestionGrid() { // TODO
+        for (QuestionGrid questionGrid : getParentMap().getQuestionsGrid()) {
+            if (questionGrid.isExisting()
+                    && isTouching(questionGrid, getParentMap().getMapConfig().getQuestionGridPadding())) {
+                GameManager.INSTANCE.handleQuestionGrid(questionGrid);
+               //bombCount++;
+
+                return;
+            }
+        }
+    }
     private void checkHoldingBomb(){
         if(bombCount > 0){
             this.setImage(FileName.IMAGE_ANGRYPAC);

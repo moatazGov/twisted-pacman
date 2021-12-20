@@ -1,9 +1,13 @@
 package model;
 import constant.FileName;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class QuestionGrid extends Grid {
         public static int i=0 ;
         private Question question;
+        Timer timer = new Timer();
     /**
      * Allocates a new {@link Grid} object.
      *
@@ -35,8 +39,13 @@ public class QuestionGrid extends Grid {
 
     public void eat() {
         setVisible(false);
-    } //TODO
-
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        }, 30 * 1000);
+    }
     /**
      * Tests if this {@link } still exists (i.e. not eaten yet) in the screen.
      *
@@ -45,8 +54,6 @@ public class QuestionGrid extends Grid {
     public boolean isExisting() {
         return isVisible();
     } //TODO
-//    private boolean isQuestionGrid(String grid) {
-   //         return grid.equals("?");
-    //}
+
 
 }
