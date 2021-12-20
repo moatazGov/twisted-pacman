@@ -223,6 +223,12 @@ public class Map {
     mapPainter.drawGhost(ghosts);
   }
 
+  public void drawQuestions(Pane root) {
+    // paint map
+    MapPainter mapPainter = new MapPainter(root);
+    mapPainter.drawQuestionGrid(questionGrids); //TODO
+  }
+
   /**
    * adds portals to the sides of the screen.
    */

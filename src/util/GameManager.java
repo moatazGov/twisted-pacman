@@ -4,6 +4,7 @@ import constant.Direction;
 import constant.GameLevel;
 import constant.GameStatus;
 import constant.PortalType;
+import controller.FactoryQuestionGrid;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import model.*;
@@ -15,6 +16,8 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
+
+import static com.sun.glass.ui.Cursor.setVisible;
 
 /**
  * <h1>GameManager</h1>
@@ -52,6 +55,10 @@ public enum GameManager {
      * The current playing {@link Map}.
      */
     private Map map;
+
+    private int currentEasyIndex = 1;
+    private int currentMedIndex = 1;
+    private int currentHardIndex = 1;
 
     private  SysData sysData = new SysData();
 
@@ -283,13 +290,36 @@ public enum GameManager {
             Double itemXTmp = randPacItem.getX();
             Double itemYTmp = randPacItem.getY();
 
+            if(questionGrid.getQuestion().getLevel() == Level.EASY){
+                questionGrid.setQuestion(SysData.getInstance().getEasyQuestions().get(currentEasyIndex));
+                currentEasyIndex++;
+            }
+            if(questionGrid.getQuestion().getLevel() == Level.MEDIUM){
+                questionGrid.setQuestion(SysData.getInstance().getMedQuestions().get(currentMedIndex));
+                currentMedIndex++;
+            }
+            if(questionGrid.getQuestion().getLevel() == Level.HARD){
+                questionGrid.setQuestion(SysData.getInstance().getHardquestions().get(currentHardIndex));
+                currentHardIndex++;
+            }
+
             randPacItem.setX(questionGrid.getX());
             randPacItem.setY(questionGrid.getY());
 
-            questionGrid.setX(itemXTmp);
-            questionGrid.setY(itemYTmp);
-//            randPacItem.setVisible(true);
-//            questionGrid.setVisible(true);
+            Timer timer = new Timer();
+
+            PacItem finalRandPacItem = randPacItem;
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    questionGrid.setX(itemXTmp);
+                    questionGrid.setY(itemYTmp);
+                    finalRandPacItem.setVisible(true);
+                    questionGrid.setVisible(true);
+                }
+            }, 10*1000);
+
+
             return true;
         }return false;
     }

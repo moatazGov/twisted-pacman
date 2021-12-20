@@ -79,6 +79,10 @@ public class QuestionCtrl implements Initializable {
         setAnswer2(question.getAnswers().get(1));
         setAnswer3(question.getAnswers().get(2));
         setAnswer4(question.getAnswers().get(3));
+        levelLbl.setText(
+                question.getLevel() == Level.EASY ? "Easy Question" :
+                        question.getLevel() == Level.MEDIUM ? "Medium Question" : "Hard Question"
+        );
     }
 
     @FXML
@@ -95,7 +99,7 @@ public class QuestionCtrl implements Initializable {
             //wrong answer
             Level level = question.getLevel();
             GameManager.INSTANCE.decScore(
-                    level == Level.EASY ? 10 : level == Level.MEDIUM ? 20 : 30
+                    level == Level.EASY ? -10 : level == Level.MEDIUM ? -20 : -30
             );
             GameManager.INSTANCE.updateUi();
         }

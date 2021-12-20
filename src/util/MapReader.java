@@ -500,18 +500,27 @@ public class MapReader {
 
             //question TODO
             if (isQuestionGrid(grid) && _questionsRead < 3) {
-                _questionsRead++;
-                Question easyQuestion = SysData.getInstance().getEasyQuestions().get(0); // getting the JSON arraylist from SysData
-                Question medQuestion = SysData.getInstance().getMedQuestions().get(0); // getting the JSON arraylist from SysData
-                Question hardQuestion = SysData.getInstance().getHardquestions().get(0); // getting the JSON arraylist from SysData
-
                 FactoryQuestionGrid factoryQuestionGrid = new FactoryQuestionGrid();
-                QuestionGrid questionGrid1 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, easyQuestion);
-                QuestionGrid questionGrid2 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, medQuestion);
-                QuestionGrid questionGrid3 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, hardQuestion);
-                getQuestionsGrids().add(questionGrid1); //TODO
-                getQuestionsGrids().add(questionGrid2); //TODO
-                getQuestionsGrids().add(questionGrid3); //TODO
+
+                if(_questionsRead == 0){
+                    Question easyQuestion = SysData.getInstance().getEasyQuestions().get(0); // getting the JSON arraylist from SysData
+                    QuestionGrid questionGrid1 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, easyQuestion);
+                    getQuestionsGrids().add(questionGrid1); //TODO
+
+                }
+                if(_questionsRead == 1 ){
+                    Question medQuestion = SysData.getInstance().getMedQuestions().get(0); // getting the JSON arraylist from SysData
+                    QuestionGrid questionGrid2 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, medQuestion);
+                    getQuestionsGrids().add(questionGrid2); //TODO
+
+                }
+                if(_questionsRead == 2){
+                    Question hardQuestion = SysData.getInstance().getHardquestions().get(0); // getting the JSON arraylist from SysData
+                    QuestionGrid questionGrid3 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, hardQuestion);
+                    getQuestionsGrids().add(questionGrid3); //TO
+
+                }
+                _questionsRead++;
             }
             // ghost
             if (isGhostGrid(grid)) {
