@@ -60,7 +60,7 @@ public enum GameManager {
     private int currentMedIndex = 1;
     private int currentHardIndex = 1;
 
-    private  SysData sysData = new SysData();
+    private SysData sysData = new SysData();
 
     /**
      * The current {@link GameController}.
@@ -92,9 +92,11 @@ public enum GameManager {
     public void setScore(Score score) {
         this.score = score;
     }
+
     public void incScore(int newScore) {
         this.score.gain(newScore);
     }
+
     public void decScore(int newScore) {
         this.score.gain(newScore);
     }
@@ -155,27 +157,25 @@ public enum GameManager {
      * GameStatus#PAUSE}.
      */
     public void pauseGame() {
-        if(gameStatus == GameStatus.PAUSE)
-        {
+        if (gameStatus == GameStatus.PAUSE) {
             freezeGhosts();
             map.getPacman().freeze();
             SceneSwitch.INSTANCE.switchToPause();
-            gameStatus = GameStatus.PAUSE;
+            gameStatus = GameStatus.START;
 
         }
 
 //        SceneSwitch.INSTANCE.returnToGame();
     }
 
-    public void continueGame(){
-        if(gameStatus == GameStatus.CONTINUE){
+    public void continueGame() {
+        if (gameStatus == GameStatus.CONTINUE) {
 
         }
     }
 
     public void pauseGameNoPopUp() {
-        if(gameStatus == GameStatus.PAUSE)
-        {
+        if (gameStatus == GameStatus.PAUSE) {
             SceneSwitch.INSTANCE.returnToGame();
         }
 
@@ -187,19 +187,19 @@ public enum GameManager {
 
     /**
      * Loses the game.
-     *
+     * <p>
      * to the Select scene.
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
-            endGame(map.getNickname(),"LOST",String.valueOf(score.getValue()));
+            endGame(map.getNickname(), "LOST", String.valueOf(score.getValue()));
             calculateScore();
         }
     }
 
     /**
      * Wins the game.
-     *
+     * <p>
      * to the Select scene.s
      */
     public void winGame() {
@@ -208,13 +208,13 @@ public enum GameManager {
         }
     }
 
-    private boolean storeScore(String name, String status, String score){
+    private boolean storeScore(String name, String status, String score) {
         try {
             sysData.load();
             sysData.getGames().add(new GameData(name, Integer.valueOf(score)));
             sysData.save();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("caught error in store score");
             return false;
         }
@@ -229,13 +229,14 @@ public enum GameManager {
      */
     public void endGame(String name, String status, String score) {
         freezeGhosts();
-        storeScore(name,status,score);
+        storeScore(name, status, score);
         SceneSwitch.INSTANCE.switchToEndGame(name, status, score);
         gameStatus = GameStatus.END;
     }
 
     /**
      * This method is called when any {@link Ghost} is touching the {@link Pacman}.
+     *
      * @param ghost the {@link Ghost} touching the {@link Pacman}
      */
     public void handleGhostTouched(Ghost ghost) {
@@ -266,11 +267,11 @@ public enum GameManager {
 
     /**
      * shows question pop-up
-    **/
-    private boolean showQuestionPopUp(Question question){
+     **/
+    private boolean showQuestionPopUp(Question question) {
         return true;
     }
-  
+
     public void handleBombItemTouched(BombItem bomb) {
         bomb.eat();
         updateUi();
@@ -279,33 +280,33 @@ public enum GameManager {
     /**
      * generate a new question at a random grid
      */
-    private boolean generateRandomQuestionGrid(QuestionGrid questionGrid){
+    private boolean generateRandomQuestionGrid(QuestionGrid questionGrid) {
         int index = 0;
         int wantedIndex = getRandomNumberUsingNextInt(0, map.getPacItems().size());
         // find random pacItem to replace and set visible value to false;
         PacItem randPacItem = null;
         for (PacItem pacItem : map.getPacItems()) {
-            if(index == wantedIndex){
+            if (index == wantedIndex) {
                 randPacItem = pacItem;
             }
             index++;
         }
-        if(randPacItem != null) {
+        if (randPacItem != null) {
             randPacItem.setVisible(false);
             questionGrid.setVisible(false);
             Double itemXTmp = randPacItem.getX();
             Double itemYTmp = randPacItem.getY();
 
-            if(questionGrid.getQuestion().getLevel() == Level.EASY){
-                questionGrid.setQuestion(SysData.getInstance().getEasyQuestions().get(currentEasyIndex%SysData.getInstance().getEasyQuestions().size()));
+            if (questionGrid.getQuestion().getLevel() == Level.EASY) {
+                questionGrid.setQuestion(SysData.getInstance().getEasyQuestions().get(currentEasyIndex % SysData.getInstance().getEasyQuestions().size()));
                 currentEasyIndex++;
             }
-            if(questionGrid.getQuestion().getLevel() == Level.MEDIUM){
-                questionGrid.setQuestion(SysData.getInstance().getMedQuestions().get(currentMedIndex%SysData.getInstance().getMedQuestions().size()));
+            if (questionGrid.getQuestion().getLevel() == Level.MEDIUM) {
+                questionGrid.setQuestion(SysData.getInstance().getMedQuestions().get(currentMedIndex % SysData.getInstance().getMedQuestions().size()));
                 currentMedIndex++;
             }
-            if(questionGrid.getQuestion().getLevel() == Level.HARD){
-                questionGrid.setQuestion(SysData.getInstance().getHardquestions().get(currentHardIndex%SysData.getInstance().getHardquestions().size()));
+            if (questionGrid.getQuestion().getLevel() == Level.HARD) {
+                questionGrid.setQuestion(SysData.getInstance().getHardquestions().get(currentHardIndex % SysData.getInstance().getHardquestions().size()));
                 currentHardIndex++;
             }
 
@@ -315,24 +316,21 @@ public enum GameManager {
             Timer timer = new Timer();
 
             PacItem finalRandPacItem = randPacItem;
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    questionGrid.setX(itemXTmp);
-                    questionGrid.setY(itemYTmp);
-                    finalRandPacItem.setVisible(true);
-                    questionGrid.setVisible(true);
-                }
-            }, 10*1000);
+
+            questionGrid.setX(itemXTmp);
+            questionGrid.setY(itemYTmp);
+            finalRandPacItem.setVisible(true);
+            questionGrid.setVisible(true);
 
 
             return true;
-        }return false;
+        }
+        return false;
     }
 
     /**
-     *
      * Generate random number in the given range.
+     *
      * @param min
      * @param max
      * @return
@@ -344,6 +342,7 @@ public enum GameManager {
 
     /**
      * handles pacman touching a question
+     *
      * @param questionGrid
      */
     public void handleQuestionGrid(QuestionGrid questionGrid) { //TODO
@@ -353,7 +352,7 @@ public enum GameManager {
     }
 
 
-    public void checkQuestionGrid(QuestionGrid questionGrid){
+    public void checkQuestionGrid(QuestionGrid questionGrid) {
         questionGrid.eat();
     }
 
@@ -448,11 +447,10 @@ public enum GameManager {
                 break;
             }
             case ESCAPE:
-                if(this.gameStatus == GameStatus.START){
+                if (this.gameStatus == GameStatus.START) {
                     this.gameStatus = GameStatus.PAUSE;
                     pauseGame();
-                }
-                else if(this.gameStatus == GameStatus.PAUSE){
+                } else if (this.gameStatus == GameStatus.PAUSE) {
                     this.gameStatus = GameStatus.CONTINUE;
                     continueGame();
                 }
@@ -475,7 +473,7 @@ public enum GameManager {
     /**
      * Freezes all {@link Ghost}s to make them not able to move.
      */
-    private void  freezeGhosts() {
+    private void freezeGhosts() {
         for (Ghost ghost : map.getGhosts()) {
             ghost.freeze();
         }
@@ -523,7 +521,7 @@ public enum GameManager {
      * Tests if all cookies are eaten. If true, calls {@link #winGame()}.
      */
     private void checkWin(Integer currentScore) {
-        if (Integer.parseInt(gameController.getScoreCount().getText())>=200) {
+        if (Integer.parseInt(gameController.getScoreCount().getText()) >= 200) {
             winGame();
         }
         checkLevelChange(currentScore);
@@ -558,7 +556,7 @@ public enum GameManager {
      */
     private boolean checkLevelChange(Integer currentScore) {
 
-      if (currentScore >= 51 && currentLevel == GameLevel.ZERO) {
+        if (currentScore >= 51 && currentLevel == GameLevel.ZERO) {
             currentLevel = GameLevel.PASSED_ONE;
             SceneSwitch.INSTANCE.switchToGameLevelOne();
             gameController.setTitle("level - 2 ");
