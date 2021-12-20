@@ -112,7 +112,7 @@ public class SysData {
      */
     public boolean load() {
         try {
-//            games = loadGamesJson();
+          games = loadGamesJson();
 //            players = loadPlayersJson();
             loadQuestionsJson();
             return true;
@@ -129,7 +129,7 @@ public class SysData {
     public boolean save() {
         try {
             saveGames();
-            savePlayers();
+//            savePlayers();
             saveQuestions();
             return true;
         } catch (Exception e) {
@@ -196,26 +196,27 @@ public class SysData {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
         ArrayList<GameData> games = new ArrayList<>();
-        try (FileReader reader = new FileReader("src/resources/json/games.json")) {
-
-            //Read JSON file
-            Object obj = jsonParser.parse(reader);
-
-            JSONArray gamesList = (JSONArray) (((JSONObject) obj).get("games"));
-            for (Object game : gamesList) {
-                GameData newGame = new GameData();
-                newGame.fromJson((JSONObject) game);
-                games.add(newGame);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try (FileReader reader = new FileReader("src/resources/json/games.json")) {
+//
+//            //Read JSON file
+//            Object obj = jsonParser.parse(reader);
+//
+//            JSONArray gamesList = (JSONArray) (((JSONObject) obj).get("games"));
+//            for (Object game : gamesList) {
+//                GameData newGame = new GameData();
+//                newGame.fromJson((JSONObject) game);
+//                games.add(newGame);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return games;
     }
+
 
     private void loadQuestionsJson() {
         //JSON parser object to parse read file
@@ -279,7 +280,7 @@ public class SysData {
 //        return questions;
 //    }
 
-    private boolean savePlayers() {
+    public boolean savePlayers() {
         //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/employees.json")) {
             //We can write any JSONArray or JSONObject instance to the file
@@ -293,23 +294,28 @@ public class SysData {
         return true;
     }
 
-    private boolean saveGames() {
+    public boolean saveGames() {
 //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/games.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
-            json.put("games", games);
+            JSONArray jsonGames = new JSONArray();
+
+            for (GameData game : games){
+                jsonGames.add(game.toJson());
+            }
+            json.put("games", jsonGames);
             file.write(json.toJSONString());
             file.flush();
-            return true;
 
+return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private boolean saveQuestions() {
+    public boolean saveQuestions() {
         //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/questions.json")) {
             //We can write any JSONArray or JSONObject instance to the file

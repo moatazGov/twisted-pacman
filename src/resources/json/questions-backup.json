@@ -1,5 +1,5 @@
 {
-	"questions":[
+	"questions"[
 		{
 			"question": "Which of the following is a Functional Requirement?",
 			"answers": [
@@ -13,7 +13,7 @@
 			"team": "Hawk"
 		},
 		{
-			"question": "What are code reviews good for?",
+			"question": "What are reviews good for?",
 			"answers": [
 				"Help contain a consistent programming style.",
 				"Promise system structure degradation.",
@@ -21,7 +21,7 @@
 				"Data errors, duplication and inconsistency."
 			],
 			"correct_ans": "3",
-			"level": "3",
+			"level": "3",			
 			"team": "Hawk"
 			
 		},
@@ -154,7 +154,7 @@
 				"You've got schedule risk because you never know if you are going to make it until the end."
 			],
 			"correct_ans": "1",
-			"level": "1",
+			"level": "2",
 			"team": "Hawk"
 		},
 		{

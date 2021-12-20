@@ -41,11 +41,12 @@
             <Font name="Eras Bold ITC" size="10.0" />
          </font>
       </Button>
-      <TableView id="scoresTbl" layoutX="348.0" layoutY="163.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
-        <columns>
-          <TableColumn prefWidth="100.0" text="Nickname" />
-          <TableColumn prefWidth="99.3333740234375" text="Score" />
-        </columns>
+      <TableView fx:id="gamesTbl" layoutX="348.0" layoutY="163.0" prefHeight="200.0" prefWidth="200.0">
+         <columns>
+            <!--                <TableColumn fx:id="colID" prefWidth="32.0" text="ID"/>-->
+            <TableColumn fx:id="nameCol" prefWidth="318.6666564941406" text="Nickname"/>
+            <TableColumn fx:id="scoreCol" prefWidth="60.0" text="Score"/>
+         </columns>
       </TableView>
       <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="67.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
          <image>

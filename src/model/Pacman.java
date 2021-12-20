@@ -205,4 +205,11 @@ public class Pacman extends MovableGrid {
             this.setImage(FileName.IMAGE_PACMAN);
         }
     }
+    /** Freezes this {@link Pacman}. I.e. Stops the moving. */
+    public void freeze() {
+        moveUp.stop();
+        moveDown.stop();
+        moveLeft.stop();
+        moveRight.stop();
+    }
 }
