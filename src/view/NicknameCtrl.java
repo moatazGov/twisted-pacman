@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import util.SceneSwitch;
 
@@ -19,8 +20,25 @@ public class NicknameCtrl {
     Scene scene;
 
     @FXML
+    private TextField nicknameTxt;
+
+    @FXML
     private void startClicked(ActionEvent event) throws IOException {
-        SceneSwitch.INSTANCE.switchToGameLevelZero();
+
+        try {
+            if (nicknameTxt.getText().length() != 0) {
+                    try {
+                        SceneSwitch.INSTANCE.switchToGameLevelZero();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+            } else {
+                MsgBox.display("Error!!", "Please insert a nickname.");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @FXML
