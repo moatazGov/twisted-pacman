@@ -16,11 +16,10 @@
             <Font name="Eras Bold ITC" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="scoresTbl" layoutX="83.0" layoutY="77.0" prefHeight="246.0" prefWidth="434.0" style="-fx-background-color: black;">
+      <TableView fx:id="gamesTbl" layoutX="83.0" layoutY="77.0" prefHeight="246.0" prefWidth="434.0" style="-fx-background-color: black;">
         <columns>
-          <TableColumn prefWidth="144.33334350585938" text="Nickname" />
-          <TableColumn minWidth="2.666656494140625" prefWidth="144.0" text="Score" />
-            <TableColumn minWidth="0.0" prefWidth="144.66668701171875" text="Date" />
+          <TableColumn fx:id="nameCol" prefWidth="144.33334350585938" text="Nickname" />
+          <TableColumn fx:id="scoreCol"  minWidth="2.666656494140625" prefWidth="144.0" text="Score" />
         </columns>
       </TableView>
       <Button fx:id="backBtn" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#backClicked" style="-fx-background-color: black;" text="Back" textFill="#fffd00">

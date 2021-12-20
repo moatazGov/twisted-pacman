@@ -19,22 +19,32 @@ public class NicknameCtrl {
     Parent root;
     Stage stage;
     Scene scene;
+
     @FXML
-    TextField nicknameTxt;
+    private TextField nicknameTxt;
 
     @FXML
     private void startClicked(ActionEvent event) throws IOException {
-        SceneSwitch.INSTANCE.switchToGameLevelZero(nicknameTxt.getText());
+
+        try {
+            if (nicknameTxt.getText().length() != 0) {
+                    try {
+                        SceneSwitch.INSTANCE.switchToGameLevelZero(nicknameTxt.getText());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+            } else {
+                MsgBox.display("Error!!", "Please insert a nickname.");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @FXML
     private void cancelClicked(ActionEvent event) throws IOException {
-        stage.close();
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
-        stage = new Stage();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        SceneSwitch.INSTANCE.switchToHome();
     }
 
 }

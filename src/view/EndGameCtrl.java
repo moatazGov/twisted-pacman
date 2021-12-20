@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -13,7 +16,6 @@ import model.GameData;
 import model.SysData;
 import util.SceneSwitch;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -55,73 +57,59 @@ public class EndGameCtrl {
 
 
     @FXML
-    private void exit(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-
-    @FXML
     public void initialize() {
         gameOver.setText("Game Over");
-        gameOver.setFill(Color.WHITE);
-        gameOver.setY(gameOver.getY() + 50);
-        gameOver.setStyle("-fx-font: 30 arial;");
+        gameOver.setStyle("-fx-text-fill: #FFFD00;");
 
         nickName.setText(this.getNickName());
-        nickName.setFill(Color.WHITE);
-        nickName.setY(gameOver.getY() + 50);
-        nickName.setStyle("-fx-font: 30 arial;");
+        nickName.setStyle("-fx-text-fill: #FFFD00;");
 
         result.setText(this.getStatus());
-        result.setFill(Color.WHITE);
-        result.setY(gameOver.getY() + 100);
-        result.setStyle("-fx-font: 30 arial;");
+        result.setStyle("-fx-text-fill: #FFFD00;");
 
 
         score.setText(this.getScoreText());
-        score.setFill(Color.WHITE);
-        score.setY(gameOver.getY() + 150);
-        score.setStyle("-fx-font: 30 arial;");
+        score.setStyle("-fx-text-fill: #FFFD00;");
         System.out.println("second");
     }
 
     /**
      * The title shown on the screen.
      */
-    @FXML private Text gameOver;
+    @FXML
+    private Label gameOver;
 
     /**
      * The title shown on the screen.
      */
-    @FXML private Text score;
+    @FXML
+    private Label score;
 
     /**
      * The title shown on the screen.
      */
-    @FXML private Text nickName;
+    @FXML
+    private Label nickName;
     /**
      * The title shown on the screen.
      */
-    @FXML private Text result;
+    @FXML
+    private Label result;
 
+    /**
+     * The button to return to the main menu
+     */
+    @FXML
+    private Button mainBtn;
 
     @FXML
-    private void startClicked(ActionEvent event) throws IOException {
-        SceneSwitch.INSTANCE.switchToGameLevelZero(nickName.getText());
-    }
-
-    @FXML
-    private void cancelClicked(ActionEvent event) throws IOException {
+    private void exit(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
 }

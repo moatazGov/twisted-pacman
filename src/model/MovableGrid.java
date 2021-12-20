@@ -93,7 +93,7 @@ public abstract class MovableGrid extends Grid {
             }
             break;
           case LEFT:
-            if (!MovableGrid.this.isGoingToTouchGrids(Direction.LEFT, obstacles,length)) {
+            if (!MovableGrid.this.isGoingToTouchGrids(Direction.LEFT, obstacles,length) ) {
               MovableGrid.this.setX(MovableGrid.this.getX() - step);
               MovableGrid.this.handleMove(Direction.LEFT);
             } else {

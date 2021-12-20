@@ -176,7 +176,7 @@ public enum SceneSwitch {
       hideStage();
 
       SysData.getInstance().load();
-      URL location = Main.class.getResource("/resources/fxml/end-game.fxml");
+      URL location = Main.class.getResource("/resources/fxml/game-over.fxml");
       FXMLLoader loader = new FXMLLoader(location);
       Pane root = loader.load();
       Scene gameScene = new Scene(root);

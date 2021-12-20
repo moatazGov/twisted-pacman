@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefWidth="1250.0" styleClass="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="view.GameController">
+<BorderPane prefWidth="1250.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameController">
   <stylesheets>
     <URL value="@../css/game.css" />
   </stylesheets>
@@ -21,7 +21,7 @@
     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1250.0" styleClass="top" BorderPane.alignment="CENTER">
       <children>
         <Pane prefWidth="25.0" />
-        <FlowPane alignment="CENTER_LEFT" prefWidth="200.0">
+        <FlowPane alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="350.0">
           <children>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="top-icon">
               <image>
@@ -32,9 +32,14 @@
               </FlowPane.margin>
             </ImageView>
             <Text id="title" fx:id="lifeCount" fill="#e12525" text="0" textAlignment="CENTER" />
-            <Text id="nickName" fx:id="nickName" fill="#e12525" text="0" textAlignment="CENTER"/>
+                  <ImageView fitHeight="37.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/cookie/cookie5.png" />
+                     </image>
+                  </ImageView>
 
             <Text id="title" fx:id="scoreCount" fill="#d0b323" text="0" textAlignment="CENTER" />
+            <Text id="nickName" fx:id="nickName" fill="#029116" text="0" textAlignment="CENTER" />
           </children>
         </FlowPane>
         <FlowPane alignment="CENTER_RIGHT" columnHalignment="CENTER" HBox.hgrow="ALWAYS">
