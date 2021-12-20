@@ -54,7 +54,6 @@ public class QuestionsAdminCtrl implements Initializable {
     }
 
     private void createTable() {
-//        colID.setCellValueFactory(new PropertyValueFactory<Question, String>("id"));
         colQues.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
         colAns.setCellValueFactory(new PropertyValueFactory<Question, String>("correct_ans"));
         colDiff.setCellValueFactory(new PropertyValueFactory<Question, Level>("level"));

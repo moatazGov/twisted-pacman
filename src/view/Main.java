@@ -30,11 +30,12 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.SysData;
 import util.SceneSwitch;
 
 /** The {@link Main} class for the pacman application. */
 public class Main extends Application {
-
+SysData sysData =  SysData.getInstance();
     /** The primary stage of the application. */
     private static Stage primaryStage;
 
@@ -49,6 +50,10 @@ public class Main extends Application {
      */
     public static Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public static void setPrimaryStage(Stage primaryStage) {
+        Main.primaryStage = primaryStage;
     }
 
     /**
