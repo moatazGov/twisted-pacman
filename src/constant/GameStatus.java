@@ -10,10 +10,11 @@ package constant;
  * @author Song Zhang
  * @version 1.0
  * @since 1.0
- * @see pacman.util.GameManager
+ * @see util.GameManager
  */
 public enum GameStatus {
   START,
   PAUSE,
+  CONTINUE,
   END,
 }

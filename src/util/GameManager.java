@@ -133,14 +133,20 @@ public enum GameManager {
     public void pauseGame() {
         if(gameStatus == GameStatus.PAUSE)
         {
-            SceneSwitch.INSTANCE.returnToGame();
+            freezeGhosts();
+            map.getPacman().freeze();
+            SceneSwitch.INSTANCE.switchToPause();
+            gameStatus = GameStatus.PAUSE;
+
         }
 
-        freezeGhosts();
-        map.getPacman().freeze();
-        SceneSwitch.INSTANCE.switchToPause();
-        gameStatus = GameStatus.PAUSE;
+//        SceneSwitch.INSTANCE.returnToGame();
+    }
 
+    public void continueGame(){
+        if(gameStatus == GameStatus.CONTINUE){
+
+        }
     }
 
     /**
@@ -339,7 +345,14 @@ public enum GameManager {
                 break;
             }
             case ESCAPE:
-                pauseGame();
+                if(this.gameStatus == GameStatus.START){
+                    this.gameStatus = GameStatus.PAUSE;
+                    pauseGame();
+                }
+                else if(this.gameStatus == GameStatus.PAUSE){
+                    this.gameStatus = GameStatus.CONTINUE;
+                    continueGame();
+                }
 
                 break;
             default:
@@ -359,7 +372,7 @@ public enum GameManager {
     /**
      * Freezes all {@link Ghost}s to make them not able to move.
      */
-    private void freezeGhosts() {
+    private void  freezeGhosts() {
         for (Ghost ghost : map.getGhosts()) {
             ghost.freeze();
         }

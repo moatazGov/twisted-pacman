@@ -43,11 +43,11 @@
       </Button>
       <TableView fx:id="gamesTbl" layoutX="339.0" layoutY="174.0" prefHeight="181.0" prefWidth="220.0" style="-fx-background-color: black;">
          <columns>
-            <TableColumn fx:id="nameCol" prefWidth="318.6666564941406" text="Nickname"/>
-            <TableColumn fx:id="scoreCol" prefWidth="60.0" text="Score"/>
+            <TableColumn fx:id="nameCol" prefWidth="318.6666564941406" text="Nickname" />
+            <TableColumn fx:id="scoreCol" prefWidth="60.0" text="Score" />
          </columns>
       </TableView>
-      <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="67.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="74.0" fitWidth="276.0" layoutX="61.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/pac-chase-ghosts.jpg" />
          </image>

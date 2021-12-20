@@ -63,7 +63,7 @@ public class HomeCtrl {
         ArrayList<GameData> gamesData = sysData.getGames();
         gamesData.sort((x,y) -> x.getScore() > y.getScore() ? -1 : x.getScore() < y.getScore() ? 1 : 0);
         ArrayList<GameData> wanted = new ArrayList<>();
-        for (int i = 0 ;  i < 4 ; i++) {
+        for (int i = 0 ;  i < 5 ; i++) {
             wanted.add(gamesData.get(i));
         }
         games.addAll(wanted);
