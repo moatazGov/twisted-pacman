@@ -166,13 +166,6 @@ public class Map {
     this.wallFileName = wallFileName;
   }
 
-//  //TODO what the fuck did i do here
-//  public String getQuestionGridFileName(){
-//    return questGridFileName;
-//  }
-//  public void setQuestionGridFileName(String questGridFileName){
-//    this.questGridFileName=questGridFileName;
-//  }
   /**
    * Reads the map file of {@link #fileName}.
    *
