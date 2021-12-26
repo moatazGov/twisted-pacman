@@ -1,8 +1,7 @@
 package model;
 
 import constant.FileName;
- import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.ThreadLocalRandom;
+
 import java.util.Timer;
 import java.util.TimerTask;
  /**
@@ -31,7 +30,7 @@ public class PacItem extends Grid {
      */
     public PacItem(Map map, double row, double column, int value) { // TODO
         super(map, row, column);
-        this.setImage(FileName.IMAGE_COOKIE_BIG);
+        this.setImage(FileName.IMAGE_BIG);
         this.value = 1;
 //        double rowNumber = ThreadLocalRandom.current().nextDouble(0, row);
 //        double columnNumber = ThreadLocalRandom.current().nextDouble(0, column);

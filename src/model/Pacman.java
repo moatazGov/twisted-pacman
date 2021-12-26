@@ -7,12 +7,6 @@ import util.GameManager;
 
 import java.util.Set;
 
-import javax.swing.*;
-import javax.swing.event.HyperlinkListener;
-import java.awt.*;
-import java.util.List;
-import java.util.function.Function;
-
 public class Pacman extends MovableGrid {
 
     private int bombCount = 0;
@@ -199,7 +193,7 @@ public class Pacman extends MovableGrid {
     }
     private void checkHoldingBomb(){
         if(bombCount > 0){
-            this.setImage(FileName.IMAGE_ANGRYPAC);
+            this.setImage(FileName.IMAGE_ANGRY_PAC);
         }
         else{
             this.setImage(FileName.IMAGE_PACMAN);

@@ -1,18 +1,7 @@
 package constant;
 
 /**
- *
- *
- * <h1>Direction</h1>
- *
- * <p>A {@link Direction} is an enum object to store constant names of direction.
- *
- * @author Song Zhang
- * @version 1.0
- * @since 1.0
- * @see pacman.model.MovableGrid
- * @see pacman.model.Ghost
- * @see pacman.model.Pacman
+ *  enum object to store constant names of direction.
  */
 public enum Direction {
   UP,
