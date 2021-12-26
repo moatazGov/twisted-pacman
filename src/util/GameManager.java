@@ -4,13 +4,9 @@ import constant.Direction;
 import constant.GameLevel;
 import constant.GameStatus;
 import constant.PortalType;
-import controller.FactoryQuestionGrid;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import model.*;
-import sun.management.jdp.JdpGenericPacket;
 import view.GameController;
-
 import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
@@ -22,26 +18,8 @@ import static com.sun.glass.ui.Cursor.setVisible;
 /**
  * <h1>GameManager</h1>
  *
- * <p>A {@link GameManager} is an object of utility to manage the game status and process globally,
+ * object of utility to manage the game status and process globally,
  * and reflect the realtime results in the UI.
- *
- * <p><b>Note:</b> this class is implemented an {@link Enum}, thus to be a singleton class.
- *
- * <p>Usage:
- *
- * <blockquote>
- *
- * <pre>
- *    GameManager.INSTANCE.{ANY_METHOD_HERE}()
- * </pre>
- *
- * </blockquote>
- *
- * @author Song Zhang
- * @version 1.0
- * @see GameController
- * @see GameStatus
- * @since 1.0
  */
 public enum GameManager {
     /**
@@ -49,25 +27,39 @@ public enum GameManager {
      */
     INSTANCE;
 
-    private GameLevel currentLevel = GameLevel.ZERO;
 
     /**
      * The current playing {@link Map}.
      */
     private Map map;
 
-    private int currentEasyIndex = 1;
-    private int currentMedIndex = 1;
-    private int currentHardIndex = 1;
 
+    /**
+     * the index off the current easy question.
+     */
+    private int currentEasyIndex = 1;
+    /**
+     * the index off the current medium question.
+     */
+    private int currentMedIndex = 1;
+    /**
+     * the index off the current hard question.
+     */
+    private int currentHardIndex = 1;
+    /**
+     * the current level of the game.
+     */
+    private GameLevel currentLevel = GameLevel.ZERO;
+
+    /**
+     * a class the holds all the system data (questions and games history )
+     */
     private SysData sysData = new SysData();
 
     /**
      * The current {@link GameController}.
      */
     private GameController gameController;
-
-    private Direction currentPacDirection;
 
     /**
      * The current {@link GameStatus}.
@@ -85,18 +77,34 @@ public enum GameManager {
     private Score score;
 
 
+    /**
+     * get the current score of the player.
+     * @return
+     */
     public Score getScore() {
         return score;
     }
 
+    /**
+     * set the current score of the player.
+     * @param score
+     */
     public void setScore(Score score) {
         this.score = score;
     }
 
+    /**
+     * increases the value of the score with the given newScore
+     * @param newScore
+     */
     public void incScore(int newScore) {
         this.score.gain(newScore);
     }
 
+    /**
+     * decreases the value o the score with the given newScore
+     * @param newScore
+     */
     public void decScore(int newScore) {
         this.score.gain(newScore);
     }
@@ -151,10 +159,7 @@ public enum GameManager {
     }
 
     /**
-     * Pauses the game.
-     *
-     * <p>This method calls {@link #freezeGhosts()} and set the {@link #gameStatus} to {@link
-     * GameStatus#PAUSE}.
+     * Pauses the game moving objects, and open paused game popup.
      */
     public void pauseGame() {
         if (gameStatus == GameStatus.PAUSE) {
@@ -164,16 +169,20 @@ public enum GameManager {
             gameStatus = GameStatus.START;
 
         }
-
-//        SceneSwitch.INSTANCE.returnToGame();
     }
 
+    /**
+     * Resumes the state of the game.
+     */
     public void continueGame() {
         if (gameStatus == GameStatus.CONTINUE) {
 
         }
     }
 
+    /**
+     *  Pauses the game moving objects, without opening paused game popup.
+     */
     public void pauseGameNoPopUp() {
         if (gameStatus == GameStatus.PAUSE) {
             SceneSwitch.INSTANCE.returnToGame();
@@ -187,13 +196,10 @@ public enum GameManager {
 
     /**
      * Loses the game.
-     * <p>
-     * to the Select scene.
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
             endGame(map.getNickname(), "LOST", String.valueOf(score.getValue()));
-            calculateScore();
         }
     }
 
@@ -208,6 +214,13 @@ public enum GameManager {
         }
     }
 
+    /**
+     * store the new score to json files.
+     * @param name
+     * @param status
+     * @param score
+     * @return
+     */
     private boolean storeScore(String name, String status, String score) {
         try {
             sysData.load();
@@ -222,10 +235,7 @@ public enum GameManager {
 
 
     /**
-     * Ends the game.
-     *
-     * <p>This method calls {@link #freezeGhosts()} and set the {@link #gameStatus} to {@link
-     * GameStatus#END}.
+     * Ends the game, and switches to the correct end-game view
      */
     public void endGame(String name, String status, String score) {
         freezeGhosts();
@@ -278,7 +288,7 @@ public enum GameManager {
     }
 
     /**
-     * generate a new question at a random grid
+     * generate a new question at a random grid, chooses a pacItem randomly from the map and replaces it with a new question.
      */
     private boolean generateRandomQuestionGrid(QuestionGrid questionGrid) {
         int index = 0;
@@ -297,6 +307,7 @@ public enum GameManager {
             Double itemXTmp = randPacItem.getX();
             Double itemYTmp = randPacItem.getY();
 
+            // set the question of the questionGrid according to the level of the eaten questionGrid
             if (questionGrid.getQuestion().getLevel() == Level.EASY) {
                 questionGrid.setQuestion(SysData.getInstance().getEasyQuestions().get(currentEasyIndex % SysData.getInstance().getEasyQuestions().size()));
                 currentEasyIndex++;
@@ -310,19 +321,16 @@ public enum GameManager {
                 currentHardIndex++;
             }
 
+            //set the position of the new pacitem
             randPacItem.setX(questionGrid.getX());
             randPacItem.setY(questionGrid.getY());
 
-            Timer timer = new Timer();
 
             PacItem finalRandPacItem = randPacItem;
-
             questionGrid.setX(itemXTmp);
             questionGrid.setY(itemYTmp);
             finalRandPacItem.setVisible(true);
             questionGrid.setVisible(true);
-
-
             return true;
         }
         return false;
@@ -350,12 +358,6 @@ public enum GameManager {
         generateRandomQuestionGrid(questionGrid);
         SceneSwitch.INSTANCE.switchToQuestion(questionGrid);
     }
-
-
-    public void checkQuestionGrid(QuestionGrid questionGrid) {
-        questionGrid.eat();
-    }
-
 
     /**
      * This method is called when any key is pressed.
@@ -421,7 +423,6 @@ public enum GameManager {
 
                     System.out.println("Pac got a bomb and hes not afraid to use it");
                     map.getPacman().setBombCount(map.getPacman().getBombCount() - 1);
-//                    Set<Ghost> ghosts = map.getGhosts();
                     for (Ghost g : map.getGhosts()) {
                         if (((g.getX() <= (map.getPacman().getX() + 3 * gridLen))
                                 && (g.getX() >= (map.getPacman().getX() - 3 * gridLen)))
@@ -504,18 +505,8 @@ public enum GameManager {
     public void updateUi() {
         gameController.setLifeCount(life.getRemaining(), life.getTotal());
         gameController.setScoreCount(score.getValue());
-//        gameController.setBombCount((map.getPacman().getBombCount()));
     }
 
-    /**
-     * Calculates the final {@link Score} and writes it into a corresponding file.
-     */
-    private void calculateScore() {
-//        ScoreBoardWriter scoreBoardWriter =
-//                new ScoreBoardWriter(map.getMapConfig().getTitle() + ".txt");
-//        score.settle();
-//        scoreBoardWriter.write(score);
-    }
 
     /**
      * Tests if all cookies are eaten. If true, calls {@link #winGame()}.
@@ -525,27 +516,6 @@ public enum GameManager {
             winGame();
         }
         checkLevelChange(currentScore);
-    }
-
-    /**
-     * adds portals to the sides of the screen.
-     */
-    private void addPortalsToScreen() {
-        // a predicate that returns true if the wall is in the position the the portal should be in
-        Predicate<Wall> isPortal = w -> ((w.getX() == 6 && w.getY() == 23) || (w.getX() == 6 && w.getY() == 0));
-        map.getWalls().removeIf(isPortal);
-
-        // add the walls to the map
-        map.getPortals().add(new Portal(map, 6, 23, PortalType.A));
-        map.getPortals().add(new Portal(map, 6, 0, PortalType.B));
-    }
-
-
-    /**
-     * increases the speed of the pacman.
-     */
-    private void increasePacmanSpeed() {
-        map.getMapConfig().setPacmanStepRate(2 * map.getMapConfig().getPacmanStepRate());
     }
 
     /**
@@ -565,7 +535,6 @@ public enum GameManager {
 
         if (currentScore >= 101 && currentLevel == GameLevel.PASSED_ONE) {
             currentLevel = GameLevel.PASSED_TWO;
-            // remove portals from the screen
             SceneSwitch.INSTANCE.switchToGameLevelTwo();
             gameController.setTitle("level - 3 ");
             return true;
