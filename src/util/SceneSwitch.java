@@ -8,33 +8,20 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
 import model.*;
 import view.EndGameCtrl;
 import view.Main;
 import constant.FileName;
 import view.GameController;
 import view.QuestionCtrl;
-
 import java.net.URL;
 import java.util.ArrayList;
 
 /**
- *
- *
- * <h1>SceneSwitch</h1>
- *
- * <p>A {@link SceneSwitch} is an object of utility to provide some methods to switch between
+
+ *  object of utility to provide some methods to switch between
  * different scenes in the primary stage ({@link Main#getPrimaryStage()}).
- *
- * <p><b>Note:</b> this class is implemented an {@link Enum}, thus to be a singleton class.
- *
- * <p>Usage:
- *
- * <blockquote>
- *
- * <pre>
- *    ()
+
  */
 public enum SceneSwitch {
   /** The shared instance for global use. */
@@ -42,9 +29,6 @@ public enum SceneSwitch {
   Map map;
   Pane mapPane;
   Canvas canvas;
-  ArrayList<Portal> portal;
-  URL location;
-  FXMLLoader loader;
   Pane root;
   Scene gameScene;
   Stage PauseStage;
@@ -71,7 +55,6 @@ public enum SceneSwitch {
   /** Switched the current scene to Home. */
   public void switchToHome() {
     try {
-//      MusicPlayer.INSTANCE.playBeginning();
       hideStage();
       URL location = Main.class.getResource("/resources/fxml/home-view.fxml");
       Pane root = FXMLLoader.load(location);
@@ -87,7 +70,6 @@ public enum SceneSwitch {
   /** Switched the current scene to Select. */
   public void switchToSelect() {
     try {
-//      MusicPlayer.INSTANCE.playSetup();
       hideStage();
       Pane root = FXMLLoader.load(getClass().getResource(FileName.VIEW_SELECT));
       Scene scene = new Scene(root);
@@ -98,13 +80,24 @@ public enum SceneSwitch {
     }
   }
 
+  /**
+   * removes the pause stage view and returns to the previous state of the game.
+   */
   public void returnToGame() {
     PauseStage.hide();
   }
+
+
+  /**
+   * Exit question.
+   */
   public void exitQuestion() {
     questionStage.hide();
   }
 
+  /**
+   * Pauses the game and opens the paused game dialog.
+   */
   public void switchToPause()
   {
    try {
@@ -121,6 +114,10 @@ public enum SceneSwitch {
   }
   }
 
+  /**
+   * pauses the game and opens a question dialog according to the eaten grid
+   * @param questionGrid
+   */
   public void switchToQuestion(QuestionGrid questionGrid)
   {
     try {
@@ -150,7 +147,6 @@ public enum SceneSwitch {
       map.setFileName("/resources/pacman/map/map1.txt");
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
-//    map.setQuestionGridFileName("/resources/image/med_ques.png");
       hideStage();
       URL location = Main.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);
@@ -212,7 +208,7 @@ public enum SceneSwitch {
   }
 
   /**
-   * Switched the current scene to Game.
+   * Switches the current scene to Game with the first level.
    */
   public void switchToGameLevelOne() {
     try {
@@ -223,6 +219,9 @@ public enum SceneSwitch {
     }
   }
 
+  /**
+   * Switches the current scene to Game with the second level.
+   */
   public void switchToGameLevelTwo() {
     try {
       map.removePortalsToScreen(mapPane);
@@ -233,6 +232,9 @@ public enum SceneSwitch {
       e.printStackTrace();
     }
   }
+  /**
+   * Switches the current scene to Game with the third level.
+   */
   public void switchToGameLevelThree() {
     try {
       map.removePortalsToScreen(mapPane);
@@ -246,7 +248,9 @@ public enum SceneSwitch {
     }
   }
 
-
+  /**
+   * Exits the game.
+   */
   public void exitApplication() {
     Platform.exit();
   }
