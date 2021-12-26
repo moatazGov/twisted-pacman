@@ -6,19 +6,15 @@ import constant.MapResolution;
 import constant.PortalType;
 import model.*;
 import view.Main;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
-
 import model.PacItem;
 import controller.FactoryQuestionGrid;
 
 public class MapReader {
-    int index = 0;
 
     /**
      * a flag to determine if questions were parsed or not
@@ -70,15 +66,9 @@ public class MapReader {
     private Set<Ghost> ghosts;
 
 
-    private Set<Question> questions;
-
     /**
-     * Three types of sets
-     **/
-    private Set<Question> easyQuestions;
-    private Set<Question> hardQuestions;
-    private Set<Question> medQuestions;
-
+     * a set of all the questionGrids that have been read into the map.
+     */
     private Set<QuestionGrid> questionsGrids;
 
     /**
@@ -119,7 +109,6 @@ public class MapReader {
         this.ghosts = new HashSet<>();
         this.mapConfig = new MapConfig(50);
         this.questionsGrids = new HashSet<QuestionGrid>();
-        // set title
         String title = fileName.substring(fileName.lastIndexOf("/") + 1); // remove path
         title = title.substring(0, title.lastIndexOf(".")); // remove type suffix
         mapConfig.setTitle(title);
@@ -152,14 +141,29 @@ public class MapReader {
         return ghosts;
     }
 
+    /**
+     * Gets pac items.
+     *
+     * @return the pac items
+     */
     public Set<PacItem> getPacItems() {
         return pacItems;
     }
 
+    /**
+     * Gets bomb items.
+     *
+     * @return the bomb items
+     */
     public Set<BombItem> getBombItems() {
         return bombItems;
     }
 
+    /**
+     * Gets questions grids.
+     *
+     * @return the questions grids
+     */
     public Set<QuestionGrid> getQuestionsGrids() {
         return questionsGrids;
     }
@@ -498,23 +502,26 @@ public class MapReader {
                 bombItems.add(bombItem);
             }
 
-            //question TODO
+            // question grid, one of the three question grids on the map
+            // places are initialized in the map.txt and handled here
             if (isQuestionGrid(grid) && _questionsRead < 3) {
                 FactoryQuestionGrid factoryQuestionGrid = new FactoryQuestionGrid();
-
+                // the first question grid is read, initiate it with easy question.
                 if(_questionsRead == 0){
                     Question easyQuestion = SysData.getInstance().getEasyQuestions().get(0); // getting the JSON arraylist from SysData
                     QuestionGrid questionGrid1 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, easyQuestion);
-                    getQuestionsGrids().add(questionGrid1); //TODO
+                    getQuestionsGrids().add(questionGrid1);
 
                 }
                 if(_questionsRead == 1 ){
+                    // the second question grid is read, initiate it with medium question.
                     Question medQuestion = SysData.getInstance().getMedQuestions().get(0); // getting the JSON arraylist from SysData
                     QuestionGrid questionGrid2 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, medQuestion);
-                    getQuestionsGrids().add(questionGrid2); //TODO
+                    getQuestionsGrids().add(questionGrid2);
 
                 }
                 if(_questionsRead == 2){
+                    // the third question grid is read, initiate it with hard question.
                     Question hardQuestion = SysData.getInstance().getHardquestions().get(0); // getting the JSON arraylist from SysData
                     QuestionGrid questionGrid3 = factoryQuestionGrid.getQuestionGrid(map, gridCount, lineCount, hardQuestion);
                     getQuestionsGrids().add(questionGrid3); //TO
