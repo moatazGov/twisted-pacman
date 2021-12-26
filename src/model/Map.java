@@ -1,13 +1,10 @@
 package model;
 
-//import com.sun.tools.javac.util.List;
 import constant.PortalType;
 import javafx.scene.layout.Pane;
 import util.MapConfig;
 import util.MapPainter;
 import util.MapReader;
-
-import javax.sound.sampled.Port;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -21,24 +18,23 @@ public class Map {
   private String backgroundFileName;
   /** The filename of the walls. */
   private String wallFileName;
-
-//  /** The filename of the Question Grid */
-//  private String questGridFileName; //TODO
-
   /** The configuration object of this {@link Map}. */
   private MapConfig mapConfig;
-
+  /** a set of the walls objects of the game**/
   private Set<Wall> walls;
+  /** a set of the pacItems objects of the game**/
   private Set<PacItem> pacItems;
+  /** a set of the bombItems objects of the game**/
   private Set<BombItem> bombItems;
-
-  private Set<QuestionGrid>questionGrids; //TODO
-  private Set<Question> questions; // TODO a Set to Store Questions
+  /** a set of the questionsGrid objects of the game**/
+  private Set<QuestionGrid>questionGrids;
   /** The {@link Ghost} set in this {@link Map}. */
   private Set<Ghost> ghosts;
   /** The {@link Pacman} in this {@link Map}. */
   private Pacman pacman;
+  /** the spawn grid pacman spawns to **/
   private Spawn spawn;
+  /** a Set containing the portals of the map **/
   private Set<Portal> portals;
 
   /** Allocates a new {@link Map} object. */
@@ -53,35 +49,50 @@ public class Map {
     return pacman;
   }
 
-
   /**
+   * getter for the field walls
+   * @return
    */
   public Set<Wall> getWalls() {
     return walls;
   }
 
   /**
+   * getter for the field ghosts
+   * @return
    */
   public Set<Ghost> getGhosts() {
     return ghosts;
   }
 
   /**
+   * getter for the field spawn
+   * @return
    */
   public Spawn getSpawn() {
     return spawn;
   }
 
+  /**
+   * getter for the field pacItems
+   * @return
+   */
   public Set<PacItem> getPacItems() {
     return pacItems;
   }
 
+  /**
+   * getter for the field bombItems
+   * @return
+   */
   public Set<BombItem> getBombItems() {
     return bombItems;
   }
 
-  public Set<Question> getQuestions(){ return questions;} // TODO getter for Questions
-
+  /**
+   * getter for the field questionGrids
+   * @return
+   */
   public Set<QuestionGrid> getQuestionsGrid(){ return questionGrids;}// TODO
   /**
    * Returns the {@link Portal} set in this {@link Map}.
@@ -180,7 +191,7 @@ public class Map {
     mapReader.readFileForConfig();
     mapConfig = mapReader.getMapConfig();
 
-    // get grids
+    // get all the grids of the map
     mapReader.readFileForMap();
     walls = mapReader.getWalls();
     pacItems = mapReader.getPacItems();
@@ -205,11 +216,10 @@ public class Map {
     // read map
     read();
 
-    // paint map
+    // paint all the map elements.
     MapPainter mapPainter = new MapPainter(root);
     mapPainter.drawWalls(walls);
     mapPainter.drawQuestionGrid(questionGrids); //TODO
-
     mapPainter.drawCookies(pacItems);
     mapPainter.drawBombs(bombItems);
     mapPainter.drawPacman(pacman);
@@ -245,26 +255,20 @@ public class Map {
 
   }
 
+  /**
+   * Removes the portals from the screen
+   * @param root
+   */
   public void removePortalsToScreen(Pane root){
-    try{// a predicate that returns true if the wall is in the position the the portal should be in
-
+    try{
       portals.forEach(x -> x.setVisible(false));
       portals.forEach(x -> x.close());
       MapPainter mapPainter = new MapPainter(root);
-//      mapPainter.drawWalls(walls);
       mapPainter.drawPortals(portals);
     }catch (Exception e){
       System.out.println("error");
     }
 
   }
-
-  /**
-   * increases the speed of the pacman.
-   */
-  private void increasePacmanSpeed(){
-    this.getMapConfig().setPacmanStepRate(2 * this.getMapConfig().getPacmanStepRate());
-  }
-
 
 }
