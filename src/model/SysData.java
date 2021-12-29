@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *  Class to hold the system data.
+ *  Singleton Class to hold the system data.
  */
 public class SysData {
     private boolean isInitialized = false;
@@ -24,16 +24,16 @@ public class SysData {
     private ArrayList<Question> medQuestions = new ArrayList<>();
     private String nickName;
 
+    // get the singlton instance
     public static SysData getInstance() {
-
         if (instance == null) {
             instance = new SysData();
+            // load data before returning the instance
             if (instance.load())
                 return instance;
             else
                 return null;
         }
-
         return instance;
     }
 
@@ -108,6 +108,10 @@ public class SysData {
         }
     }
 
+    /**
+     * loads the games data from the json file.
+     * @return ArrayList of GameData type.
+     */
     public ArrayList<GameData> loadGamesJson() {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
@@ -133,6 +137,10 @@ public class SysData {
         return games;
     }
 
+    /**
+     * loads the questions data from the json file, and stores them in the correct array of questoins .
+     * @return void.
+     */
     private void loadQuestionsJson() {
         FactoryQuestion factory = new FactoryQuestion();
         //JSON parser object to parse read file
@@ -167,7 +175,10 @@ public class SysData {
         }
 
     }
-
+    /**
+     * store the objects of the games as json objects in the json file.
+     * @return void.
+     */
     public boolean saveGames() {
         //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/games.json")) {
@@ -189,6 +200,10 @@ public class SysData {
         }
     }
 
+    /**
+     * store the objects of the questions as json objects in the json file.
+     * @return void.
+     */
     public boolean saveQuestions() {
         //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/questions.json")) {

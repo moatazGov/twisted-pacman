@@ -1,6 +1,5 @@
 package model;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -13,12 +12,14 @@ public class HardQuestion implements Question {
     String question;
     ArrayList<String> answers;
     String correct_ans;
+
     /**
      * Instantiates a new Question with the given parameters.
+     * <p>
+     * //     * @param id            the id
      *
-//     * @param id            the id
-     * @param question      the question
-     * @param answers       the answers
+     * @param question    the question
+     * @param answers     the answers
      * @param correct_ans the correct answer
      */
     public HardQuestion(String question, ArrayList<String> answers, String correct_ans) {
@@ -42,19 +43,11 @@ public class HardQuestion implements Question {
         return Objects.hash(question, answers, correct_ans);
     }
 
-    @Override
-    public void fromJson(JSONObject obj) {
-        JSONArray answers1 = (JSONArray) obj.get("answers");
-        ArrayList answersList = new ArrayList();
-
-        for (Object answer : answers1) {
-            answersList.add(((String) answer));
-        }
-        question = obj.get("question").toString();
-        correct_ans = obj.get("correct_ans").toString();
-        answers = answersList;
-    }
-
+    /**
+     * parse a json object representing the question object.
+     *
+     * @return
+     */
     @Override
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
@@ -75,6 +68,15 @@ public class HardQuestion implements Question {
     }
 
     /**
+     * Sets question.
+     *
+     * @param question the question
+     */
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    /**
      * Gets answers.
      *
      * @return the question
@@ -84,7 +86,6 @@ public class HardQuestion implements Question {
         return answers;
     }
 
-
     /**
      * Gets correctAnswer.
      *
@@ -93,15 +94,6 @@ public class HardQuestion implements Question {
     @Override
     public String getCorrect_ans() {
         return correct_ans;
-    }
-
-    /**
-     * Sets question.
-     *
-     * @param question the question
-     */
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
 

@@ -1,5 +1,6 @@
 package view;
 
+import constant.Level;
 import controller.FactoryQuestion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,23 +11,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.*;
+import model.Question;
+import model.SysData;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ResourceBundle;
 
 public class AddCtrl implements Initializable {
 
+    final ToggleGroup difficultyGroup = new ToggleGroup();
+    final ToggleGroup answerGroup = new ToggleGroup();
     Parent root;
     Stage stage;
     Scene scene;
-
-    final ToggleGroup difficultyGroup = new ToggleGroup();
-    final ToggleGroup answerGroup = new ToggleGroup();
-
-
     @FXML
     private Button addBtn;
     @FXML
@@ -71,19 +72,19 @@ public class AddCtrl implements Initializable {
                     since the answers are displayed in a textfield, they are not connected to the radiobuttons.
                     set the correctAns as the chosen radio button.
                 */
-                if(selectedRadioButton == firstRadio){
+                if (selectedRadioButton == firstRadio) {
                     answerNum = "1";
                     answerTxt = firstAnswer.getText();
                 }
-                if(selectedRadioButton == secondRadio){
+                if (selectedRadioButton == secondRadio) {
                     answerNum = "2";
                     answerTxt = secondAnswer.getText();
                 }
-                if(selectedRadioButton == thirdRadio){
+                if (selectedRadioButton == thirdRadio) {
                     answerNum = "3";
                     answerTxt = thirdAnswer.getText();
                 }
-                if(selectedRadioButton == fourthRadio){
+                if (selectedRadioButton == fourthRadio) {
                     answerNum = "4";
                     answerTxt = fourthAnswer.getText();
                 }
@@ -92,15 +93,15 @@ public class AddCtrl implements Initializable {
                 ArrayList<Question> current = new ArrayList<>();
                 Level level = (Level) difficultyGroup.getSelectedToggle().getUserData();
                 String levelText = "";
-                if(level == Level.EASY) {
+                if (level == Level.EASY) {
                     levelText = "1";
                     current = SysData.getInstance().getEasyQuestions();
                 }
-                if(level == Level.MEDIUM) {
+                if (level == Level.MEDIUM) {
                     levelText = "2";
                     current = SysData.getInstance().getMedQuestions();
                 }
-                if(level == Level.HARD) {
+                if (level == Level.HARD) {
                     levelText = "3";
                     current = SysData.getInstance().getHardQuestions();
                 }
@@ -117,11 +118,11 @@ public class AddCtrl implements Initializable {
 
                 System.out.println((Level) difficultyGroup.getUserData());
 
-                if(level == Level.EASY)
+                if (level == Level.EASY)
                     SysData.getInstance().setEasyQuestions(current);
-                if(level == Level.MEDIUM)
+                if (level == Level.MEDIUM)
                     SysData.getInstance().setMedQuestions(current);
-                if(level == Level.HARD)
+                if (level == Level.HARD)
                     SysData.getInstance().setHardQuestions(current);
 
                 SysData.getInstance().save();

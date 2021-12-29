@@ -1,11 +1,10 @@
 package view;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import util.SceneSwitch;
-
 import javafx.scene.input.KeyEvent;
-import java.io.IOException;
+import util.SceneSwitch;
 
 public class PauseCtrl {
 
@@ -13,15 +12,14 @@ public class PauseCtrl {
     private Button mainBtn;
 
     @FXML
-    private void mainmenuClicked(ActionEvent event) throws IOException {
+    private void mainMenuClicked(ActionEvent event) {
         SceneSwitch.INSTANCE.switchToHome();
         SceneSwitch.INSTANCE.returnToGame();
     }
+
     @FXML
-    public void KeyPressed(KeyEvent e)
-    {
-        switch(e.getCode())
-        {
+    public void KeyPressed(KeyEvent e) {
+        switch (e.getCode()) {
             case ESCAPE:
                 SceneSwitch.INSTANCE.returnToGame();
                 break;

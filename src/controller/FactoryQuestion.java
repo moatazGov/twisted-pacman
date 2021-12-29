@@ -1,13 +1,18 @@
 package controller;
 
-import model.*;
+import constant.Level;
+import model.EasyQuestion;
+import model.HardQuestion;
+import model.MediumQuestion;
+import model.Question;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
 public class FactoryQuestion {
-    /**
+
+ /**
      * A method to create three similar objects with a little difference, depending on the level the method creates a suitable object.
      *
      * @param questionJson

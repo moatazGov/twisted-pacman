@@ -16,7 +16,6 @@ import java.util.TimerTask;
 
 /**
  * Controller
- * <p>
  * object of utility to manage the game status and process globally,
  * and reflect the realtime results in the UI.
  */

@@ -4,21 +4,15 @@ package controller;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.*;
 import org.json.simple.JSONObject;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
 public class Alerts {
-
-
     /**
      * method to show Success dialog window when finishing the game/
      */
@@ -28,8 +22,8 @@ public class Alerts {
         alert.setTitle(titleText);
         alert.setHeaderText(headerText);
         alert.setContentText(ContentText);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         alert.showAndWait();
-
     }
 
     /**
@@ -111,13 +105,14 @@ public class Alerts {
         grid.add(answer2Lbl, 1, 5);
         grid.add(answer3Lbl, 1, 7);
         grid.add(answer4Lbl, 1, 9);
-
         grid.add(questionText, 1, 2);
         grid.add(answer1Text, 1, 4);
         grid.add(answer2Text, 1, 6);
         grid.add(answer3Text, 1, 8);
         grid.add(answer4Text, 1, 10);
         dialog.getDialogPane().setContent(grid);
+        Optional<Question> result = dialog.showAndWait();
+
 
     }
 

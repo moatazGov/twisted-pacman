@@ -5,7 +5,7 @@ import model.Portal;
 import constant.MapResolution;
 import constant.PortalType;
 import model.*;
-import view.Main;
+import view.MainCtrl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -532,8 +532,7 @@ public class MapReader {
      *                    if for the map
      */
     private void readFile(boolean isForConfig) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = Main.class.getResource(fileName);
+        URL resource = MainCtrl.class.getResource(fileName);
         String path = null;
         try {
             path = Objects.requireNonNull(resource).toURI().getPath();

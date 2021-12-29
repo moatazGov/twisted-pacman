@@ -1,6 +1,7 @@
 package model;
 
 import constant.FileName;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,7 +16,6 @@ public class BombItem extends Grid {
     Timer timer = new Timer();
 
     /**
-     *
      * @param map
      * @param row
      * @param column
@@ -31,7 +31,6 @@ public class BombItem extends Grid {
      *
      * <p>The principle of this method is just make it invisible,
      * and make it reappear after 30 seconds.
-     *
      */
     public void eat() {
         setVisible(false);
@@ -40,7 +39,7 @@ public class BombItem extends Grid {
             public void run() {
                 setVisible(true);
             }
-        }, 30*1000);
+        }, 30 * 1000);
     }
 
     /**

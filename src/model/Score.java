@@ -1,17 +1,21 @@
 package model;
 
-import sun.misc.InnocuousThread;
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class Score implements Serializable {
 
-    /** The value of the score. */
+    /**
+     * The value of the score.
+     */
     private int value;
-    /** The player's name. */
+    /**
+     * The player's name.
+     */
     private String nickname;
-    /** The time when the score settles. */
+    /**
+     * The time when the score settles.
+     */
     private Date time;
 
     /**
