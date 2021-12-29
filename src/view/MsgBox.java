@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 
 public class MsgBox {
 
-    Stage window = new Stage();
-
     public static void display(String title, String Message) {
         Stage window = new Stage();
 

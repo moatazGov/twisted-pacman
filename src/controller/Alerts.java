@@ -7,9 +7,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.Level;
-import model.Question;
-import model.SysData;
+import model.*;
+import org.json.simple.JSONObject;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -91,37 +90,37 @@ public class Alerts {
                 sysData.load();
                 if (b == buttonTypeOk) {
                     // generate the new question to add to the right array
-                    Question newQuestion = new Question(questionText.getText(),
-                            new ArrayList(Arrays.asList(answer1Text.getText(), answer2Text.getText(), answer3Text.getText(), answer4Text.getText())),
-                            answer1Text.getText(), question.getLevel(), "Hawk");
-
+                    FactoryQuestion factory = new FactoryQuestion();
+                    JSONObject object = new JSONObject();
+                    object.put("question", questionText.getText());
+                    object.put("correct_ans", answer1Text.getText());
+                    object.put("level", question instanceof EasyQuestion ? "1" : question instanceof MediumQuestion ? "2" : "3");
+                    object.put("answers", new ArrayList(Arrays.asList(answer1Text.getText(), answer2Text.getText(), answer3Text.getText(), answer4Text.getText())));
+                    Question newQuestion = factory.getQuestion(object);
                     // remove the old instance
-                    if (newQuestion.getLevel() == Level.EASY) {
+                    if (newQuestion instanceof EasyQuestion) {
                         ArrayList<Question> currentQuestions = SysData.getInstance().getEasyQuestions();
                         Integer oldIndex = currentQuestions.indexOf(question);
                         currentQuestions.remove(question);
                         // add the new instance
                         currentQuestions.add(oldIndex, newQuestion);
                         sysData.setEasyQuestions(currentQuestions);
-
                     }
-                    if (newQuestion.getLevel() == Level.MEDIUM) {
+                    if (newQuestion instanceof MediumQuestion) {
                         ArrayList<Question> currentQuestions = SysData.getInstance().getMedQuestions();
                         Integer oldIndex = currentQuestions.indexOf(question);
                         currentQuestions.remove(question);
                         // add the new instance
                         currentQuestions.add(oldIndex, newQuestion);
                         sysData.setMedQuestions(currentQuestions);
-
                     }
-                    if (newQuestion.getLevel() == Level.HARD) {
-                        ArrayList<Question> currentQuestions = SysData.getInstance().getHardquestions();
+                    if (newQuestion instanceof HardQuestion) {
+                        ArrayList<Question> currentQuestions = SysData.getInstance().getHardQuestions();
                         Integer oldIndex = currentQuestions.indexOf(question);
                         currentQuestions.remove(question);
                         // add the new instance
                         currentQuestions.add(oldIndex, newQuestion);
                         sysData.setHardQuestions(currentQuestions);
-
                     }
 
                     sysData.save();

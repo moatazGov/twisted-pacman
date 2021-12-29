@@ -219,17 +219,11 @@ public class Map {
     // paint all the map elements.
     MapPainter mapPainter = new MapPainter(root);
     mapPainter.drawWalls(walls);
-    mapPainter.drawQuestionGrid(questionGrids); //TODO
+    mapPainter.drawQuestionGrid(questionGrids);
     mapPainter.drawCookies(pacItems);
     mapPainter.drawBombs(bombItems);
     mapPainter.drawPacman(pacman);
     mapPainter.drawGhost(ghosts);
-  }
-
-  public void drawQuestions(Pane root) {
-    // paint map
-    MapPainter mapPainter = new MapPainter(root);
-    mapPainter.drawQuestionGrid(questionGrids); //TODO
   }
 
   /**

@@ -1,5 +1,6 @@
 package model;
 
+import controller.FactoryQuestion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,17 +13,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ *  Class to hold the system data.
  */
 public class SysData {
+    private boolean isInitialized = false;
     private static SysData instance;
-    private ArrayList<Score> scores;
     private ArrayList<GameData> games;
     private ArrayList<Question> easyQuestions = new ArrayList<>();
-    private ArrayList<Question> hardquestions = new ArrayList<>();
-    private ArrayList<Question> medquestions = new ArrayList<>();
-    private ArrayList<String> players;
-    //todo add to class diagram
+    private ArrayList<Question> hardQuestions = new ArrayList<>();
+    private ArrayList<Question> medQuestions = new ArrayList<>();
     private String nickName;
 
     public static SysData getInstance() {
@@ -38,22 +37,9 @@ public class SysData {
         return instance;
     }
 
-    public ArrayList<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(ArrayList<Score> scores) {
-        this.scores = scores;
-    }
-
     public ArrayList<GameData> getGames() {
         return games;
     }
-
-    public void setGames(ArrayList<GameData> games) {
-        this.games = games;
-    }
-
 
     public ArrayList<Question> getEasyQuestions() {
         return easyQuestions;
@@ -63,30 +49,22 @@ public class SysData {
         this.easyQuestions = easyQuestions;
     }
 
-    public ArrayList<Question> getHardquestions() {
-        return hardquestions;
+    public ArrayList<Question> getHardQuestions() {
+        return hardQuestions;
     }
 
     public void setHardQuestions(ArrayList<Question> hardquestions) {
-        this.hardquestions = hardquestions;
+        this.hardQuestions = hardquestions;
     }
 
     public ArrayList<Question> getMedQuestions() {
-        return medquestions;
+        return medQuestions;
     }
 
     public void setMedQuestions(ArrayList<Question> medquestions) {
-        this.medquestions = medquestions;
+        this.medQuestions = medquestions;
     }
 
-
-    public ArrayList<String> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(ArrayList<String> players) {
-        this.players = players;
-    }
 
     public String getNickName() {
         return nickName;
@@ -97,25 +75,19 @@ public class SysData {
     }
 
     /**
-     * Starts the game and launches UI.
-     *
-     * @return true if game started successfully false if an error occurred
-     */
-    boolean start() {
-        return true;
-    }
-
-    /**
      * loads the data from local DB
      *
      * @return true if system data was loaded successfully, false if an error occurred
      */
     public boolean load() {
         try {
-          games = loadGamesJson();
-//            players = loadPlayersJson();
-            loadQuestionsJson();
-            return true;
+            if(!isInitialized) {
+                isInitialized = true;
+                games = loadGamesJson();
+                loadQuestionsJson();
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             return false;
         }
@@ -129,68 +101,12 @@ public class SysData {
     public boolean save() {
         try {
             saveGames();
-//            savePlayers();
             saveQuestions();
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-
-    /**
-     * adds the question to local DB
-     *
-     * @param question
-     * @return true if question was added successfuly and false if an error occurred
-     */
-    boolean addQuestion(Question question) {
-
-
-        return true;
-    }
-
-    /**
-     * removes the question from local DB
-     *
-     * @param question
-     * @return true if question was removed successfully and false if an error occurred
-     */
-    boolean removeQuestion(Question question) {
-        return true;
-    }
-
-
-    /**
-     * gets the actual question from the system data
-     *
-     * @param question
-     * @return the question similar to the given question from the system data if exists
-     * and a question with empty fields otherwise
-     */
-    Question getQuestion(Question question) {
-        return new Question();
-    }
-
-    /**
-     * edits the question with similar id to the given question and replaces it with the given question's data
-     *
-     * @param question
-     * @return true if the question was edited successfully, false if an error Occurred
-     */
-    Question editQuestion(Question question) {
-        return new Question();
-    }
-
-    /**
-     * adds the given game data to the games history in local DB
-     *
-     * @param game
-     * @return true if the game was added successfully, false if an error occurred
-     */
-    boolean addGame(GameData game) {
-        return true;
-    }
-
 
     public ArrayList<GameData> loadGamesJson() {
         //JSON parser object to parse read file
@@ -217,34 +133,30 @@ public class SysData {
         return games;
     }
 
-
     private void loadQuestionsJson() {
+        FactoryQuestion factory = new FactoryQuestion();
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
-        //  ArrayList<Question> questions = new ArrayList<>(); //TODO to Delete
 
         easyQuestions = new ArrayList<>();
-        hardquestions = new ArrayList<>();
-        medquestions = new ArrayList<>();
+        hardQuestions = new ArrayList<>();
+        medQuestions = new ArrayList<>();
         try (FileReader reader = new FileReader("src/resources/json/questions.json")) {
             Object obj = jsonParser.parse(reader);
             JSONArray questionsList = (JSONArray) ((JSONObject) obj).get("questions");
             for (Object question : questionsList) {
-                Question newQuestion = new Question();
-                newQuestion.fromJson((JSONObject) question);
+                Question newQuestion = factory.getQuestion((JSONObject) question);
 
-                if (newQuestion.getLevel() == Level.EASY) {
+                if (newQuestion instanceof EasyQuestion) {
                     easyQuestions.add(newQuestion);
                 }
-                if (newQuestion.getLevel() == Level.HARD) {
-                    hardquestions.add(newQuestion);
+                if (newQuestion instanceof HardQuestion) {
+                    hardQuestions.add(newQuestion);
 
                 }
-                if (newQuestion.getLevel() == Level.MEDIUM) {
-                    medquestions.add(newQuestion);
+                if (newQuestion instanceof MediumQuestion) {
+                    medQuestions.add(newQuestion);
                 }
-
-                //questions.add(newQuestion);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -256,46 +168,8 @@ public class SysData {
 
     }
 
-
-//    private ArrayList loadPlayersJson() {
-//        //JSON parser object to parse read file
-//        JSONParser jsonParser = new JSONParser();
-//        ArrayList<String> players = new ArrayList<>();
-//        try (FileReader reader = new FileReader("src/resources/json/BANANA.json")) {
-//            //Read JSON file
-//            Object obj = jsonParser.parse(reader);
-//
-//            JSONArray questionsList = (JSONArray) obj;
-//            for (Object player : questionsList) {
-//                players.add(String.valueOf(((JSONObject) player).get("nickName")));
-//            }
-//            System.out.println(questionsList);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return questions;
-//    }
-
-    public boolean savePlayers() {
-        //Write JSON file
-        try (FileWriter file = new FileWriter("src/resources/json/employees.json")) {
-            //We can write any JSONArray or JSONObject instance to the file
-            JSONObject json = new JSONObject();
-            json.put("players", players);
-            file.write(json.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
     public boolean saveGames() {
-//Write JSON file
+        //Write JSON file
         try (FileWriter file = new FileWriter("src/resources/json/games.json")) {
             //We can write any JSONArray or JSONObject instance to the file
             JSONObject json = new JSONObject();
@@ -324,10 +198,10 @@ public class SysData {
             for (Question question : easyQuestions) {
                 jsonQuestions.add(question.toJson());
             }
-            for (Question question : medquestions) {
+            for (Question question : medQuestions) {
                 jsonQuestions.add(question.toJson());
             }
-            for (Question question : hardquestions) {
+            for (Question question : hardQuestions) {
                 jsonQuestions.add(question.toJson());
             }
             json.put("questions", jsonQuestions);

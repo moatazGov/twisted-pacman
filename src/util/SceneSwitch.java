@@ -1,5 +1,6 @@
 package util;
 
+import controller.Controller;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,10 +13,11 @@ import model.*;
 import view.EndGameCtrl;
 import view.Main;
 import constant.FileName;
-import view.GameController;
+import view.GameCtrl;
 import view.QuestionCtrl;
 import java.net.URL;
-import java.util.ArrayList;
+
+import static constant.FileName.VIEW_HOME;
 
 /**
 
@@ -56,7 +58,7 @@ public enum SceneSwitch {
   public void switchToHome() {
     try {
       hideStage();
-      URL location = Main.class.getResource("/resources/fxml/home-view.fxml");
+      URL location = Main.class.getResource(VIEW_HOME);
       Pane root = FXMLLoader.load(location);
       Scene scene = new Scene(root);
       setScene(scene);
@@ -153,7 +155,7 @@ public enum SceneSwitch {
 
       root = loader.load();
       gameScene = new Scene(root);
-      GameController controller = loader.<GameController>getController();
+      GameCtrl controller = loader.<GameCtrl>getController();
       controller.setNickName(nickName);
       setScene(gameScene);
 
@@ -171,12 +173,12 @@ public enum SceneSwitch {
               + map.getMapConfig().getGridLength()
               + "px;");
 
-      GameController gameController = loader.getController();
-      GameManager.INSTANCE.init(map, gameController);
-      gameController.setTitle("level - 1 ");
+      GameCtrl gameCtrl = loader.getController();
+      Controller.INSTANCE.init(map, gameCtrl);
+      gameCtrl.setTitle("level - 1 ");
 
       gameScene.addEventHandler(
-          KeyEvent.KEY_PRESSED, event -> GameManager.INSTANCE.handleKeyPressed(event));
+          KeyEvent.KEY_PRESSED, event -> Controller.INSTANCE.handleKeyPressed(event));
       showStage();
     } catch (Exception e) {
       e.printStackTrace();

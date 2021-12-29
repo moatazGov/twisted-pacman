@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static constant.FileName.VIEW_HOME;
+
 public class InstructionsCtrl implements Initializable {
 
     Parent root;
@@ -40,7 +42,7 @@ public class InstructionsCtrl implements Initializable {
 
     @FXML
     private void backClicked(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource(VIEW_HOME));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

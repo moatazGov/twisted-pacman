@@ -18,15 +18,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.Level;
-import model.Question;
-import model.SysData;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import static constant.FileName.VIEW_HOME;
 
 public class QuestionsAdminCtrl implements Initializable {
 
@@ -69,7 +69,7 @@ public class QuestionsAdminCtrl implements Initializable {
         sysData.load();
         ArrayList<Question> questionsData = sysData.getEasyQuestions();
         questionsData.addAll(sysData.getMedQuestions());
-        questionsData.addAll(sysData.getHardquestions());
+        questionsData.addAll(sysData.getHardQuestions());
         questions.addAll(questionsData);
         createTable();
 
@@ -101,7 +101,7 @@ public class QuestionsAdminCtrl implements Initializable {
                                     SysData.getInstance().load();
                                     ArrayList<Question> questionsData = sysData.getEasyQuestions();
                                     questionsData.addAll(sysData.getMedQuestions());
-                                    questionsData.addAll(sysData.getHardquestions());
+                                    questionsData.addAll(sysData.getHardQuestions());
                                     questions.removeAll(questions.stream().collect(Collectors.toList()));
                                     questions.addAll(questionsData);
                                 } catch (Exception e) {
@@ -110,22 +110,22 @@ public class QuestionsAdminCtrl implements Initializable {
                             });
                             deleteBtn.setOnAction((ActionEvent event) -> {
                                 Question data = getTableView().getItems().get(getIndex());
-                                if (data.getLevel() == Level.EASY){
+                                if (data instanceof EasyQuestion){
                                     questions.remove(data);
                                     SysData.getInstance().getEasyQuestions().remove(data);
                                     ArrayList<Question> questionsData = sysData.getEasyQuestions();
                                     sysData.setEasyQuestions(questionsData);
                                 }
-                                if (data.getLevel() == Level.MEDIUM){
+                                if (data instanceof MediumQuestion){
                                     questions.remove(data);
                                     SysData.getInstance().getMedQuestions().remove(data);
                                     ArrayList<Question> questionsData = sysData.getMedQuestions();
                                     sysData.setMedQuestions(questionsData);
                                 }
-                                if (data.getLevel() == Level.HARD){
+                                if (data instanceof HardQuestion){
                                     questions.remove(data);
-                                    SysData.getInstance().getHardquestions().remove(data);
-                                    ArrayList<Question> questionsData = sysData.getHardquestions();
+                                    SysData.getInstance().getHardQuestions().remove(data);
+                                    ArrayList<Question> questionsData = sysData.getHardQuestions();
                                     sysData.setHardQuestions(questionsData);
                                 }
 
@@ -173,7 +173,7 @@ public class QuestionsAdminCtrl implements Initializable {
      */
     @FXML
     private void backClicked(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource(VIEW_HOME));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

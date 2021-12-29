@@ -3,7 +3,7 @@ package model;
 import constant.Direction;
 import constant.FileName;
 import constant.MovableGridType;
-import util.GameManager;
+import controller.Controller;
 
 import java.util.Set;
 
@@ -158,7 +158,7 @@ public class Pacman extends MovableGrid {
         for (PacItem cookie : getParentMap().getPacItems()) {
             if (cookie.isExisting()
                     && isTouching(cookie, getParentMap().getMapConfig().getCookiePadding())) {
-                GameManager.INSTANCE.handlePacItemTouched(cookie);
+                Controller.INSTANCE.handlePacItemTouched(cookie);
                 return;
             }
         }
@@ -171,7 +171,7 @@ public class Pacman extends MovableGrid {
         for (BombItem bomb : getParentMap().getBombItems()) {
             if (bomb.isExisting()
                     && isTouching(bomb, getParentMap().getMapConfig().getBombPadding())) {
-                GameManager.INSTANCE.handleBombItemTouched(bomb);
+                Controller.INSTANCE.handleBombItemTouched(bomb);
                 bombCount++;
                 return;
             }
@@ -179,11 +179,11 @@ public class Pacman extends MovableGrid {
     }
 
 
-    private void checkTouchingQuestionGrid() { // TODO
+    private void checkTouchingQuestionGrid() {
         for (QuestionGrid questionGrid : getParentMap().getQuestionsGrid()) {
             if (questionGrid.isExisting()
                     && isTouching(questionGrid, getParentMap().getMapConfig().getQuestionGridPadding())) {
-                GameManager.INSTANCE.handleQuestionGrid(questionGrid);
+                Controller.INSTANCE.handleQuestionGrid(questionGrid);
 
                //bombCount++;
 
@@ -199,7 +199,7 @@ public class Pacman extends MovableGrid {
             this.setImage(FileName.IMAGE_PACMAN);
         }
     }
-    /** Freezes this {@link Pacman}. I.e. Stops the moving. */
+    /** Freezes this Pacman. I.e. Stops the moving. */
     public void freeze() {
         moveUp.stop();
         moveDown.stop();

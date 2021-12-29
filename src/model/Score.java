@@ -5,15 +5,6 @@ import sun.misc.InnocuousThread;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- *
- * <h1>Score</h1>
- *
- * <p>A {@link Score} is an object to keep the record of the play's score in a single run.
- *
- * @author Song Zhang
- */
 public class Score implements Serializable {
 
     /** The value of the score. */
@@ -64,11 +55,6 @@ public class Score implements Serializable {
      */
     public void lose(int value) {
         this.value -= value;
-    }
-
-    /** Settles the score. That is: changes the {@link #time} to the current time. */
-    public void settle() {
-        this.time = new Date();
     }
 
     /**

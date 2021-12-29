@@ -4,17 +4,10 @@ import constant.FileName;
 
 import java.util.Timer;
 import java.util.TimerTask;
- /**
-=======
 
 /**
  *
- *
- * <h1>Cookie</h1>
- *
- * @author Song Zhang
- * @version 1.0
- * @since 1.0
+ * PacItem
  */
 public class PacItem extends Grid {
 
@@ -28,23 +21,12 @@ public class PacItem extends Grid {
 
     /**
      */
-    public PacItem(Map map, double row, double column, int value) { // TODO
+    public PacItem(Map map, double row, double column) {
         super(map, row, column);
         this.setImage(FileName.IMAGE_BIG);
         this.value = 1;
-//        double rowNumber = ThreadLocalRandom.current().nextDouble(0, row);
-//        double columnNumber = ThreadLocalRandom.current().nextDouble(0, column);
-//        randChange(rowNumber,columnNumber,this);
     }
 
-
-//        public void randChange(double Row,double Column,PacItem pacItem ){ //TODO
-//
-//        pacItem.setVisible(false);
-//
-//       // QuestionGrid questiuonGrid= new QuestionGrid(double row, double column, Question question);
-//
-//        }
     /**
      */
     public int getValue() {

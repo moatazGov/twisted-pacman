@@ -6,25 +6,13 @@ import java.util.Set;
 import constant.Direction;
 import constant.FileName;
 import constant.MovableGridType;
-import util.GameManager;
+import controller.Controller;
 
 /**
+
+ * A MovableGrid that can move randomly. When it
+ * touches the, it will ask Controller Instance to handle the some consequences.
  *
- *
- * <h1>Ghost</h1>
- *
- * <p>A {@link Ghost} is a {@link MovableGrid} in a {@link Map}. It can move randomly. When it
- * touches the {@link Pacman}, it will ask {@link GameManager} to handle the some consequences.
- *
- * <p>This class extends {@link MovableGrid} and implements {@link Runnable}.
- *
- * @author Song Zhang
- * @version 1.0
- * @since 1.0
- * @see MovableGrid
- * @see Runnable
- * @see Map
- * @see Direction
  */
 public class Ghost extends MovableGrid implements Runnable {
     /**
@@ -185,14 +173,14 @@ public class Ghost extends MovableGrid implements Runnable {
 
     /**
      * Tests if this {@link Ghost} is touching the {@link Pacman}. If true, calls {@link
-     * GameManager#handleGhostTouched(Ghost)}.
+     * Controller#handleGhostTouched(Ghost)}.
      */
     private void checkTouchingPacman() {
         if(this.isAlive) {
             if (getParentMap()
                     .getPacman()
                     .isTouching(this, getParentMap().getMapConfig().getGhostPadding())) {
-                GameManager.INSTANCE.handleGhostTouched(this);
+                Controller.INSTANCE.handleGhostTouched(this);
             }
         }
 //        else{

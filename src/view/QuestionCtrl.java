@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,10 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import model.EasyQuestion;
 import model.Level;
+import model.MediumQuestion;
 import model.Question;
-import util.GameManager;
-import util.MapPainter;
 import util.SceneSwitch;
 
 import java.net.URL;
@@ -80,34 +81,31 @@ public class QuestionCtrl implements Initializable {
         setAnswer3(question.getAnswers().get(2));
         setAnswer4(question.getAnswers().get(3));
         levelLbl.setText(
-                question.getLevel() == Level.EASY ? "Easy Question" :
-                        question.getLevel() == Level.MEDIUM ? "Medium Question" : "Hard Question"
+                question instanceof EasyQuestion ? "Easy Question" :
+                        question instanceof MediumQuestion ? "Medium Question" : "Hard Question"
         );
     }
 
     @FXML
     void confirmClicked(ActionEvent event) {
         SceneSwitch.INSTANCE.exitQuestion();
-
+        Level questionLevel = question instanceof EasyQuestion ? Level.EASY : question instanceof MediumQuestion ? Level.MEDIUM : Level.HARD;
         //correct answer
         if (answerGroup.getSelectedToggle().getUserData().equals(question.getCorrect_ans())) {
-            Level level = question.getLevel();
-            GameManager.INSTANCE.incScore(
-                    level == Level.EASY ? 1 : level == Level.MEDIUM ? 2 : 3
+            Controller.INSTANCE.incScore(
+                    questionLevel == Level.EASY ? 1 : questionLevel == Level.MEDIUM ? 2 : 3
             );
         } else {
             //wrong answer
-            Level level = question.getLevel();
-            GameManager.INSTANCE.decScore(
-                    level == Level.EASY ? -10 : level == Level.MEDIUM ? -20 : -30
+            Controller.INSTANCE.decScore(
+                    questionLevel == Level.EASY ? -10 : questionLevel == Level.MEDIUM ? -20 : -30
             );
-            GameManager.INSTANCE.updateUi();
+            Controller.INSTANCE.updateUi();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        questionLbl.setText(this.question.getQuestion());
         answer1.setToggleGroup(answerGroup);
         answer2.setToggleGroup(answerGroup);
         answer3.setToggleGroup(answerGroup);

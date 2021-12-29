@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static constant.FileName.VIEW_HOME;
+
 public class AdminLoginCtrl {
 
     Parent root;
@@ -31,7 +33,7 @@ public class AdminLoginCtrl {
 
     @FXML
     void backClicked(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource(VIEW_HOME));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

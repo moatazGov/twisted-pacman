@@ -1,6 +1,5 @@
 package view;
 
-import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,15 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Popup;
-import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 import java.io.IOException;
-import javafx.scene.control.TableRow;
+
 import javafx.scene.control.TableView;
 import model.GameData;
-import model.Level;
-import model.Question;
 import model.SysData;
 import util.SceneSwitch;
 
@@ -28,7 +23,6 @@ import java.util.ArrayList;
 
 public class HomeCtrl {
 
-    private Controller controller = new Controller();
     private ObservableList<GameData> games = FXCollections.observableArrayList();
 
     @FXML

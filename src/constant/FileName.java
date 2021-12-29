@@ -1,10 +1,8 @@
 package constant;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * object to store constant file names.
@@ -38,7 +36,7 @@ public class FileName {
   public static final String IMAGE_PORTAL_A = "/resources/image/portal/portal1.png";
   public static final String IMAGE_PORTAL_B = "/resources/image/portal/portal2.png";
 
-  public static final String VIEW_HOME = "/fxml/home-view.fxml";
+  public static final String VIEW_HOME = "/resources/fxml/home-view.fxml";
   public static final String VIEW_GAME = "/resources/view/game.fxml";
   public static final String VIEW_SELECT = "/resources/view/select.fxml";
 }

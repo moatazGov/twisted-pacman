@@ -12,13 +12,4 @@ public enum Level {
         this.pointsToRemove = pointsToRemove;
 
     }
-
-    public int getPointsToRemove() {
-        return pointsToRemove;
-    }
-
-    public int getPointsToAdd() {
-        return pointsToAdd;
-    }
-
 }
