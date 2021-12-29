@@ -7,11 +7,11 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class FactoryQuestion {
-
-    SysData systemData = new SysData();
-
     /**
-     * a flag to determine if questions were parsed or not
+     * A method to create three similar objects with a little difference, depending on the level the method creates a suitable object.
+     *
+     * @param questionJson
+     * @return
      */
     public Question getQuestion(JSONObject questionJson) {
         JSONArray answers1 = (JSONArray) questionJson.get("answers");
@@ -21,7 +21,7 @@ public class FactoryQuestion {
         String correct_ans = questionJson.get("correct_ans").toString();
 
         for (Object answer : answers1) {
-            answersList.add(((String) answer));
+            answersList.add(answer);
         }
 
         if (level == Level.EASY) {

@@ -8,14 +8,15 @@ import model.*;
 import util.Animation;
 import util.SceneSwitch;
 import view.GameCtrl;
+
 import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * <h1>Controller</h1>
- *
+ * Controller
+ * <p>
  * object of utility to manage the game status and process globally,
  * and reflect the realtime results in the UI.
  */
@@ -77,6 +78,7 @@ public enum Controller {
 
     /**
      * get the current score of the player.
+     *
      * @return
      */
     public Score getScore() {
@@ -85,6 +87,7 @@ public enum Controller {
 
     /**
      * set the current score of the player.
+     *
      * @param score
      */
     public void setScore(Score score) {
@@ -93,6 +96,7 @@ public enum Controller {
 
     /**
      * increases the value of the score with the given newScore
+     *
      * @param newScore
      */
     public void incScore(int newScore) {
@@ -101,6 +105,7 @@ public enum Controller {
 
     /**
      * decreases the value o the score with the given newScore
+     *
      * @param newScore
      */
     public void decScore(int newScore) {
@@ -111,7 +116,7 @@ public enum Controller {
      * Initializes the game properties based on the given {@link Map} and updates UI via {@link
      * GameCtrl}.
      *
-     * @param map            the current {@link Map}
+     * @param map      the current {@link Map}
      * @param gameCtrl the {@link GameCtrl} linked to the current displayed UI
      */
     public void init(Map map, GameCtrl gameCtrl) {
@@ -179,7 +184,7 @@ public enum Controller {
     }
 
     /**
-     *  Pauses the game moving objects, without opening paused game popup.
+     * Pauses the game moving objects, without opening paused game popup.
      */
     public void pauseGameNoPopUp() {
         if (gameStatus == GameStatus.PAUSE) {
@@ -193,7 +198,7 @@ public enum Controller {
     }
 
     /**
-     * Loses the game.
+     * Loses the game
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
@@ -214,6 +219,7 @@ public enum Controller {
 
     /**
      * store the new score to json files.
+     *
      * @param name
      * @param status
      * @param score
@@ -226,7 +232,7 @@ public enum Controller {
             sysData.save();
             return true;
         } catch (Exception e) {
-            System.out.println("caught error in store score");
+            System.out.println(e.getStackTrace());
             return false;
         }
     }
@@ -255,7 +261,6 @@ public enum Controller {
         life.lose();
         score.lose(ghost.getValue());
         if (life.getRemaining() <= 0) {
-            //MusicPlayer.INSTANCE.playDeath();
             loseGame();
         }
         updateUi();
@@ -419,7 +424,6 @@ public enum Controller {
                     Timer timer = new Timer();
 
 
-                    System.out.println("Pac got a bomb and hes not afraid to use it");
                     map.getPacman().setBombCount(map.getPacman().getBombCount() - 1);
                     for (Ghost g : map.getGhosts()) {
                         if (((g.getX() <= (map.getPacman().getX() + 3 * gridLen))
