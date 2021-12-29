@@ -532,7 +532,6 @@ public class MapReader {
      *                    if for the map
      */
     private void readFile(boolean isForConfig) {
-        ClassLoader classLoader = getClass().getClassLoader();
         URL resource = Main.class.getResource(fileName);
         String path = null;
         try {

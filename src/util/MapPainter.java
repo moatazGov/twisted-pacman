@@ -37,15 +37,6 @@ public class MapPainter {
   }
 
   /**
-   * Draw angry pacman.
-   *
-   * @param pacman the pacman
-   */
-  public void drawAngryPacman(Pacman pacman) {
-    root.getChildren().add(pacman);
-  }
-
-  /**
    * Draw cookies.
    *
    * @param cookies the cookies

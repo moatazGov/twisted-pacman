@@ -1,5 +1,6 @@
 package view;
 
+import constant.Level;
 import controller.Alerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

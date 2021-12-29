@@ -1,4 +1,5 @@
-package model;
+package constant;
+
 
 public enum Level {
 

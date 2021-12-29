@@ -1,14 +1,16 @@
 package controller;
 
-import model.*;
+import constant.Level;
+import model.EasyQuestion;
+import model.HardQuestion;
+import model.MediumQuestion;
+import model.Question;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
 public class FactoryQuestion {
-
-    SysData systemData = new SysData();
 
     /**
      * a flag to determine if questions were parsed or not
@@ -21,7 +23,7 @@ public class FactoryQuestion {
         String correct_ans = questionJson.get("correct_ans").toString();
 
         for (Object answer : answers1) {
-            answersList.add(((String) answer));
+            answersList.add(answer);
         }
 
         if (level == Level.EASY) {

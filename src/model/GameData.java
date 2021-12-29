@@ -1,16 +1,11 @@
 package model;
 
-
-
 import org.json.simple.JSONObject;
-
-import java.util.Objects;
 
 public class GameData {
     private String nickName;
     private Integer score;
 
-  
     public GameData(String nickName, Integer score) {
         this.nickName = nickName;
         this.score = score;
@@ -24,8 +19,6 @@ public class GameData {
          score =   Integer.valueOf(gameJson.get("score").toString());
          return  this;
     }
-
-
 
     public JSONObject toJson(){
         JSONObject obj = new JSONObject();

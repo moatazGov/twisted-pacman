@@ -12,7 +12,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import model.EasyQuestion;
-import model.Level;
+import constant.Level;
 import model.MediumQuestion;
 import model.Question;
 import util.SceneSwitch;

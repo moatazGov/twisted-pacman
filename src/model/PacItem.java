@@ -6,20 +6,21 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- *
- * PacItem
+ * PacItem, also referred to as PacItem.
  */
 public class PacItem extends Grid {
-
-    /** The value of {@link Score} of this cookie. */
-    private int value;
 
     /**
      * a timer to make the cookies reappear after 30 seconds
      */
     Timer timer = new Timer();
+    /**
+     * The value of {@link Score} of this cookie.
+     */
+    private int value;
 
     /**
+     *
      */
     public PacItem(Map map, double row, double column) {
         super(map, row, column);
@@ -28,6 +29,7 @@ public class PacItem extends Grid {
     }
 
     /**
+     *
      */
     public int getValue() {
         return value;
@@ -45,7 +47,7 @@ public class PacItem extends Grid {
             public void run() {
                 setVisible(true);
             }
-        }, 30*1000);
+        }, 30 * 1000);
     }
 
     /**

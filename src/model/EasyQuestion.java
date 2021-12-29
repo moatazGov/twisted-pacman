@@ -1,9 +1,6 @@
 package model;
 
 
-import model.Level;
-import model.Question;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -19,27 +16,16 @@ public class EasyQuestion implements Question {
 
     /**
      * Instantiates a new Question with the given parameters.
+     * <p>
+     * //     * @param id            the id
      *
-//     * @param id            the id
-     * @param question      the question
-     * @param answers       the answers
+     * @param question the question
+     * @param answers  the answers
      */
     public EasyQuestion(String question, ArrayList<String> answers, String correct_ans) {
         this.question = question;
         this.answers = answers;
         this.correct_ans = correct_ans;
-    }
-
-    public EasyQuestion(String question, String correct_ans) {
-        this.question = question;
-        this.correct_ans = correct_ans;
-    }
-
-    /**
-     * Instantiates a new Question with empty fields.
-     */
-    public EasyQuestion() {
-
     }
 
     @Override
@@ -57,29 +43,21 @@ public class EasyQuestion implements Question {
         return Objects.hash(question, answers, correct_ans);
     }
 
-    @Override
-    public void fromJson(JSONObject obj) {
-        JSONArray answers1 = (JSONArray) obj.get("answers");
-        ArrayList answersList = new ArrayList();
 
-        for (Object answer : answers1) {
-            answersList.add(((String) answer));
-        }
-        question = obj.get("question").toString();
-        correct_ans = obj.get("correct_ans").toString();
-        answers = answersList;
-    }
-
+    /**
+     * parse a json object representing the question object.
+     *
+     * @return
+     */
     @Override
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         obj.put("question", question);
         obj.put("correct_ans", correct_ans);
-        obj.put("level", "1" );
+        obj.put("level", "1");
         obj.put("answers", answers);
         return obj;
     }
-
 
     /**
      * Gets question.
@@ -109,15 +87,6 @@ public class EasyQuestion implements Question {
     }
 
     /**
-     * Sets answers.
-     *
-     * @param answers the answers
-     */
-    public void setAnswers(ArrayList<String> answers) {
-        this.answers = answers;
-    }
-
-    /**
      * Gets correct answer.
      *
      * @return the correct answer
@@ -125,15 +94,5 @@ public class EasyQuestion implements Question {
     public String getCorrect_ans() {
         return correct_ans;
     }
-
-    /**
-     * Sets correct answer.
-     *
-     * @param correct_ans the correct answer
-     */
-    public void setCorrect_ans(String correct_ans) {
-        this.correct_ans = correct_ans;
-    }
-
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import constant.Level;
 import controller.FactoryQuestion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

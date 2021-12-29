@@ -89,11 +89,6 @@ public class MapConfig {
     cookiePadding = gridLength * cookiePaddingRate;
   }
 
-  /** Updates the bomb padding. */
-  private void updateBombPadding() {
-    bombPadding = gridLength * bombPaddingRate;
-  }
-
   /** Updates the ghost padding. */
   private void updateGhostPadding() {
     ghostPadding = gridLength * ghostPaddingRate;

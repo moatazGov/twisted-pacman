@@ -1,11 +1,12 @@
 package model;
+
 import constant.FileName;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
+/**
+ * The Grid of the question shown on the map.
+ */
 public class QuestionGrid extends Grid {
-        private Question question;
+    private Question question;
 
     /**
      * Allocates a new {@link Grid} object.
@@ -16,9 +17,9 @@ public class QuestionGrid extends Grid {
      * @param row       the row index igo the {@link Map} where this {@link Grid} stays, starting from 0
      * @param column    the column index in the {@link Map} where this {@link Grid} stays, starting from
      */
-        public QuestionGrid(Map parentMap, double row, double column, Question question) {
+    public QuestionGrid(Map parentMap, double row, double column, Question question) {
         super(parentMap, row, column);
-       QuestionLevel(question);
+        QuestionLevel(question);
         this.question = question;
     }
 
@@ -31,15 +32,17 @@ public class QuestionGrid extends Grid {
     }
 
     public void QuestionLevel(Question question) {
-                if (question instanceof EasyQuestion) {
-                    this.setImage(FileName.IMAGE_HARD_QUESTION);
-                }if (question instanceof MediumQuestion) {
-                    this.setImage(FileName.IMAGE_EASY_QUESTION);
-                }if (question instanceof HardQuestion) {
-                    this.setImage(FileName.IMAGE_MED_QUESTION);
-                }
+        if (question instanceof EasyQuestion) {
+            this.setImage(FileName.IMAGE_HARD_QUESTION);
+        }
+        if (question instanceof MediumQuestion) {
+            this.setImage(FileName.IMAGE_EASY_QUESTION);
+        }
+        if (question instanceof HardQuestion) {
+            this.setImage(FileName.IMAGE_MED_QUESTION);
+        }
 
-            }
+    }
 
 
     /**

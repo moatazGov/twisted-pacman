@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import model.*;
 import view.EndGameCtrl;
 import view.Main;
-import constant.FileName;
 import view.GameCtrl;
 import view.QuestionCtrl;
 import java.net.URL;
@@ -65,19 +64,6 @@ public enum SceneSwitch {
       showStage();
     } catch (Exception e) {
       e.getMessage();
-      e.printStackTrace();
-    }
-  }
-
-  /** Switched the current scene to Select. */
-  public void switchToSelect() {
-    try {
-      hideStage();
-      Pane root = FXMLLoader.load(getClass().getResource(FileName.VIEW_SELECT));
-      Scene scene = new Scene(root);
-      setScene(scene);
-      showStage();
-    } catch (Exception e) {
       e.printStackTrace();
     }
   }

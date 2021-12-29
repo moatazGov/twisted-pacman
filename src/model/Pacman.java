@@ -13,9 +13,9 @@ public class Pacman extends MovableGrid {
 
 
     /**
-     *     from 0
-     *     Pacman starts in his position.
-     *     Pacman has normal color and doesn't have a bomb.
+     * from 0
+     * Pacman starts in his position.
+     * Pacman has normal color and doesn't have a bomb.
      */
     public Pacman(Map map, double row, double column) {
         super(map, row, column, MovableGridType.PACMAN);
@@ -53,7 +53,7 @@ public class Pacman extends MovableGrid {
         double nextY = getY();
         switch (direction) {
             case RIGHT:
-                nextX = (getX() + getStep()) - (getX() % gridLength) + gridLength ;
+                nextX = (getX() + getStep()) - (getX() % gridLength) + gridLength;
                 break;
             case LEFT:
                 nextX = (getX() - getStep()) - (getX() % gridLength);
@@ -67,7 +67,7 @@ public class Pacman extends MovableGrid {
             default:
         }
         // generate a mock grid at the next step
-        Pacman nextPositionGrid = new Pacman(getParentMap(), nextX , nextY );
+        Pacman nextPositionGrid = new Pacman(getParentMap(), nextX, nextY);
         nextPositionGrid.setX(nextX);
         nextPositionGrid.setY(nextY);
 
@@ -81,6 +81,14 @@ public class Pacman extends MovableGrid {
         return false;
     }
 
+    /**
+     * a function to check of the pacman is touching the given grid.
+     *
+     * @param grid    a {@link Grid} object
+     * @param padding a permissible error range in px indicating a range to allow overlapping to some
+     *                extend, in px
+     * @return
+     */
     @Override
     public boolean isTouching(Grid grid, double padding) {
         double myX = this.getX();
@@ -89,9 +97,10 @@ public class Pacman extends MovableGrid {
         double itsY = grid.getY();
         double gridLength = getParentMap().getMapConfig().getGridLength();
 
+
         return myX + getStep() < itsX + gridLength
-                && myX - getStep()  > itsX - gridLength
-                && myY + getStep()  < itsY + gridLength
+                && myX - getStep() > itsX - gridLength
+                && myY + getStep() < itsY + gridLength
                 && myY - getStep() > itsY - gridLength;
     }
 
@@ -126,6 +135,7 @@ public class Pacman extends MovableGrid {
             portal.open();
         }
     }
+
     /**
      * @param direction the current direction of moving
      */
@@ -153,6 +163,7 @@ public class Pacman extends MovableGrid {
     }
 
     /**
+     * checks if the pacman is touching a coockie(PacItem).
      */
     private void checkTouchingCookies() {
         for (PacItem cookie : getParentMap().getPacItems()) {
@@ -185,21 +196,24 @@ public class Pacman extends MovableGrid {
                     && isTouching(questionGrid, getParentMap().getMapConfig().getQuestionGridPadding())) {
                 Controller.INSTANCE.handleQuestionGrid(questionGrid);
 
-               //bombCount++;
+                //bombCount++;
 
                 return;
             }
         }
     }
-    private void checkHoldingBomb(){
-        if(bombCount > 0){
+
+    private void checkHoldingBomb() {
+        if (bombCount > 0) {
             this.setImage(FileName.IMAGE_ANGRY_PAC);
-        }
-        else{
+        } else {
             this.setImage(FileName.IMAGE_PACMAN);
         }
     }
-    /** Freezes this Pacman. I.e. Stops the moving. */
+
+    /**
+     * Freezes this Pacman. I.e. Stops the moving.
+     */
     public void freeze() {
         moveUp.stop();
         moveDown.stop();
