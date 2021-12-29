@@ -80,7 +80,7 @@ public class QuestionCtrl implements Initializable {
         SceneSwitch.INSTANCE.exitQuestion();
         Level questionLevel = question instanceof EasyQuestion ? Level.EASY : question instanceof MediumQuestion ? Level.MEDIUM : Level.HARD;
         //correct answer
-        if (answerGroup.getSelectedToggle().getUserData().equals(question.getCorrect_ans())) {
+        if (answerGroup.getSelectedToggle().getUserData().equals(question.getAnswers().get(Integer.valueOf(question.getCorrect_ans())))) {
             Controller.INSTANCE.incScore(
                     questionLevel == Level.EASY ? 1 : questionLevel == Level.MEDIUM ? 2 : 3
             );
