@@ -1,7 +1,6 @@
 package model;
 
 import constant.FileName;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +43,9 @@ public class BombItem extends Grid {
         }, 30*1000);
     }
 
+    /**
+     * @return True if the item is visible on the screen.
+     */
     public boolean isExisting() {
         return isVisible();
     }

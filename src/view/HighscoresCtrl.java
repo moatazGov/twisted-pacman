@@ -1,6 +1,5 @@
 package view;
 
-import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,13 +18,14 @@ import model.SysData;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static constant.FileName.VIEW_HOME;
+
 public class HighscoresCtrl {
 
     Parent root;
     Stage stage;
     Scene scene;
 
-    private Controller controller = new Controller();
     private ObservableList<GameData> games = FXCollections.observableArrayList();
 
     @FXML
@@ -53,7 +53,7 @@ public class HighscoresCtrl {
     private void backClicked(ActionEvent event) throws IOException {
         setTableappearance();
         createTable();
-        root = FXMLLoader.load(getClass().getResource("/resources/fxml/home-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource(VIEW_HOME));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

@@ -3,16 +3,7 @@ package util;
 import model.Map;
 
 /**
- *
- *
- * <h1>MapConfig</h1>
- *
- * <p>A {@link MapConfig} is an object consisting of configuration of maps.
- *
- * @author Song Zhang
- * @version 1.0
- * @since 1.0
- * @see Map
+ * object consisting of configuration of maps.
  */
 public class MapConfig {
 
@@ -126,6 +117,11 @@ public class MapConfig {
     return bombPadding;
   }
 
+  /**
+   * Get question grid padding double.
+   *
+   * @return the double
+   */
   public double getQuestionGridPadding(){
     return questionGridPadding;
   }
@@ -214,6 +210,11 @@ public class MapConfig {
   }
 
 
+  /**
+   * Gets ghost step rate.
+   *
+   * @return the ghost step rate
+   */
   public double getGhostStepRate() {
     return ghostStepRate;
   }

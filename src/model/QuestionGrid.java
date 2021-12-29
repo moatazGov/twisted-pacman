@@ -5,9 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class QuestionGrid extends Grid {
-        public static int i=0 ;
         private Question question;
-        Timer timer = new Timer();
+
     /**
      * Allocates a new {@link Grid} object.
      *
@@ -32,20 +31,17 @@ public class QuestionGrid extends Grid {
     }
 
     public void QuestionLevel(Question question) {
-                if (question.getLevel() == Level.HARD) {
+                if (question instanceof EasyQuestion) {
                     this.setImage(FileName.IMAGE_HARD_QUESTION);
-                }if (question.getLevel() == Level.EASY) {
+                }if (question instanceof MediumQuestion) {
                     this.setImage(FileName.IMAGE_EASY_QUESTION);
-                }if (question.getLevel() == Level.MEDIUM) {
+                }if (question instanceof HardQuestion) {
                     this.setImage(FileName.IMAGE_MED_QUESTION);
                 }
 
             }
 
 
-    public void eat() {
-        setVisible(false);
-    }
     /**
      * Tests if this {@link } still exists (i.e. not eaten yet) in the screen.
      *
@@ -53,7 +49,7 @@ public class QuestionGrid extends Grid {
      */
     public boolean isExisting() {
         return isVisible();
-    } //TODO
+    }
 
 
 }

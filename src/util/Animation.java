@@ -6,29 +6,7 @@ import javafx.util.Duration;
 import view.Main;
 
 /**
- *
- *
- * <h1>Animation</h1>
- *
- * <p>An {@link Animation} is an object of utility to do some animation with the game running.
- *
- * <p>Currently just has one method for fun.
- *
- * <p>Usage:
- *
- * <blockquote>
- *
- * <pre>
- *    Animation animation = new Animation(fileName);
- *    Animation.shakeStage();
- * </pre>
- *
- * </blockquote>
- *
- * @author Song Zhang
- * @version 1.0
- * @since 1.0
- * @see GameManager
+ *object of utility to do some animations with the game running.
  */
 public class Animation {
   private int stageX = 0;

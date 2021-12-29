@@ -1,5 +1,6 @@
 package view;
 
+import controller.FactoryQuestion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Difficulty;
-import model.Level;
-import model.Question;
-import model.SysData;
+import model.*;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -91,31 +90,41 @@ public class AddCtrl implements Initializable {
 
 
                 ArrayList<Question> current = new ArrayList<>();
-                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.EASY)
+                Level level = (Level) difficultyGroup.getSelectedToggle().getUserData();
+                String levelText = "";
+                if(level == Level.EASY) {
+                    levelText = "1";
                     current = SysData.getInstance().getEasyQuestions();
-                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.MEDIUM)
+                }
+                if(level == Level.MEDIUM) {
+                    levelText = "2";
                     current = SysData.getInstance().getMedQuestions();
-                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.HARD)
-                    current = SysData.getInstance().getHardquestions();
-                current.add(new Question(
-                        questionText.getText(),
-                        new ArrayList<String>(Arrays.asList(secondAnswer.getText(), thirdAnswer.getText(), fourthAnswer.getText())),
-                        answerNum,
-                        (Level) difficultyGroup.getSelectedToggle().getUserData(),
-                        "Hawk"
-                ));
+                }
+                if(level == Level.HARD) {
+                    levelText = "3";
+                    current = SysData.getInstance().getHardQuestions();
+                }
+
+
+                FactoryQuestion factory = new FactoryQuestion();
+                JSONObject object = new JSONObject();
+                object.put("question", questionText.getText());
+                object.put("correct_ans", firstAnswer.getText());
+                object.put("level", levelText);
+                object.put("answers", new ArrayList(Arrays.asList(firstAnswer.getText(), secondAnswer.getText(), thirdAnswer.getText(), fourthAnswer.getText())));
+                Question newQuestion = factory.getQuestion(object);
+                current.add(newQuestion);
 
                 System.out.println((Level) difficultyGroup.getUserData());
 
-                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.EASY)
+                if(level == Level.EASY)
                     SysData.getInstance().setEasyQuestions(current);
-                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.MEDIUM)
+                if(level == Level.MEDIUM)
                     SysData.getInstance().setMedQuestions(current);
-                if((Level) difficultyGroup.getSelectedToggle().getUserData() == Level.HARD)
+                if(level == Level.HARD)
                     SysData.getInstance().setHardQuestions(current);
 
                 SysData.getInstance().save();
-
                 MsgBox.display("Confirmation", "Question added successfully!");
 
                 questionText.clear();

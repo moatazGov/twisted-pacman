@@ -12,9 +12,7 @@ import java.util.Timer;
  *
  * <h1>MovableGrid</h1>
  *
- * <p>A {@link MovableGrid} is a {@link Grid} located in a {@link Map} with the ability to move.
- *
- * <p>This class extends {@link Grid}.
+ * A MovableGrid is a Grid located in a Map with the ability to move.
  *
  */
 public abstract class MovableGrid extends Grid {

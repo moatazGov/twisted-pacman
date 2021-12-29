@@ -1,15 +1,8 @@
 package model;
 
 /**
+ * An object to keep the record of the Pamcan's life in a single run.
  *
- *
- * <h1>Life</h1>
- *
- * <p>A {@link Life} is an object to keep the record of the {@link Pacman}'s life in a single run.
- *
- * @author Song Zhang
- * @version 1.0
- * @since 1.0
  */
 public class Life {
 
