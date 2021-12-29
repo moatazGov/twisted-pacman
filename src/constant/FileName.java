@@ -8,11 +8,10 @@ import java.util.Set;
  * object to store constant file names.
  */
 public class FileName {
-  public static final String MAP = "resources/map/map1.txt";
 
-  public static final String IMAGE_MED_QUESTION = "/resources/image/med_ques.png"; //Todo
-  public static final String IMAGE_EASY_QUESTION = "/resources/image/easy_ques.png"; //Todo
-  public static final String IMAGE_HARD_QUESTION = "/resources/image/hard_ques.png"; //Todo
+  public static final String IMAGE_MED_QUESTION = "/resources/image/med_ques.png";
+  public static final String IMAGE_EASY_QUESTION = "/resources/image/easy_ques.png";
+  public static final String IMAGE_HARD_QUESTION = "/resources/image/hard_ques.png";
 
   public static final String IMAGE_PACMAN = "/resources/image/pacman.png";
   public static final String IMAGE_BIG = "/resources/image/cookie/cookie10.png";
@@ -37,6 +36,5 @@ public class FileName {
   public static final String IMAGE_PORTAL_B = "/resources/image/portal/portal2.png";
 
   public static final String VIEW_HOME = "/resources/fxml/home-view.fxml";
-  public static final String VIEW_GAME = "/resources/view/game.fxml";
   public static final String VIEW_SELECT = "/resources/view/select.fxml";
 }
