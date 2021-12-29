@@ -1,5 +1,7 @@
 package view;
 
+import constant.GameStatus;
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,10 +22,13 @@ public class PauseCtrl {
     @FXML
     public void KeyPressed(KeyEvent e) {
         switch (e.getCode()) {
-            case ESCAPE:
-                SceneSwitch.INSTANCE.returnToGame();
+            case ESCAPE: {
+                Controller.INSTANCE.setGameStatus(GameStatus.CONTINUE);
+                Controller.INSTANCE.continueGame();
+            }
+            break;
+            default:
                 break;
-
         }
     }
 }

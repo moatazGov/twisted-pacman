@@ -147,6 +147,10 @@ public enum Controller {
         return gameStatus;
     }
 
+    public void setGameStatus(GameStatus gs) {
+        this.gameStatus = gs;
+    }
+
     /**
      * Starts the game.
      *
@@ -178,6 +182,8 @@ public enum Controller {
      */
     public void continueGame() {
         if (gameStatus == GameStatus.CONTINUE) {
+
+
 
         }
     }
@@ -550,5 +556,4 @@ public enum Controller {
 
         return true;
     }
-
 }

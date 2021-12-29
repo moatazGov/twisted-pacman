@@ -83,6 +83,7 @@ public class QuestionCtrl implements Initializable {
         if (answerGroup.getSelectedToggle().getUserData().equals(question.getCorrect_ans())) {
             Controller.INSTANCE.incScore(
                     questionLevel == Level.EASY ? 1 : questionLevel == Level.MEDIUM ? 2 : 3
+
             );
         } else {
             //wrong answer
