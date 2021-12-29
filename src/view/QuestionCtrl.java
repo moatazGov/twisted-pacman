@@ -1,18 +1,15 @@
 package view;
 
+import constant.Level;
 import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import model.EasyQuestion;
-import constant.Level;
 import model.MediumQuestion;
 import model.Question;
 import util.SceneSwitch;
@@ -21,14 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class QuestionCtrl implements Initializable {
-
-    Parent root;
-    Stage stage;
-    Scene scene;
-
     final ToggleGroup answerGroup = new ToggleGroup();
-
-
     private Question question;
 
     @FXML
@@ -52,6 +42,18 @@ public class QuestionCtrl implements Initializable {
         return question;
     }
 
+    public void setQuestion(Question question) {
+        this.questionLbl.setText(question.getQuestion());
+        this.question = question;
+        setAnswer1(question.getAnswers().get(0));
+        setAnswer2(question.getAnswers().get(1));
+        setAnswer3(question.getAnswers().get(2));
+        setAnswer4(question.getAnswers().get(3));
+        levelLbl.setText(
+                question instanceof EasyQuestion ? "Easy Question" :
+                        question instanceof MediumQuestion ? "Medium Question" : "Hard Question"
+        );
+    }
 
     public void setAnswer1(String text) {
         answer1.setUserData(text);
@@ -71,19 +73,6 @@ public class QuestionCtrl implements Initializable {
     public void setAnswer4(String text) {
         answer4.setUserData(text);
         answer4.setText(text);
-    }
-
-    public void setQuestion(Question question) {
-        this.questionLbl.setText(question.getQuestion());
-        this.question = question;
-        setAnswer1(question.getAnswers().get(0));
-        setAnswer2(question.getAnswers().get(1));
-        setAnswer3(question.getAnswers().get(2));
-        setAnswer4(question.getAnswers().get(3));
-        levelLbl.setText(
-                question instanceof EasyQuestion ? "Easy Question" :
-                        question instanceof MediumQuestion ? "Medium Question" : "Hard Question"
-        );
     }
 
     @FXML

@@ -10,21 +10,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import java.io.IOException;
-
-import javafx.scene.control.TableView;
 import model.GameData;
 import model.SysData;
 import util.SceneSwitch;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HomeCtrl {
 
+    Parent root;
+    Scene scene;
+    Stage stage;
     private ObservableList<GameData> games = FXCollections.observableArrayList();
-
     @FXML
     private Button playBtn;
     @FXML
@@ -35,11 +36,6 @@ public class HomeCtrl {
     private Button instructionsBtn;
     @FXML
     private Button seeMoreBtn;
-
-    Parent root;
-    Scene scene;
-    Stage stage;
-
     @FXML
     private TableView<GameData> gamesTbl = new TableView<GameData>();
     @FXML
@@ -55,9 +51,9 @@ public class HomeCtrl {
         SysData.getInstance().load();
         SysData sysData = SysData.getInstance();
         ArrayList<GameData> gamesData = sysData.getGames();
-        gamesData.sort((x,y) -> x.getScore() > y.getScore() ? -1 : x.getScore() < y.getScore() ? 1 : 0);
+        gamesData.sort((x, y) -> x.getScore() > y.getScore() ? -1 : x.getScore() < y.getScore() ? 1 : 0);
         ArrayList<GameData> wanted = new ArrayList<>();
-        for (int i = 0 ;  i < 5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             wanted.add(gamesData.get(i));
         }
         games.addAll(wanted);
@@ -66,6 +62,7 @@ public class HomeCtrl {
         gamesTbl.setItems(games);
 
     }
+
     public void initialize() {
 
         try {
@@ -81,16 +78,16 @@ public class HomeCtrl {
     @FXML
     private void playClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/nickname.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
-    private void adminClicked(ActionEvent event) throws IOException{
+    private void adminClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/admin-login.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -104,16 +101,16 @@ public class HomeCtrl {
     @FXML
     private void instructionsClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/instructions.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
-    private void seeMoreClicked(ActionEvent event) throws IOException{
+    private void seeMoreClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/highscores.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

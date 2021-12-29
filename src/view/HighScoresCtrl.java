@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import static constant.FileName.VIEW_HOME;
 
-public class HighscoresCtrl {
+public class HighScoresCtrl {
 
     Parent root;
     Stage stage;
@@ -43,22 +43,24 @@ public class HighscoresCtrl {
         SysData.getInstance().load();
         SysData sysData = SysData.getInstance();
         ArrayList<GameData> gamesData = sysData.getGames();
-        gamesData.sort((x,y) -> x.getScore() > y.getScore() ? -1 : x.getScore() < y.getScore() ? 1 : 0);
+        gamesData.sort((x, y) -> x.getScore() > y.getScore() ? -1 : x.getScore() < y.getScore() ? 1 : 0);
         games.addAll(gamesData);
         scoreCol.setCellValueFactory(new PropertyValueFactory<GameData, Integer>("score"));
         nameCol.setCellValueFactory(new PropertyValueFactory<GameData, String>("nickName"));
         gamesTbl.setItems(games);
     }
+
     @FXML
     private void backClicked(ActionEvent event) throws IOException {
         setTableappearance();
         createTable();
         root = FXMLLoader.load(getClass().getResource(VIEW_HOME));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     public void initialize() {
 
         try {

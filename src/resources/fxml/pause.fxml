@@ -17,7 +17,7 @@
                   <Font name="Eras Bold ITC" size="42.0" />
                </font>
             </Label>
-            <Button fx:id="mainBtn" layoutX="206.0" layoutY="246.0" mnemonicParsing="false" onAction="#mainmenuClicked" prefHeight="48.0" prefWidth="189.0" style="-fx-background-color: black;" text="Main Menu" textFill="#fffd00">
+            <Button fx:id="mainBtn" layoutX="206.0" layoutY="246.0" mnemonicParsing="false" onAction="#mainMenuClicked" prefHeight="48.0" prefWidth="189.0" style="-fx-background-color: black;" text="Main Menu" textFill="#fffd00">
                <font>
                   <Font name="Eras Bold ITC" size="24.0" />
                </font></Button>

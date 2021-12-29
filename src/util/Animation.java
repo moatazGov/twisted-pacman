@@ -3,7 +3,7 @@ package util;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import view.Main;
+import view.MainCtrl;
 
 /**
  *object of utility to do some animations with the game running.
@@ -20,10 +20,10 @@ public class Animation {
                 Duration.seconds(0.5),
                 t -> {
                   if (stageX == 0) {
-                    Main.getPrimaryStage().setX(Main.getPrimaryStage().getX() + 10);
+                    MainCtrl.getPrimaryStage().setX(MainCtrl.getPrimaryStage().getX() + 10);
                     stageX = 1;
                   } else {
-                    Main.getPrimaryStage().setX(Main.getPrimaryStage().getX() - 10);
+                    MainCtrl.getPrimaryStage().setX(MainCtrl.getPrimaryStage().getX() - 10);
                     stageX = 0;
                   }
                 }));
@@ -39,10 +39,10 @@ public class Animation {
                 Duration.seconds(0.5),
                 t -> {
                   if (stageY == 0) {
-                    Main.getPrimaryStage().setY(Main.getPrimaryStage().getY() + 10);
+                    MainCtrl.getPrimaryStage().setY(MainCtrl.getPrimaryStage().getY() + 10);
                     stageY = 1;
                   } else {
-                    Main.getPrimaryStage().setY(Main.getPrimaryStage().getY() - 10);
+                    MainCtrl.getPrimaryStage().setY(MainCtrl.getPrimaryStage().getY() - 10);
                     stageY = 0;
                   }
                 }));

@@ -21,7 +21,7 @@ public class AdminCtrl {
     @FXML
     private void addClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/add-question.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -30,7 +30,7 @@ public class AdminCtrl {
     @FXML
     private void editClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/edit-question.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -39,7 +39,7 @@ public class AdminCtrl {
     @FXML
     private void deleteClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/resources/fxml/delete-question.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -48,7 +48,7 @@ public class AdminCtrl {
     @FXML
     private void backClicked(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource(VIEW_HOME));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

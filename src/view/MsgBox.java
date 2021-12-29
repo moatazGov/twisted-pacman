@@ -13,7 +13,6 @@ public class MsgBox {
 
     public static void display(String title, String Message) {
         Stage window = new Stage();
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);

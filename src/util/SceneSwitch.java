@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.*;
 import view.EndGameCtrl;
-import view.Main;
+import view.MainCtrl;
 import view.GameCtrl;
 import view.QuestionCtrl;
 import java.net.URL;
@@ -21,7 +21,7 @@ import static constant.FileName.VIEW_HOME;
 /**
 
  *  object of utility to provide some methods to switch between
- * different scenes in the primary stage ({@link Main#getPrimaryStage()}).
+ * different scenes in the primary stage ({@link MainCtrl#getPrimaryStage()}).
 
  */
 public enum SceneSwitch {
@@ -36,12 +36,12 @@ public enum SceneSwitch {
   Stage questionStage;
   /** Hides the primary stage. */
   private void hideStage() {
-    Main.getPrimaryStage().hide();
+    MainCtrl.getPrimaryStage().hide();
   }
 
   /** Shows the primary stage. */
   private void showStage() {
-    Main.getPrimaryStage().show();
+    MainCtrl.getPrimaryStage().show();
   }
 
   /**
@@ -50,14 +50,14 @@ public enum SceneSwitch {
    * @param scene a {@link Scene} objeclpo,t
    */
   private void setScene(Scene scene) {
-    Main.getPrimaryStage().setScene(scene);
+    MainCtrl.getPrimaryStage().setScene(scene);
   }
 
   /** Switched the current scene to Home. */
   public void switchToHome() {
     try {
       hideStage();
-      URL location = Main.class.getResource(VIEW_HOME);
+      URL location = MainCtrl.class.getResource(VIEW_HOME);
       Pane root = FXMLLoader.load(location);
       Scene scene = new Scene(root);
       setScene(scene);
@@ -90,7 +90,7 @@ public enum SceneSwitch {
   {
    try {
      PauseStage = new Stage();
-     URL location = Main.class.getResource("/resources/fxml/pause.fxml");
+     URL location = MainCtrl.class.getResource("/resources/fxml/pause.fxml");
      FXMLLoader loader = new FXMLLoader(location);
      Parent root2 = loader.load();
      Scene PauseScene = new Scene(root2);
@@ -110,7 +110,7 @@ public enum SceneSwitch {
   {
     try {
       questionStage = new Stage();
-      URL location = Main.class.getResource("/resources/fxml/question.fxml");
+      URL location = MainCtrl.class.getResource("/resources/fxml/question.fxml");
       FXMLLoader loader = new FXMLLoader(location);
       Parent root2 = loader.load();
 
@@ -136,7 +136,7 @@ public enum SceneSwitch {
       map.setBackgroundFileName("/resources/image/floor/bedrock.png");
       map.setWallFileName("/resources/image/obstacle/bricks.png");
       hideStage();
-      URL location = Main.class.getResource("/resources/fxml/game.fxml");
+      URL location = MainCtrl.class.getResource("/resources/fxml/game.fxml");
       FXMLLoader loader = new FXMLLoader(location);
 
       root = loader.load();
@@ -180,7 +180,7 @@ public enum SceneSwitch {
       hideStage();
 
       SysData.getInstance().load();
-      URL location = Main.class.getResource("/resources/fxml/game-over.fxml");
+      URL location = MainCtrl.class.getResource("/resources/fxml/game-over.fxml");
       FXMLLoader loader = new FXMLLoader(location);
       Pane root = loader.load();
       Scene gameScene = new Scene(root);

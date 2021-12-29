@@ -30,10 +30,7 @@ import java.util.stream.Collectors;
 import static constant.FileName.VIEW_HOME;
 
 public class QuestionsAdminCtrl implements Initializable {
-
     ObservableList<Question> questions = FXCollections.observableArrayList();
-
-    SysData sysData = new SysData();
     Parent root;
     Stage stage;
     Scene scene;
@@ -45,8 +42,6 @@ public class QuestionsAdminCtrl implements Initializable {
     private TableColumn<Question, String> colAns;
     @FXML
     private TableColumn<Question, Level> colDiff;
-//    @FXML
-//    private TableColumn<Question, String> colID;
     @FXML
     private TableColumn<Question, String> colQues;
 
@@ -111,19 +106,19 @@ public class QuestionsAdminCtrl implements Initializable {
                             });
                             deleteBtn.setOnAction((ActionEvent event) -> {
                                 Question data = getTableView().getItems().get(getIndex());
-                                if (data instanceof EasyQuestion){
+                                if (data instanceof EasyQuestion) {
                                     questions.remove(data);
                                     SysData.getInstance().getEasyQuestions().remove(data);
                                     ArrayList<Question> questionsData = sysData.getEasyQuestions();
                                     sysData.setEasyQuestions(questionsData);
                                 }
-                                if (data instanceof MediumQuestion){
+                                if (data instanceof MediumQuestion) {
                                     questions.remove(data);
                                     SysData.getInstance().getMedQuestions().remove(data);
                                     ArrayList<Question> questionsData = sysData.getMedQuestions();
                                     sysData.setMedQuestions(questionsData);
                                 }
-                                if (data instanceof HardQuestion){
+                                if (data instanceof HardQuestion) {
                                     questions.remove(data);
                                     SysData.getInstance().getHardQuestions().remove(data);
                                     ArrayList<Question> questionsData = sysData.getHardQuestions();
