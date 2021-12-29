@@ -15,8 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * <h1>Controller</h1>
- * <p>
+ * Controller
  * object of utility to manage the game status and process globally,
  * and reflect the realtime results in the UI.
  */
@@ -198,7 +197,7 @@ public enum Controller {
     }
 
     /**
-     * Loses the game.
+     * Loses the game
      */
     public void loseGame() {
         if (getGameStatus() == GameStatus.START) {
@@ -232,7 +231,7 @@ public enum Controller {
             sysData.save();
             return true;
         } catch (Exception e) {
-            System.out.println("caught error in store score");
+            System.out.println(e.getStackTrace());
             return false;
         }
     }
@@ -261,7 +260,6 @@ public enum Controller {
         life.lose();
         score.lose(ghost.getValue());
         if (life.getRemaining() <= 0) {
-            //MusicPlayer.INSTANCE.playDeath();
             loseGame();
         }
         updateUi();
@@ -425,7 +423,6 @@ public enum Controller {
                     Timer timer = new Timer();
 
 
-                    System.out.println("Pac got a bomb and hes not afraid to use it");
                     map.getPacman().setBombCount(map.getPacman().getBombCount() - 1);
                     for (Ghost g : map.getGhosts()) {
                         if (((g.getX() <= (map.getPacman().getX() + 3 * gridLen))

@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class Alerts {
-
+    /**
+     * method to show Success dialog window when finishing the game/
+     */
     public static void generateSuccessAlert(String titleText, String headerText, String ContentText) {
 
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -24,6 +26,11 @@ public class Alerts {
         alert.showAndWait();
     }
 
+    /**
+     * in Admin Panel, access to update (making changes) questions
+     *
+     * @param question
+     */
     public static void generateUpdateQuestionAlert(Question question) {
         Dialog dialog = new Dialog<>();
         dialog.setTitle("Update Question ");
@@ -98,7 +105,6 @@ public class Alerts {
         grid.add(answer2Lbl, 1, 5);
         grid.add(answer3Lbl, 1, 7);
         grid.add(answer4Lbl, 1, 9);
-
         grid.add(questionText, 1, 2);
         grid.add(answer1Text, 1, 4);
         grid.add(answer2Text, 1, 6);
@@ -106,6 +112,7 @@ public class Alerts {
         grid.add(answer4Text, 1, 10);
         dialog.getDialogPane().setContent(grid);
         Optional<Question> result = dialog.showAndWait();
+
 
     }
 

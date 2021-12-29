@@ -12,8 +12,11 @@ import java.util.ArrayList;
 
 public class FactoryQuestion {
 
-    /**
-     * a flag to determine if questions were parsed or not
+ /**
+     * A method to create three similar objects with a little difference, depending on the level the method creates a suitable object.
+     *
+     * @param questionJson
+     * @return
      */
     public Question getQuestion(JSONObject questionJson) {
         JSONArray answers1 = (JSONArray) questionJson.get("answers");
